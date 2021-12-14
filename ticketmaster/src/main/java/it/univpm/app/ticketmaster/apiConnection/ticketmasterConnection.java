@@ -12,16 +12,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
+
 
 public class ticketmasterConnection 
 {
-	final String apiKey = "pRE6kkWaEdzHCUHUqE5MT0YzaGyMXcmu";
-	final String countryCode = "US";
+	final static String countryCode = "US";		//Eventi US, United States	
 	
-	
-	public JSONObject getJSONEvents() {
+	public static JSONObject getJSONEvents() {
 		
-		String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=" + countryCode + "&apikey=" + apiKey;	
+		String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=" + countryCode + "&apikey=" + ApiKeyReader.getApiKey();	
 		JSONObject obj = null;
 		
 		try 
