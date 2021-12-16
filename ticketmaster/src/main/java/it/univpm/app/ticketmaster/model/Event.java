@@ -68,4 +68,21 @@ public class Event
 	}
 	
 	
+	@Override
+	public String toString() 
+	{
+		String message = 
+				"Name: " + name + "\r\n" +
+				"Url: " + url + "\r\n" +
+				"LocalTime: " + localTime + "\r\n" +
+				"LocalDate: " + localDate + "\r\n" +
+				"Venue: " + venue + "\r\n" +
+				"Segment: " + segment + "\r\n" +
+				"Genre: " + genre + "\r\n" + "\r\n";
+		
+		return message;
+	}
+	
+	
+	
 }

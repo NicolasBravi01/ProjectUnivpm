@@ -29,8 +29,7 @@ public class EventsParser
 				JSONObject dates = (JSONObject) eventoTemp.get("dates");
 					JSONObject start = (JSONObject) dates.get("start");
 						String localDate = (String) start.get("localDate");
-						LocalDate locDt = null;
-						//TODO: conversione di localdate in una variabile LocalDate
+						LocalDate locDt = LocalDate.parse((CharSequence) localDate);
 						String localTime = (String) start.get("localTime");
 			
 				JSONArray classifications = (JSONArray) eventoTemp.get("classifications");
