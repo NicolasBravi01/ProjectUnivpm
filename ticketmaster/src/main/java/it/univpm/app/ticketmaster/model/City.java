@@ -14,9 +14,16 @@ public class City
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Vector<Event> getEventsListPerCity() {
+		return eventsListPerCity;
+	}
+	public void setEventsListPerCity(Vector<Event> eventsListPerCity) {
+		this.eventsListPerCity = eventsListPerCity;
+	}
 	
 	
 	public City(String name) {
 		this.name = name;
 	}
+	
 }

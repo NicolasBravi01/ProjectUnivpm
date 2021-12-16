@@ -6,7 +6,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
+import it.univpm.app.ticketmaster.model.City;
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.model.State;
+import it.univpm.app.ticketmaster.model.Usa;
 
 public class EventsParser 
 {
@@ -49,13 +52,24 @@ public class EventsParser
 			 Event e = new Event(name, url, localTime, locDt, venueName, nameSegment, nameGenre);
 			 
 			 /*
-			  * Se lo stateName dell'evento coincide con quello di uno stato già esistente lo inserisco nella lista
-			  * di stati. Altrimenti ne creo uno nuovo.
-			  * 
-			  * Se il cityName dell'evento coincide con quello di una città già esistente lo inserisco nella lista 
-			  * di città di quello stato. Altrimenti ne creo una nuova.
+			  * CheckExistingState:
+			  * Se lo stateName dell'evento non coincide con quello di uno stato già esistente,
+			  * ne creo uno nuovo e lo aggiungo alla lista di stati degli USA.
 			  */
-			  
+			 State s = Usa.checkExistingState(stateName);
+			 
+			 /*
+			  *CheckExisting City:
+			  * Se il cityName dell'evento non coincide con quello di una città già esistente,
+			  * ne creo una nuova e la aggiungo alla lista di città di quello stato.
+			  */
+			 City c = s.checkExistingCity(cityName);
+			 
+			 /*
+			  * Aggiungo l'evento alla lista di eventi della città.
+			  */
+	
+			 c.getEventsListPerCity().add(e);
 		}
 	}
 }

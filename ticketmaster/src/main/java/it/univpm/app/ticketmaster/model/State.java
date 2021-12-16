@@ -1,12 +1,12 @@
 package it.univpm.app.ticketmaster.model;
 
+import java.util.Objects;
 import java.util.Vector;
 
 public class State 
 {
 	private String name;
-	private String stateCode;
-	private Vector<City> cityList;
+	private Vector<City> citiesList;
 	
 	
 	public String getName() {
@@ -15,16 +15,30 @@ public class State
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getStateCode() {
-		return stateCode;
+	public Vector<City> getCitiesList() {
+		return citiesList;
 	}
-	public void setStateCode(String stateCode) {
-		this.stateCode = stateCode;
+	public void setCitiesList(Vector<City> citiesList) {
+		this.citiesList = citiesList;
 	}
 	
 	
-	public State(String name, String stateCode) {
+	public State(String name) {
 		this.name = name;
-		this.stateCode = stateCode;
 	}
+	
+	
+	public City checkExistingCity(String name)
+	{
+		for(int i=0; i<citiesList.size(); i++)
+		{
+			if(citiesList.get(i).getName()==name)
+				return citiesList.get(i); 
+		}
+		
+		City city = new City(name);
+		citiesList.add(city);
+		return city;
+	}
+	
 }
