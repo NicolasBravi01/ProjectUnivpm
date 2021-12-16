@@ -4,21 +4,19 @@ import java.time.LocalDate;
 
 public class Event 
 {
-	private String nome;
+	private String name;
 	private String url;
 	private LocalDate localDate;
 	private String localTime;
 	private String segment;
 	private String genre;
-	private String city;
-	private String state;
 	
 	
 	public String getNome() {
-		return nome;
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String name) {
+		this.name = name;
 	}
 	public String getUrl() {
 		return url;
@@ -50,39 +48,15 @@ public class Event
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
 	
 	
-	public Event(String nome, String url, LocalDate localDate, String localTime, String segment, String genre,
-			String city, String state) 
-	{
-		this.nome = nome;
+	public Event(String name, String url, LocalDate localDate, String localTime, String segment, String genre) {
+		this.name = name;
 		this.url = url;
 		this.localDate = localDate;
 		this.localTime = localTime;
 		this.segment = segment;
 		this.genre = genre;
-		this.city = city;
-		this.state = state;
-	}
-	
-	
-	@Override
-	public String toString() 
-	{
-		return "Event [nome=" + nome + ", url=" + url + ", localDate=" + localDate + ", localTime=" + localTime
-				+ ", segment=" + segment + ", genre=" + genre + ", city=" + city + ", state=" + state + "]";
 	}
 	
 }
