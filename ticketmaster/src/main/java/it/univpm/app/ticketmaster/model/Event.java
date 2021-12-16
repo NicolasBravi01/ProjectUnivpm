@@ -6,8 +6,9 @@ public class Event
 {
 	private String name;
 	private String url;
-	private LocalDate localDate;
 	private String localTime;
+	private LocalDate localDate;
+	private String venue;
 	private String segment;
 	private String genre;
 	
@@ -24,17 +25,23 @@ public class Event
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	public String getLocalTime() {
+		return localTime;
+	}
+	public void setLocalTime(String localTime) {
+		this.localTime = localTime;
+	}
 	public LocalDate getLocalDate() {
 		return localDate;
 	}
 	public void setLocalDate(LocalDate localDate) {
 		this.localDate = localDate;
 	}
-	public String getLocalTime() {
-		return localTime;
+	public String getVenue() {
+		return venue;
 	}
-	public void setLocalTime(String localTime) {
-		this.localTime = localTime;
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 	public String getSegment() {
 		return segment;
@@ -50,13 +57,15 @@ public class Event
 	}
 	
 	
-	public Event(String name, String url, LocalDate localDate, String localTime, String segment, String genre) {
+	public Event(String name, String url, String localTime, LocalDate localDate, String venue, String segment, String genre) {
 		this.name = name;
 		this.url = url;
-		this.localDate = localDate;
 		this.localTime = localTime;
+		this.localDate = localDate;
+		this.venue = venue;
 		this.segment = segment;
 		this.genre = genre;
 	}
+	
 	
 }

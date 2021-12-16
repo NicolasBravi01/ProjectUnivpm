@@ -6,7 +6,7 @@ public class State
 {
 	private String name;
 	private String stateCode;
-	private static Vector<City> cityList;
+	private Vector<City> cityList;
 	
 	
 	public String getName() {

@@ -5,7 +5,7 @@ import java.util.Vector;
 public class City 
 {
 	private String name;
-	private static Vector<Event> EventsListPerCity;
+	private Vector<Event> eventsListPerCity;
 	
 	
 	public String getName() {

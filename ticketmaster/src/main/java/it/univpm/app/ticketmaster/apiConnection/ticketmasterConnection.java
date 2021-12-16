@@ -45,7 +45,7 @@ public class ticketmasterConnection
 			in.close();
 			}
 		
-			obj = (JSONObject) JSONValue.parseWithException(data);	 //parse JSON Object
+			obj = (JSONObject) JSONValue.parseWithException(data);
 
 		} 
 		

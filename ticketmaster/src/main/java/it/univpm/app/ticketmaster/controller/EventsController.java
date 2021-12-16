@@ -16,4 +16,5 @@ public class EventsController
 	{		
 		return ticketmasterConnection.getJSONEvents();
 	}
+
 }
