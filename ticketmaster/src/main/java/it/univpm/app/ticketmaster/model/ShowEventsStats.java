@@ -6,6 +6,6 @@ public interface ShowEventsStats
 {
 	void showEventsByGenre(String genre);
 	public void showEventsByPeriod(ChronoLocalDate ld1, ChronoLocalDate ld2);
-	public int showNumberEvents();
+	public int getNumberEvents();
 	
 }

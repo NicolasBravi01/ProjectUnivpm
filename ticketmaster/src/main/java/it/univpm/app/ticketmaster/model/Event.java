@@ -72,13 +72,14 @@ public class Event
 	public String toString() 
 	{
 		String message = 
-				"Name: " + name + "\r\n" +
-				"Url: " + url + "\r\n" +
-				"LocalTime: " + localTime + "\r\n" +
-				"LocalDate: " + localDate + "\r\n" +
-				"Venue: " + venue + "\r\n" +
-				"Segment: " + segment + "\r\n" +
-				"Genre: " + genre + "\r\n" + "\r\n";
+				"Name: " + name + System.lineSeparator() +
+				"Url: " + url + System.lineSeparator() +
+				"LocalTime: " + localTime + System.lineSeparator() +
+				"LocalDate: " + localDate + System.lineSeparator() +
+				"Venue: " + venue + System.lineSeparator() +
+				"Segment: " + segment + System.lineSeparator() +
+				"Genre: " + genre + System.lineSeparator() +
+				System.lineSeparator();
 		
 		return message;
 	}

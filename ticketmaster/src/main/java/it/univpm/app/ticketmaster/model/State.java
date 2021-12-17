@@ -7,7 +7,7 @@ import java.util.Vector;
 public class State implements ShowEventsStats
 {
 	private String name;
-	private Vector<City> citiesList;
+	private Vector<City> cities;
 	
 	
 	public String getName() {
@@ -16,11 +16,11 @@ public class State implements ShowEventsStats
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Vector<City> getCitiesList() {
-		return citiesList;
+	public Vector<City> getCities() {
+		return cities;
 	}
-	public void setCitiesList(Vector<City> citiesList) {
-		this.citiesList = citiesList;
+	public void setCities(Vector<City> cities) {
+		this.cities = cities;
 	}
 	
 	
@@ -31,14 +31,14 @@ public class State implements ShowEventsStats
 	
 	public City checkExistingCity(String name)
 	{
-		for(int i=0; i<citiesList.size(); i++)
+		for(int i=0; i<cities.size(); i++)
 		{
-			if(citiesList.get(i).getName()==name)
-				return citiesList.get(i); 
+			if(cities.get(i).getName()==name)
+				return cities.get(i); 
 		}
 		
 		City city = new City(name);
-		citiesList.add(city);
+		cities.add(city);
 		return city;
 	}
 	
@@ -46,14 +46,14 @@ public class State implements ShowEventsStats
 	@Override
 	public void showEventsByGenre(String genre) 
 	{
-		for(int i=0; i<citiesList.size(); i++)
+		for(int i=0; i<cities.size(); i++)
 		{
-			for(int j=0; j<citiesList.get(i).getEventsListPerCity().size();j++)
+			for(int j=0; j<cities.get(i).getEvents().size();j++)
 			{
-				if(citiesList.get(i).getEventsListPerCity().get(j).getGenre()==genre)
+				if(cities.get(i).getEvents().get(j).getGenre() == genre)
 				{
 					System.out.println("Event n°" + j);
-					citiesList.get(i).getEventsListPerCity().get(j).toString();
+					System.out.println(cities.get(i).getEvents().get(j).toString());
 				}
 			}			
 		}		
@@ -62,25 +62,32 @@ public class State implements ShowEventsStats
 	@Override
 	public void showEventsByPeriod(ChronoLocalDate ld1, ChronoLocalDate ld2) 
 	{
-		for(int i=0; i<citiesList.size(); i++)
+		for(int i=0; i<cities.size(); i++)
 		{
-			for(int j=0; j<citiesList.get(i).getEventsListPerCity().size();j++)
+			for(int j=0; j<cities.get(i).getEvents().size();j++)
 			{
-				LocalDate ld = citiesList.get(i).getEventsListPerCity().get(j).getLocalDate();
+				LocalDate ld = cities.get(i).getEvents().get(j).getLocalDate();
 				if((ld.isAfter(ld1)&&ld.isBefore(ld2))||ld.equals(ld1)||ld.equals(ld2))
 				{
 					System.out.println("Event n°" + j);
-					citiesList.get(i).getEventsListPerCity().get(j).toString();
+					System.out.println(cities.get(i).getEvents().get(j).toString());
 				}
 			}			
 		}
 		
 	}
 	
+	
 	@Override
-	public int showNumberEvents() 
+	public int getNumberEvents() 
 	{
-		return citiesList.size();
+		int numberEvents = 0;
+		int size = cities.size();
+		
+		for(int i = 0; i<size; i++)
+			numberEvents += cities.get(i).getNumberEvents();
+		
+		return numberEvents;
 	}
 	
 	
