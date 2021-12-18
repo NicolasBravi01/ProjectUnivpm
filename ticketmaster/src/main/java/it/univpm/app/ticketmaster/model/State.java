@@ -29,16 +29,20 @@ public class State implements ShowEventsStats
 	}
 	
 	
-	public City checkExistingCity(String name)
+	
+	public City obtainCity(String name)
 	{
-		for(int i=0; i<cities.size(); i++)
-		{
-			if(cities.get(i).getName()==name)
-				return cities.get(i); 
-		}
+		City city = null;
+		int index = getIndexCity(name);
 		
-		City city = new City(name);
-		cities.add(city);
+		if(index < 0)
+		{
+			city = new City(name);
+			cities.add(city);
+		}
+		else
+			city = cities.get(index);
+		
 		return city;
 	}
 	
@@ -90,6 +94,31 @@ public class State implements ShowEventsStats
 		return numberEvents;
 	}
 	
+	
+	
+	public  int getIndexCity(String name)
+	{
+		int i = 0;
+		boolean found = false;
+		
+		while(i < cities.size() && !found)
+		{
+			if(cities.get(i).getName() == name)
+				found = true;
+			else
+				i++;
+		}
+		
+		if(i == cities.size())
+			i = -1;
+		
+		return i;
+	}
+	
+	public boolean cityExist(String name)
+	{
+		return getIndexCity(name) >= 0;
+	}
 	
 	
 }

@@ -9,10 +9,18 @@ import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
 import it.univpm.app.ticketmaster.model.City;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.model.State;
-import it.univpm.app.ticketmaster.model.Usa;
+import it.univpm.app.ticketmaster.model.Country;
 
 public class EventsParser 
 {
+	Country USA;	//TOSHOW
+	
+	public EventsParser()
+	{
+		this.USA = new Country();		
+	}
+	
+	//TOSHOW
 	public void parse() 
 	{
 		JSONObject jO = ticketmasterConnection.getJSONEvents();
@@ -55,20 +63,20 @@ public class EventsParser
 			  * Se lo stateName dell'evento non coincide con quello di uno stato già esistente,
 			  * ne creo uno nuovo e lo aggiungo alla lista di stati degli USA.
 			  */
-			 State s = Usa.checkExistingState(stateName);
+			 State s = USA.obtainState(stateName);
 			 
 			 /*
 			  *CheckExisting City:
 			  * Se il cityName dell'evento non coincide con quello di una città già esistente,
 			  * ne creo una nuova e la aggiungo alla lista di città di quello stato.
 			  */
-			 City c = s.checkExistingCity(cityName);
+			 City c = s.obtainCity(cityName);
 			 
 			 /*
 			  * Aggiungo l'evento alla lista di eventi della città.
 			  */
 	
-			 c.getEventsListPerCity().add(e);
+			 c.getEvents().add(e);
 		}
 	}
 }

@@ -6,31 +6,40 @@ import java.util.Vector;
 
 public class Country implements ShowEventsStats
 {
-	private static Vector<State> states;
+	private Vector<State> states;
 	
 
-	public static Vector<State> getStates() {
+	public Country()
+	{
+		states = new Vector<State>();		
+	}
+	
+	
+	public Vector<State> getStates() {
 		return states;
 	}
 	public void setStates(Vector<State> states) {
-		Country.states = states;
+		this.states = states;
 	}
 	
-	
-	public static State checkExistingState(String name)
+						
+	public State obtainState(String name)
 	{
-		for(int i=0; i<states.size(); i++)
-		{
-			if(states.get(i).getName()==name)
-				return states.get(i); 
-		}
+		State state = null;
+		int index = getIndexState(name);
 		
-		State state = new State(name);
-		states.add(state);
+		if(index < 0)
+		{
+			state = new State(name);
+			states.add(state);
+		}
+		else
+			state = states.get(index);
+		
 		return state;
 	}
 	
-	
+	//TOSHOW
 	@Override
 	public void showEventsByGenre(String genre) 
 	{
@@ -51,6 +60,8 @@ public class Country implements ShowEventsStats
 		}	
 		
 	}
+
+	
 	
 	@Override
 	public void showEventsByPeriod(ChronoLocalDate ld1, ChronoLocalDate ld2) 
