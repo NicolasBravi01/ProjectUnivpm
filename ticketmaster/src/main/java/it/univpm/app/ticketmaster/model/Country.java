@@ -1,8 +1,8 @@
 package it.univpm.app.ticketmaster.model;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Vector;
+
+import it.univpm.app.ticketmaster.filter.FilterImpl;
 
 public class Country implements ShowEventsStats
 {
@@ -26,7 +26,7 @@ public class Country implements ShowEventsStats
 	public State obtainState(String name)
 	{
 		State state = null;
-		int index = getIndexState(name);
+		int index = indexOfState(name);
 		
 		if(index < 0)
 		{
@@ -39,49 +39,36 @@ public class Country implements ShowEventsStats
 		return state;
 	}
 	
-	//TOSHOW
-	@Override
-	public void showEventsByGenre(String genre) 
+	
+	
+	 
+	public void showEvents(FilterImpl filter) 
 	{
 		for(int i=0; i<states.size(); i++)
 		{
-			for(int j=0; j<states.get(i).getCities().size(); j++)
-			{
-				for(int k=0; k<states.get(i).getCities().get(j).getEvents().size();k++)
+			if(filter.isIncludedState(states.get(i)))	//true ==> stato compreso nel filtro
+			{				
+				
+				for(int j=0; j<states.get(i).getCities().size(); j++)
 				{
-					if(states.get(i).getCities().get(j).getEvents().get(k).getGenre()==genre)
+					//if(filter.isIncludedCity(states.get(i).getCities().get(j)))	//true ==> citta' compresa nel filtro
+										
+						
+					for(int k=0; k<states.get(i).getCities().get(j).getEvents().size(); k++)
 					{
-						System.out.println("Event n°" + k);
-						System.out.println(states.get(i).getCities().get(j).getEvents().get(k).toString());
-					}
+						Event event = states.get(i).getCities().get(j).getEvents().get(k);
+						if(filter.isIncludedDate(event.getLocalDate()) && filter.isIncludedSegment(event.getSegment()) && filter.isIncludedGenre(event.getGenre()))
+						{
+							System.out.println("Event n°" + k);
+							System.out.println(event.toString());
+						}
+					}							
+											
 				}
-					
-			}			
-		}	
-		
-	}
-
-	
-	
-	@Override
-	public void showEventsByPeriod(ChronoLocalDate ld1, ChronoLocalDate ld2) 
-	{
-		for(int i=0; i<states.size(); i++)
-		{
-			for(int j=0; j<states.get(i).getCities().size(); j++)
-			{
-				for(int k=0; k<states.get(i).getCities().get(j).getEvents().size();k++)
-				{
-					LocalDate ld = states.get(i).getCities().get(j).getEvents().get(k).getLocalDate();
-					if((ld.isAfter(ld1)&&ld.isBefore(ld2))||ld.equals(ld1)||ld.equals(ld2))
-					{
-						System.out.println("Event n°" + k);
-						System.out.println(states.get(i).getCities().get(j).getEvents().get(k).toString());
-					}
-				}					
-			}			
+				
+				
+			}
 		}
-		
 	}
 	
 	
@@ -99,10 +86,11 @@ public class Country implements ShowEventsStats
 	}
 	
 	
+	
 	/*
 	 * Ritorna l'id dello stato nel vettore, utilizzare al posto di checkExistingState(String name)
 	 */
-	public int getIndexState(String name)
+	public int indexOfState(String name)
 	{
 		int i = 0;
 		boolean found = false;
@@ -121,11 +109,12 @@ public class Country implements ShowEventsStats
 		return i;
 	}
 	
+	
 	public boolean stateExist(String name)
 	{
-		return getIndexState(name) >= 0;
+		return indexOfState(name) >= 0;
 	}
-	
-	
+
+		
 	
 }

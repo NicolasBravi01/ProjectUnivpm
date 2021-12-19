@@ -1,7 +1,5 @@
 package it.univpm.app.ticketmaster.model;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Vector;
 
 public class State implements ShowEventsStats
@@ -33,7 +31,7 @@ public class State implements ShowEventsStats
 	public City obtainCity(String name)
 	{
 		City city = null;
-		int index = getIndexCity(name);
+		int index = indexOfCity(name);
 		
 		if(index < 0)
 		{
@@ -46,41 +44,7 @@ public class State implements ShowEventsStats
 		return city;
 	}
 	
-	
-	@Override
-	public void showEventsByGenre(String genre) 
-	{
-		for(int i=0; i<cities.size(); i++)
-		{
-			for(int j=0; j<cities.get(i).getEvents().size();j++)
-			{
-				if(cities.get(i).getEvents().get(j).getGenre() == genre)
-				{
-					System.out.println("Event n°" + j);
-					System.out.println(cities.get(i).getEvents().get(j).toString());
-				}
-			}			
-		}		
-	}
-	
-	@Override
-	public void showEventsByPeriod(ChronoLocalDate ld1, ChronoLocalDate ld2) 
-	{
-		for(int i=0; i<cities.size(); i++)
-		{
-			for(int j=0; j<cities.get(i).getEvents().size();j++)
-			{
-				LocalDate ld = cities.get(i).getEvents().get(j).getLocalDate();
-				if((ld.isAfter(ld1)&&ld.isBefore(ld2))||ld.equals(ld1)||ld.equals(ld2))
-				{
-					System.out.println("Event n°" + j);
-					System.out.println(cities.get(i).getEvents().get(j).toString());
-				}
-			}			
-		}
-		
-	}
-	
+			
 	
 	@Override
 	public int getNumberEvents() 
@@ -96,7 +60,7 @@ public class State implements ShowEventsStats
 	
 	
 	
-	public  int getIndexCity(String name)
+	public int indexOfCity(String name)
 	{
 		int i = 0;
 		boolean found = false;
@@ -117,7 +81,13 @@ public class State implements ShowEventsStats
 	
 	public boolean cityExist(String name)
 	{
-		return getIndexCity(name) >= 0;
+		return indexOfCity(name) >= 0;
+	}
+	
+	
+	public boolean equals(State state)
+	{
+		return this.name == state.getName();
 	}
 	
 	
