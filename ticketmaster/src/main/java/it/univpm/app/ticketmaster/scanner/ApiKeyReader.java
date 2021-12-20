@@ -36,7 +36,7 @@ public class ApiKeyReader
 		}
 		
 		if(msg.isEmpty())
-			;//FILE VUOTO, GESTIRE L'ERRORE, MANCA APIKEY
+			;//FILE VUOTO, GESTIRE L'ERRORE, MANCA APIKEY	//TODO
 		
 		
 		return msg;
