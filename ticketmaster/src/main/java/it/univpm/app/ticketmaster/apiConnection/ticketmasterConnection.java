@@ -16,12 +16,14 @@ import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 
 public class ticketmasterConnection 
 {
-	final static String countryCode = "US";		//Eventi US, United States	
+	final static String countryCode = "US";		//Eventi US, United States
+	final static int size = 200;		//Eventi US, United States
+	
 	
 	public static JSONObject getJSONEvents() 
 	{
-		
-		String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=" + countryCode + "&apikey=" + ApiKeyReader.getApiKey();	
+		String queryString = "?countryCode=" + countryCode + "&size=" + size + "&apikey=" + ApiKeyReader.getApiKey();
+		String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json" + queryString;
 		JSONObject obj = null;
 		
 		try
@@ -31,18 +33,18 @@ public class ticketmasterConnection
 
 			String data = "";
 			String line = "";
+			
 			try 
 			{
 				InputStreamReader inR = new InputStreamReader( in );
 				BufferedReader buf = new BufferedReader( inR );
 
-				while ( ( line = buf.readLine() ) != null ) {
-				data+= line;
-				}
+				while ((line = buf.readLine()) != null)
+					data += line;
 			} 
 			finally 
 			{
-			in.close();
+				in.close();
 			}
 		
 			obj = (JSONObject) JSONValue.parseWithException(data);
@@ -51,11 +53,11 @@ public class ticketmasterConnection
 		
 		catch (IOException | ParseException e) 
 		{
-		e.printStackTrace();
+			e.printStackTrace();
 		} 
 		catch (Exception e) 
 		{
-		e.printStackTrace();
+			e.printStackTrace();
 		}			
 				
 		return obj;	
