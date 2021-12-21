@@ -45,19 +45,21 @@ public class Country implements ShowEventsStats
 				
 				for(int j=0; j<states.get(i).getCities().size(); j++)
 				{
-					//if(filter.isIncludedCity(states.get(i).getCities().get(j)))	//true ==> citta' compresa nel filtro
-										
-						
-					for(int k=0; k<states.get(i).getCities().get(j).getEvents().size(); k++)
-					{
-						Event event = states.get(i).getCities().get(j).getEvents().get(k);
-						if(filter.isIncludedDate(event.getLocalDate()) && filter.isIncludedSegment(event.getSegment()) && filter.isIncludedGenre(event.getGenre()))
+					if(filter.isIncludedCity(states.get(i).getCities().get(j)))	//true ==> citta' compresa nel filtro
+					{			
+							
+						for(int k=0; k<states.get(i).getCities().get(j).getEvents().size(); k++)
 						{
-							System.out.println("Event n°" + k);
-							System.out.println(event.toString());
-							//method(event, i, j);
+							Event event = states.get(i).getCities().get(j).getEvents().get(k);
+							if(filter.isIncludedDate(event.getLocalDate()) && filter.isIncludedSegment(event.getSegment()) && filter.isIncludedGenre(event.getGenre()))
+							{
+								System.out.println("Event n°" + k);
+								System.out.println(event.toString());
+								//method(event, i, j);
+							}
 						}
-					}							
+						
+					}
 											
 				}
 				

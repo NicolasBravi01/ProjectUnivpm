@@ -55,6 +55,10 @@ public class FilterImpl implements Filter
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	public void setPeriod(LocalDate startDate, LocalDate endDate){
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 	public String getSegment() {
 		return segment;
 	}
