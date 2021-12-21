@@ -6,14 +6,8 @@ import it.univpm.app.ticketmaster.filter.FilterImpl;
 
 public class Country implements ShowEventsStats
 {
-	private Vector<State> states;
-	
-
-	public Country()
-	{
-		states = new Vector<State>();		
-	}
-	
+	private Vector<State> states = new Vector<State>();
+		
 	
 	public Vector<State> getStates() {
 		return states;

@@ -5,7 +5,7 @@ import java.util.Vector;
 public class State implements ShowEventsStats
 {
 	private String name;
-	private Vector<City> cities;
+	private Vector<City> cities = new Vector<City>();
 	
 	
 	public String getName() {
@@ -22,10 +22,10 @@ public class State implements ShowEventsStats
 	}
 	
 	
-	public State(String name) {
+	public State(String name) 
+	{
 		this.name = name;
-	}
-	
+	}		
 	
 	
 	public City obtainCity(String name)

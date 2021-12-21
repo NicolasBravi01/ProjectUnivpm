@@ -4,8 +4,9 @@ import java.time.LocalDate;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
 import it.univpm.app.ticketmaster.model.City;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.model.State;
@@ -21,9 +22,10 @@ public class EventsParser
 	}
 	
 	//TOSHOW
-	public void parse() 
-	{
-		JSONObject jO = ticketmasterConnection.getJSONEvents();
+	public void parse(String json) throws ParseException
+	{		
+		JSONParser parser = new JSONParser();			
+		JSONObject jO= (JSONObject) parser.parse(json);
 		
 		JSONObject embedded1 = (JSONObject) jO.get("_embedded");
 		JSONArray events = (JSONArray) embedded1.get("events");
@@ -59,14 +61,12 @@ public class EventsParser
 			 Event e = new Event(name, url, localTime, locDt, venueName, nameSegment, nameGenre);
 			 
 			 /*
-			  * CheckExistingState:
 			  * Se lo stateName dell'evento non coincide con quello di uno stato già esistente,
 			  * ne creo uno nuovo e lo aggiungo alla lista di stati degli USA.
 			  */
-			 State s = USA.obtainState(stateName);
+			 State s = USA.obtainState(stateName); 
 			 
 			 /*
-			  *CheckExisting City:
 			  * Se il cityName dell'evento non coincide con quello di una città già esistente,
 			  * ne creo una nuova e la aggiungo alla lista di città di quello stato.
 			  */
@@ -78,6 +78,8 @@ public class EventsParser
 	
 			 c.getEvents().add(e);
 		}
+		
+		System.out.println(USA.toString());//Di prova
 	}
 }
 
