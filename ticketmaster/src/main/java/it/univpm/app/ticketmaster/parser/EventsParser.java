@@ -79,7 +79,7 @@ public class EventsParser
 			 c.getEvents().add(e);
 		}
 		
-		System.out.println(USA.toString());//Di prova
+		//System.out.println(USA.toString());//Di prova
 	}
 }
 

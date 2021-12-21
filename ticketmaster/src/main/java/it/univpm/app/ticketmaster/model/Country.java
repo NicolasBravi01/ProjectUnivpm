@@ -55,6 +55,7 @@ public class Country implements ShowEventsStats
 						{
 							System.out.println("Event n°" + k);
 							System.out.println(event.toString());
+							//method(event, i, j);
 						}
 					}							
 											
@@ -91,13 +92,13 @@ public class Country implements ShowEventsStats
 		
 		while(i < states.size() && !found)
 		{
-			if(states.get(i).getName() == name)
+			if(name.equals(states.get(i).getName()))
 				found = true;
 			else
 				i++;
 		}
 		
-		if(i == states.size())
+		if(!found)
 			i = -1;
 		
 		return i;

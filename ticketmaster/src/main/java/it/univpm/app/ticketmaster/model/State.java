@@ -67,13 +67,13 @@ public class State implements ShowEventsStats
 		
 		while(i < cities.size() && !found)
 		{
-			if(cities.get(i).getName() == name)
+			if(name.equals(cities.get(i).getName()))
 				found = true;
 			else
 				i++;
 		}
 		
-		if(i == cities.size())
+		if(!found)
 			i = -1;
 		
 		return i;
