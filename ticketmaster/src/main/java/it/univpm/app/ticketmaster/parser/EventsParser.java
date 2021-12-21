@@ -30,7 +30,7 @@ public class EventsParser
 		JSONObject embedded1 = (JSONObject) jO.get("_embedded");
 		JSONArray events = (JSONArray) embedded1.get("events");
 		
-		for (int i = 0; i < events.size(); i++) 
+		for (int i = 0; i < events.size(); i++)
 		{
 			
 			JSONObject eventoTemp = (JSONObject) events.get(i);
@@ -45,7 +45,7 @@ public class EventsParser
 				JSONArray classifications = (JSONArray) eventoTemp.get("classifications");
 				JSONObject classificationsTemp = (JSONObject) classifications.get(0);
 					JSONObject segment = (JSONObject) classificationsTemp.get("segment");
-						String nameSegment = (String) segment.get("segment");
+						String nameSegment = (String) segment.get("name");
 					JSONObject genre = (JSONObject) classificationsTemp.get("genre");
 						String nameGenre = (String) genre.get("name");
 			
@@ -79,7 +79,7 @@ public class EventsParser
 			 c.getEvents().add(e);
 		}
 		
-		//System.out.println(USA.toString());//Di prova
+		System.out.println(USA.toString());//Di prova
 	}
 }
 
