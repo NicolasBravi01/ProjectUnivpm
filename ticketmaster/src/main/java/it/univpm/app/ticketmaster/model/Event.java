@@ -9,14 +9,31 @@ public class Event
 	private String localTime;
 	private LocalDate localDate;
 	private String venue;
+	private String city;
+	private String state;
 	private String segment;
 	private String genre;
 	
 	
-	public String getNome() {
+	public Event(String name, String url, String localTime, LocalDate localDate, String venue, String city,
+			String state, String segment, String genre)
+	{
+		this.name = name;
+		this.url = url;
+		this.localTime = localTime;
+		this.localDate = localDate;
+		this.venue = venue;
+		this.city = city;
+		this.state = state;
+		this.segment = segment;
+		this.genre = genre;
+	}
+	
+	
+	public String getName() {
 		return name;
 	}
-	public void setNome(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public String getUrl() {
@@ -43,6 +60,18 @@ public class Event
 	public void setVenue(String venue) {
 		this.venue = venue;
 	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getSegment() {
 		return segment;
 	}
@@ -55,18 +84,7 @@ public class Event
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	
-	
-	public Event(String name, String url, String localTime, LocalDate localDate, String venue, String segment, String genre) {
-		this.name = name;
-		this.url = url;
-		this.localTime = localTime;
-		this.localDate = localDate;
-		this.venue = venue;
-		this.segment = segment;
-		this.genre = genre;
-	}
-	
+
 	
 	@Override
 	public String toString() 
@@ -77,6 +95,8 @@ public class Event
 				"LocalTime: " + localTime + System.lineSeparator() +
 				"LocalDate: " + localDate + System.lineSeparator() +
 				"Venue: " + venue + System.lineSeparator() +
+				"City: " + city + System.lineSeparator() +
+				"State: " + state + System.lineSeparator() +
 				"Segment: " + segment + System.lineSeparator() +
 				"Genre: " + genre + System.lineSeparator() +
 				System.lineSeparator();

@@ -1,28 +1,21 @@
 package it.univpm.app.ticketmaster.parser;
 
 import java.time.LocalDate;
+import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import it.univpm.app.ticketmaster.model.City;
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.model.State;
-import it.univpm.app.ticketmaster.model.Country;
+
 
 public class EventsParser 
 {
-	Country USA;	//TOSHOW
+	Vector<Event> listEvents = new Vector<Event>();
 	
-	public EventsParser()
-	{
-		this.USA = new Country();		
-	}
-	
-	//TOSHOW
-	public void parse(String json) throws ParseException
+	public Vector<Event> parse(String json) throws ParseException
 	{		
 		JSONParser parser = new JSONParser();			
 		JSONObject jO= (JSONObject) parser.parse(json);
@@ -32,7 +25,6 @@ public class EventsParser
 		
 		for (int i = 0; i < events.size(); i++)
 		{
-			
 			JSONObject eventoTemp = (JSONObject) events.get(i);
 				String name = (String) eventoTemp.get("name");
 				String url = (String) eventoTemp.get("url");
@@ -58,28 +50,11 @@ public class EventsParser
 							JSONObject state = (JSONObject) venuesTemp.get("state");
 								String stateName = (String) state.get("name");
 						
-			 Event e = new Event(name, url, localTime, locDt, venueName, nameSegment, nameGenre);
-			 
-			 /*
-			  * Se lo stateName dell'evento non coincide con quello di uno stato già esistente,
-			  * ne creo uno nuovo e lo aggiungo alla lista di stati degli USA.
-			  */
-			 State s = USA.obtainState(stateName); 
-			 
-			 /*
-			  * Se il cityName dell'evento non coincide con quello di una città già esistente,
-			  * ne creo una nuova e la aggiungo alla lista di città di quello stato.
-			  */
-			 City c = s.obtainCity(cityName);
-			 
-			 /*
-			  * Aggiungo l'evento alla lista di eventi della città.
-			  */
-	
-			 c.getEvents().add(e);
+			 Event e = new Event(name, url, localTime, locDt, venueName, cityName, stateName, nameSegment, nameGenre);
+			 listEvents.add(e);
 		}
 		
-		System.out.println(USA.toString());//Di prova
+		return listEvents;
 	}
 }
 

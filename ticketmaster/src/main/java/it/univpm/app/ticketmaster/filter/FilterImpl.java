@@ -2,20 +2,17 @@ package it.univpm.app.ticketmaster.filter;
 
 import java.time.LocalDate;
 
-import it.univpm.app.ticketmaster.model.City;
-import it.univpm.app.ticketmaster.model.State;
-
 public class FilterImpl implements Filter
 {
-	State state;
-	City city;
+	String state;
+	String city;
 	LocalDate startDate;
 	LocalDate endDate;
 	String segment;
 	String genre;
 	
 		
-	public FilterImpl(State state, City city, LocalDate startDate, LocalDate endDate, String segment, String genre)
+	public FilterImpl(String state, String city, LocalDate startDate, LocalDate endDate, String segment, String genre)
 	{
 		this.state = state;
 		this.city = city;
@@ -31,16 +28,16 @@ public class FilterImpl implements Filter
 	}
 	
 	
-	public State getState() {
+	public String getState() {
 		return state;
 	}
-	public void setState(State state) {
+	public void setState(String state) {
 		this.state = state;
 	}
-	public City getCity() {
+	public String getCity() {
 		return city;
 	}
-	public void setCity(City city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 	public LocalDate getStartDate() {
@@ -84,31 +81,18 @@ public class FilterImpl implements Filter
 	}
 	
 	
-	
 	public boolean isIncludedState(String state)
 	{
-		return this.state.getName().equals(state) || (this.state == null);
+		return (this.state == state) || (this.state == null);
 	}	
-	
-	public boolean isIncludedState(State state)
-	{
-		return this.state.equals(state) || (this.state == null);
-	}
-	
 	
 	
 	public boolean isIncludedCity(String city)
 	{
-		return this.city.getName().equals(city) || (this.city == null);
+		return (this.city == city) || (this.city == null);
 	}	
-	
-	public boolean isIncludedCity(City city)
-	{
-		return this.city.equals(city) || (this.city == null);
-	}
-	
-	
 
+	
 	public boolean isIncludedDate(LocalDate localDate) 
 	{
 		boolean isIncluded = true;
@@ -124,19 +108,16 @@ public class FilterImpl implements Filter
 		return isIncluded;
 	}
 
-
-
+	
 	public boolean isIncludedSegment(String segment)
 	{
 		return (this.segment == segment) || (segment == null);
 	}
 
-
+	
 	public boolean isIncludedGenre(String genre)
 	{
 		return (this.genre == genre) || (segment == null);
 	}
-		
-	
 	
 }
