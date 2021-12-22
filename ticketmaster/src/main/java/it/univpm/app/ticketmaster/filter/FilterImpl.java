@@ -1,25 +1,26 @@
 package it.univpm.app.ticketmaster.filter;
 
 import java.time.LocalDate;
+import java.util.Vector;
 
 public class FilterImpl implements Filter
 {
-	String state;
-	String city;
+	Vector<String> states;
+	Vector<String> cities;
 	LocalDate startDate;
 	LocalDate endDate;
 	String segment;
-	String genre;
+	Vector<String> genres;
 	
 		
-	public FilterImpl(String state, String city, LocalDate startDate, LocalDate endDate, String segment, String genre)
+	public FilterImpl(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
 	{
-		this.state = state;
-		this.city = city;
+		this.states = states;
+		this.cities = cities;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.segment = segment;
-		this.genre = genre;
+		this.genres = genres;
 	}
 	
 	public FilterImpl()
@@ -28,17 +29,17 @@ public class FilterImpl implements Filter
 	}
 	
 	
-	public String getState() {
-		return state;
+	public Vector<String> getStates() {
+		return states;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setStates(Vector<String> states) {
+		this.states = states;
 	}
-	public String getCity() {
-		return city;
+	public Vector<String> getCities() {
+		return cities;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setCities(Vector<String> cities) {
+		this.cities = cities;
 	}
 	public LocalDate getStartDate() {
 		return startDate;
@@ -62,34 +63,34 @@ public class FilterImpl implements Filter
 	public void setSegment(String segment) {
 		this.segment = segment;
 	}
-	public String getGenre() {
-		return genre;
+	public Vector<String> getGenres() {
+		return genres;
 	}
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenres(Vector<String> genres) {
+		this.genres = genres;
 	}
 	
 	
 	public void reset()
 	{
-		this.state = null;
-		this.city = null;
+		this.states = new Vector<String>();
+		this.cities = new Vector<String>();
 		this.startDate = null;
 		this.endDate = null;
 		this.segment = null;
-		this.genre = null;
+		this.genres = new Vector<String>();
 	}
 	
 	
 	public boolean isIncludedState(String state)
 	{
-		return (this.state == state) || (this.state == null);
+		return (this.states.contains(state)) || (this.states == null);
 	}	
 	
 	
 	public boolean isIncludedCity(String city)
 	{
-		return (this.city == city) || (this.city == null);
+		return (this.cities.contains(city) || (this.cities == null));
 	}	
 
 	
@@ -111,13 +112,13 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedSegment(String segment)
 	{
-		return (this.segment == segment) || (segment == null);
+		return (this.segment == segment) || (this.segment == null);
 	}
 
 	
 	public boolean isIncludedGenre(String genre)
 	{
-		return (this.genre == genre) || (segment == null);
+		return (this.genres.contains(genre)) || (this.genres == null);
 	}
 	
 }
