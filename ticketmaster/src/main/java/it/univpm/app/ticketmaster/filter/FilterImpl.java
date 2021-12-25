@@ -3,6 +3,8 @@ package it.univpm.app.ticketmaster.filter;
 import java.time.LocalDate;
 import java.util.Vector;
 
+import it.univpm.app.ticketmaster.model.Event;
+
 public class FilterImpl implements Filter
 {
 	Vector<String> states;
@@ -21,6 +23,25 @@ public class FilterImpl implements Filter
 		this.endDate = endDate;
 		this.segment = segment;
 		this.genres = genres;
+	}
+	
+	public FilterImpl(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres)
+	{
+		this.states = states;
+		this.cities = cities;
+		loadPeriod(period);
+		this.segment = segment;
+		this.genres = genres;
+	}
+	
+	
+	public FilterImpl(String states, String cities, String period, String segment, String genres)
+	{
+		this.states = convertToVectorOfStrings(states);
+		this.cities = convertToVectorOfStrings(cities);
+		loadPeriod(period);
+		this.segment = segment;
+		this.genres = convertToVectorOfStrings(genres);
 	}
 	
 	public FilterImpl()
@@ -82,17 +103,22 @@ public class FilterImpl implements Filter
 	}
 	
 	
+	
 	public boolean isIncludedState(String state)
 	{
-		return (this.states.contains(state)) || (this.states == null);
+		boolean isIncluded = (this.states.contains(state)) || (this.states == null) || (this.states.size() == 0);
+		return isIncluded;
 	}	
+	
 	
 	
 	public boolean isIncludedCity(String city)
 	{
-		return (this.cities.contains(city) || (this.cities == null));
+		boolean isIncluded = (this.cities.contains(city) || (this.cities == null) || (this.cities.size() == 0));
+		return isIncluded;
 	}	
 
+	
 	
 	public boolean isIncludedDate(LocalDate localDate) 
 	{
@@ -110,15 +136,78 @@ public class FilterImpl implements Filter
 	}
 
 	
+	
 	public boolean isIncludedSegment(String segment)
 	{
-		return (this.segment == segment) || (this.segment == null);
+		boolean isIncluded = (this.segment == segment) || (this.segment.isEmpty());
+		return isIncluded;
 	}
 
 	
+	
 	public boolean isIncludedGenre(String genre)
 	{
-		return (this.genres.contains(genre)) || (this.genres == null);
+		boolean isIncluded = (this.genres.contains(genre)) || (this.genres == null) || (this.genres.size() == 0);
+		return isIncluded;
 	}
 	
+	
+	
+	public boolean isIncludedEvent(Event e)
+	{
+		boolean isIncluded = isIncludedState(e.getState()) && isIncludedCity(e.getCity()) && isIncludedDate(e.getLocalDate())
+							&& isIncludedSegment(e.getSegment()) && isIncludedGenre(e.getGenre());		 
+		return isIncluded;
+	}
+	
+	
+	
+	/*public Vector<Event> getFilteredEvents (Vector<Event> eventsToFilter) 
+	{
+		Vector<Event> filteredEvents = new Vector<Event>();
+		Event e;
+		
+		for(int i=0; i<eventsToFilter.size(); i++)
+		{			
+			e = eventsToFilter.get(i);
+			
+			if(this.isIncludedEvent(e))
+			{
+				filteredEvents.add(e);
+			}
+		}
+		
+		return filteredEvents;
+	}*/
+	
+	private Vector<String> convertToVectorOfStrings(String toParse)
+	{
+		Vector<String> list = new Vector<String>();
+		
+		if(!toParse.isEmpty())
+		{						
+			String [] splitString = toParse.split(",");
+			
+			for(int i = 0; i<splitString.length; i++)
+				list.add(splitString[i]);
+		}
+		
+		return list;
+	}
+	
+	
+	private void loadPeriod(String period)
+	{
+		if(period.isEmpty())
+		{
+			this.startDate = null;
+			this.endDate = null;
+		}
+		else
+		{
+			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
+			this.endDate = LocalDate.parse(period.substring(period.indexOf(','), period.length()));			
+		}
+	}
+		
 }

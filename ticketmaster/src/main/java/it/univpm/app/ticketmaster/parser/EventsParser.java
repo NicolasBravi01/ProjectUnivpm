@@ -13,10 +13,11 @@ import it.univpm.app.ticketmaster.model.Event;
 
 public class EventsParser 
 {
-	Vector<Event> listEvents = new Vector<Event>();
 	
 	public Vector<Event> parse(String json) throws ParseException
 	{		
+		Vector<Event> listEvents = new Vector<Event>();
+		
 		JSONParser parser = new JSONParser();			
 		JSONObject jO= (JSONObject) parser.parse(json);
 		

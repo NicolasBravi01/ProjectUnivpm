@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-
+import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.parser.EventsParser;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 
@@ -38,7 +38,7 @@ public class ticketmasterConnection
 				data += line;
 			
 			EventsParser eP = new EventsParser();			
-			eP.parse(data);			
+			EventsFilter.setEvents(eP.parse(data));
 		} 
 		catch (MalformedURLException e) 
 		{
