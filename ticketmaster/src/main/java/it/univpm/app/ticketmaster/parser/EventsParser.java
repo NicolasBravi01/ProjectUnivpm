@@ -1,23 +1,21 @@
 package it.univpm.app.ticketmaster.parser;
 
 import java.time.LocalDate;
-import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.model.Event;
 
 
 public class EventsParser 
 {
-	
-	public Vector<Event> parse(String json) throws ParseException
-	{		
-		Vector<Event> listEvents = new Vector<Event>();
-		
+
+	public void parse(String json) throws ParseException
+	{	
 		JSONParser parser = new JSONParser();			
 		JSONObject jO= (JSONObject) parser.parse(json);
 		
@@ -52,10 +50,11 @@ public class EventsParser
 								String stateName = (String) state.get("name");
 						
 			 Event e = new Event(name, url, localTime, locDt, venueName, cityName, stateName, nameSegment, nameGenre);
-			 listEvents.add(e);
+			 
+			 EventsFilter.addEvent(e);
 		}
 		
-		return listEvents;
+		//return listEvents;
 	}
 	
 	
