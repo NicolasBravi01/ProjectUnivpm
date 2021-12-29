@@ -36,7 +36,7 @@ public class EventsController
 						  @RequestParam(name="genre", defaultValue="") String genre,
 						  @RequestParam(name="period", defaultValue="") String period)
 	{	
-		ticketmasterConnection.getJSONEvents();
+		//ticketmasterConnection.getJSONEvents();
 		
 		FilterImpl filter = new FilterImpl(state, city, period, segment, genre);
 		/*Lista eventi filtrati = */ EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
