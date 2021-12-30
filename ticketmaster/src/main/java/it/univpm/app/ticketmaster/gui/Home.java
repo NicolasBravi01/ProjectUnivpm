@@ -40,7 +40,7 @@ public class Home extends JFrame
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600, 400);
-		this.setResizable(true);
+		this.setResizable(false);
 		this.setLayout(new FlowLayout());
 		//this.pack();
 		
@@ -62,6 +62,8 @@ public class Home extends JFrame
 		
 		searchButton = new JButton("Search");
 		exitButton = new JButton("Exit");
+		
+		//searchButton.setBounds(100,100,200,15);
 		this.add(searchButton);
 		this.add(exitButton);
 		
@@ -70,7 +72,7 @@ public class Home extends JFrame
 		{
 			public void mouseClicked(MouseEvent me)
 			{
-				System.out.println("Vorrei uscire");
+				System.exit(NORMAL);
 			}
 		});
 		
@@ -81,6 +83,7 @@ public class Home extends JFrame
 			public void mouseClicked(MouseEvent me)
 			{
 				System.out.println("Vorrei cercare");
+				//Effettuare chiamata
 			}
 		});
 	

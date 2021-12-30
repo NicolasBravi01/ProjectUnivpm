@@ -11,13 +11,10 @@ public class TicketmasterApplication
 {
 
 	public static void main(String[] args) 
-	{
-		ticketmasterConnection.getJSONEvents();
-		new Home();
+	{		
 		SpringApplication.run(TicketmasterApplication.class, args);
-		
-		
-
+		ticketmasterConnection.getJSONEvents();
+		//new Home();
 	}
 
 }

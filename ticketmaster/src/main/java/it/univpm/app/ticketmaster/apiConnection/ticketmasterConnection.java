@@ -32,6 +32,7 @@ public class ticketmasterConnection
 			String data = "";
 			String line = "";
 			
+			
 			BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
 			while ((line = buf.readLine()) != null)

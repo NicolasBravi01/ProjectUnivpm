@@ -1,6 +1,8 @@
 package it.univpm.app.ticketmaster.filter;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
@@ -14,7 +16,10 @@ public class FilterImpl implements Filter
 	String segment;
 	Vector<String> genres;
 	
+	boolean error = false;
+	
 		
+	
 	public FilterImpl(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
 	{
 		this.states = states;
@@ -90,7 +95,13 @@ public class FilterImpl implements Filter
 	public void setGenres(Vector<String> genres) {
 		this.genres = genres;
 	}
-	
+	public boolean isError() {
+		return error;
+	}
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
 	
 	public void reset()
 	{
@@ -205,9 +216,31 @@ public class FilterImpl implements Filter
 		}
 		else
 		{
-			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
-			this.endDate = LocalDate.parse(period.substring(period.indexOf(','), period.length()));			
+			try
+			{
+				this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
+				this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
+				
+				if(this.startDate.isAfter(endDate))
+					this.error = true;// Gestire errore
+			}
+			catch(DateTimeParseException e)
+			{
+				this.error = true; //Filtro periodo sbagliato
+			}
+			catch(Exception e)
+			{
+				this.error = true;
+			}
+				
 		}
+	}
+	
+	
+	public boolean check()
+	{
+		
+		return error;
 	}
 		
 }
