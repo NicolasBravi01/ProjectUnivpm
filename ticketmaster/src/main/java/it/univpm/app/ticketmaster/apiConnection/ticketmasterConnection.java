@@ -16,7 +16,7 @@ import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 public class ticketmasterConnection 
 {
 	final static String countryCode = "US";		//Eventi US, United States
-	final static int size = 200;		//Eventi US, United States
+	final static int size = 50;		//Eventi US, United States
 	
 	
 	public static void getJSONEvents() 

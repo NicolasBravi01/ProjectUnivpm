@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ApiKeyReader 
 {
 	private static String apiKey = "";
-	private final static String pathApiKey = "apiKey.txt";
+	private final static String pathApiKey = "src/main/resources/apiKey.txt";
 
 	public static String getApiKey() 
 	{

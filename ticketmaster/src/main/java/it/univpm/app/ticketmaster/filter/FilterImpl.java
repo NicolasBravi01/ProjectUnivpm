@@ -1,6 +1,5 @@
 package it.univpm.app.ticketmaster.filter;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Vector;
@@ -117,7 +116,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedState(String state)
 	{
-		boolean isIncluded = (this.states.contains(state)) || (this.states == null) || (this.states.size() == 0);
+		boolean isIncluded = (this.states.contains(state)) || (this.states.size() == 0);
 		return isIncluded;
 	}	
 	
@@ -125,7 +124,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedCity(String city)
 	{
-		boolean isIncluded = (this.cities.contains(city) || (this.cities == null) || (this.cities.size() == 0));
+		boolean isIncluded = (this.cities.contains(city) || (this.cities.size() == 0));
 		return isIncluded;
 	}	
 
@@ -158,7 +157,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedGenre(String genre)
 	{
-		boolean isIncluded = (this.genres.contains(genre)) || (this.genres == null) || (this.genres.size() == 0);
+		boolean isIncluded = (this.genres.contains(genre)) || (this.genres.size() == 0);
 		return isIncluded;
 	}
 	
@@ -172,25 +171,7 @@ public class FilterImpl implements Filter
 	}
 	
 	
-	
-	/*public Vector<Event> getFilteredEvents (Vector<Event> eventsToFilter) 
-	{
-		Vector<Event> filteredEvents = new Vector<Event>();
-		Event e;
-		
-		for(int i=0; i<eventsToFilter.size(); i++)
-		{			
-			e = eventsToFilter.get(i);
-			
-			if(this.isIncludedEvent(e))
-			{
-				filteredEvents.add(e);
-			}
-		}
-		
-		return filteredEvents;
-	}*/
-	
+
 	private Vector<String> convertToVectorOfStrings(String toParse)
 	{
 		Vector<String> list = new Vector<String>();
