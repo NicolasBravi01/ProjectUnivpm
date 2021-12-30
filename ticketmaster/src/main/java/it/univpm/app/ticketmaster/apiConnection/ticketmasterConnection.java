@@ -39,7 +39,7 @@ public class ticketmasterConnection
 				data += line;
 			
 			EventsParser eP = new EventsParser();			
-			eP.parse(data);
+			EventsFilter.setEvents(eP.parse(data));
 		} 
 		catch (MalformedURLException e) 
 		{

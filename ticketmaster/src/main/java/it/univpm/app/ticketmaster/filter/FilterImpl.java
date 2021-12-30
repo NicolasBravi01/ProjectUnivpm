@@ -48,6 +48,12 @@ public class FilterImpl implements Filter
 		this.genres = convertToVectorOfStrings(genres);
 	}
 	
+	public FilterImpl(String period)
+	{
+		reset();
+		loadPeriod(period);
+	}
+	
 	public FilterImpl()
 	{
 		reset();

@@ -45,14 +45,6 @@ public class EventsController
 	}
 	
 	
-	
-	@GetMapping(value = "/states")
-	public void getStates()
-	{	
-		/*Lista stati = */ EventsFilter.getStates();
-		
-		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
-	}
 		
 	@GetMapping(value = "/cities")
 	public void getCities()
@@ -61,14 +53,7 @@ public class EventsController
 		
 		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
 	}
-	
-	@GetMapping(value = "/segments")
-	public void getSegments()
-	{	
-		/*Lista segmenti = */ EventsFilter.getSegments();
-		
-		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
-	}
+
 	
 	@GetMapping(value = "/genres")
 	public void getGenres()
@@ -77,20 +62,8 @@ public class EventsController
 		
 		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
 	}
-
-	/*@PostMapping(value = "/events")
-	public void getEvents(@RequestBody FilterImpl body)
-	{	
-		System.out.println("heiii");
-		ticketmasterConnection.getJSONEvents();
-	}*/
 	
-	
-	/*@PostMapping(value = "/events")
-	public void getEvents(@RequestBody String body)
-	{	
-		System.out.println("heiii");
-		ticketmasterConnection.getJSONEvents();
-	}*/
-	
+	/*
+	 * 	rotte statistiche
+	 */
 }
