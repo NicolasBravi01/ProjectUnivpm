@@ -72,6 +72,10 @@ public class FilterImpl implements Filter
 	public void setCities(Vector<String> cities) {
 		this.cities = cities;
 	}
+	public void setCities(String city) {
+		this.cities = new Vector<String>();
+		this.cities.add(city);
+	}
 	public LocalDate getStartDate() {
 		return startDate;
 	}

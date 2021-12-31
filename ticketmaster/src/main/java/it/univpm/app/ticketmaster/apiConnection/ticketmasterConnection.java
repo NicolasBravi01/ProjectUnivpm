@@ -38,8 +38,9 @@ public class ticketmasterConnection
 			while ((line = buf.readLine()) != null)
 				data += line;
 			
-			EventsParser eP = new EventsParser();			
-			EventsFilter.setEvents(eP.parse(data));
+			EventsParser eP = new EventsParser();	
+			eP.parse(data);	//provvisorio
+			//EventsFilter.setEvents(eP.parse(data));
 		} 
 		catch (MalformedURLException e) 
 		{
