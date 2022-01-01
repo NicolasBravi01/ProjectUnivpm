@@ -15,6 +15,4 @@ public class JsonBuilder
 		obj.put("elements", listEvent.size());
 		return obj;
 	}
-	
-	
 }

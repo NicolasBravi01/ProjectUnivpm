@@ -104,6 +104,10 @@ public class FilterImpl implements Filter
 	public void setGenres(Vector<String> genres) {
 		this.genres = genres;
 	}
+	public void setGenres(String genre) {
+		this.genres = new Vector<String>();
+		this.genres.add(genre);
+	}
 	public boolean isError() {
 		return error;
 	}
@@ -230,7 +234,6 @@ public class FilterImpl implements Filter
 	
 	public boolean check()
 	{
-		
 		return error;
 	}
 		

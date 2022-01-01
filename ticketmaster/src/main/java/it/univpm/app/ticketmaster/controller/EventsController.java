@@ -68,23 +68,63 @@ public class EventsController
 		return jo;
 	}
 	
-	
-		
-	@GetMapping(value = "/cities")
-	public void getCities()
+	@GetMapping(value = "/events/genres")
+	public JSONObject getEventsForGenres(@RequestParam(name="segment", defaultValue="") String segment,
+						  @RequestParam(name="period", defaultValue="") String period)
 	{	
-		/*Lista città = */ EventsFilter.getCities();
+		FilterImpl filter = new FilterImpl("", "", period, segment, "");
+		JsonBuilder jB = new JsonBuilder();
 		
-		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		String genre;
+		
+		for(int i=0; i<EventsFilter.getGenres().size(); i++)
+		{
+			 genre = EventsFilter.getGenres().get(i);
+			
+			 filter.setGenres(genre);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 if(events.size()>0)
+			 {
+				 jo.put(genre, jB.build(events));
+			 }
+		}
+		
+		return jo;
+	}
+	
+	
+	@GetMapping(value = "/states")
+	public Vector<String> getStates()
+	{	
+		Vector<String> states = EventsFilter.getStates();
+		return states;
+	}
+	
+	
+	@GetMapping(value = "/cities")
+	public Vector<String> getCities()
+	{	
+		Vector<String> cities = EventsFilter.getCities();
+		return cities;
 	}
 
 	
-	@GetMapping(value = "/genres")
-	public void getGenres()
+	@GetMapping(value = "/segments")
+	public Vector<String> getSegments()
 	{	
-		/*Lista generi = */ EventsFilter.getGenres();
-		
-		//KEVIN, se mi costruisci il JSON lo possiamo inserire nel body della risposta HTTP
+		Vector<String> segments = EventsFilter.getSegments();
+		return segments;
+	}
+	
+	
+	@GetMapping(value = "/genres")
+	public Vector<String> getGenres()
+	{	
+		Vector<String> genres = EventsFilter.getGenres();
+		return genres;
 	}
 	
 	/*
