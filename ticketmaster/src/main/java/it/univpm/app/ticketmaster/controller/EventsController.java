@@ -1,5 +1,8 @@
 package it.univpm.app.ticketmaster.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
@@ -42,8 +45,42 @@ public class EventsController
 	}
 	
 	
+	@GetMapping(value = "/stats/states")
+	public JSONObject getStatsPerStates(@RequestParam(name="states", defaultValue="") String states,
+						   @RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl(states, "", period, "", "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		JSONObject joInt;
+		String state;
+		
+		for(int i=0; i<EventsFilter.getStates().size(); i++)
+		{
+			 state = EventsFilter.getStates().get(i);
+			 joInt = new JSONObject();
+			
+			 filter.setStates(state);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 int size = events.size();
+				
+			 if(size > 0)
+			 {						 
+				 joInt.put("numero eventi", size);
+				 joInt.put("media eventi", average(size, period));				 
+				 
+				 jo.put(state, joInt);				 
+			 }
+		}
+		
+		return jo;
+	}
+	
 	@GetMapping(value = "/stats/cities")
-	public JSONObject getStats(@RequestParam(name="cities", defaultValue="") String cities,
+	public JSONObject getStatsPerCities(@RequestParam(name="cities", defaultValue="") String cities,
 						   @RequestParam(name="period", defaultValue="") String period)
 	{	
 		FilterImpl filter = new FilterImpl("", cities, period, "", "");
@@ -62,11 +99,12 @@ public class EventsController
 			 filter.setCities(city);
 			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
 		
-			 if(events.size()>0)
-			 {
-		
-				 joInt.put("numero eventi",  events.size());
-				 joInt.put("media eventi", 0);	//TODO
+			 int size = events.size();
+				
+			 if(size > 0)
+			 {						 
+				 joInt.put("numero eventi", size);
+				 joInt.put("media eventi", average(size, period));				 
 				 
 				 jo.put(city, joInt);				 
 			 }
@@ -75,6 +113,102 @@ public class EventsController
 		return jo;
 	}
 	
+	
+	@GetMapping(value = "/stats/segments")
+	public JSONObject getStatsPerSegments(@RequestParam(name="segment", defaultValue="") String segment,
+						   @RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", "", period, segment, "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		JSONObject joInt;
+		String seg;
+		
+		for(int i=0; i<EventsFilter.getSegments().size(); i++)
+		{
+			 seg = EventsFilter.getSegments().get(i);
+			 joInt = new JSONObject();
+			
+			 filter.setSegment(seg);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 int size = events.size();
+				
+			 if(size > 0)
+			 {						 
+				 joInt.put("numero eventi", size);
+				 joInt.put("media eventi", average(size, period));				 
+				 
+				 jo.put(seg, joInt);				 
+			 }
+		}
+		
+		return jo;
+	}
+	
+	
+	@GetMapping(value = "/stats/genres")
+	public JSONObject getStatsPerGenres(@RequestParam(name="genres", defaultValue="") String genres,
+						   @RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", "", period, "", genres);
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		JSONObject joInt;
+		String genre;
+		
+		for(int i = 0; i < EventsFilter.getGenres().size(); i++)
+		{
+			 genre = EventsFilter.getGenres().get(i);
+			 joInt = new JSONObject();
+			
+			 filter.setGenres(genre);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 
+			 int size = events.size();
+		
+			 if(size > 0)
+			 {						 
+				 joInt.put("numero eventi", size);
+				 joInt.put("media eventi", average(size, period));				 
+				 
+				 jo.put(genre, joInt);				 
+			 }
+		}
+		
+		return jo;
+	}
+	
+
+	@GetMapping(value = "/events/states")
+	public JSONObject getEventsForStates(@RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		String state;
+		
+		for(int i=0; i<EventsFilter.getStates().size(); i++)
+		{
+			 state = EventsFilter.getStates().get(i);
+			
+			 filter.setStates(state);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 if(events.size()>0)
+			 {
+				 jo.put(state, jB.build(events));
+			 }
+		}
+		
+		return jo;
+	}
 	
 	@GetMapping(value = "/events/cities")
 	public JSONObject getEventsForCities(@RequestParam(name="states", defaultValue="") String states,
@@ -97,32 +231,6 @@ public class EventsController
 			 if(events.size()>0)
 			 {
 				 jo.put(city, jB.build(events));
-			 }
-		}
-		
-		return jo;
-	}
-	
-	@GetMapping(value = "/events/states")
-	public JSONObject getEventsForStates(@RequestParam(name="period", defaultValue="") String period)
-	{	
-		FilterImpl filter = new FilterImpl("", "", period, "", "");
-		JsonBuilder jB = new JsonBuilder();
-		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
-		String state;
-		
-		for(int i=0; i<EventsFilter.getStates().size(); i++)
-		{
-			 state = EventsFilter.getStates().get(i);
-			
-			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 if(events.size()>0)
-			 {
-				 jo.put(state, jB.build(events));
 			 }
 		}
 		
@@ -161,6 +269,7 @@ public class EventsController
 						  @RequestParam(name="period", defaultValue="") String period)
 	{	
 		FilterImpl filter = new FilterImpl("", "", period, segment, "");
+		
 		JsonBuilder jB = new JsonBuilder();
 		
 		Vector<Event> events;
@@ -217,7 +326,22 @@ public class EventsController
 		return genres;
 	}
 	
-	/*
-	 * 	rotte statistiche
-	 */
+
+	private double average(int n, String period) 
+	{
+		long av;
+		
+		if(period.equals(""))
+			av = 100 * n/12;
+		else
+		{
+			LocalDate startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
+			LocalDate endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
+			
+			av =  (n * 30) / ChronoUnit.DAYS.between(startDate, endDate);		
+		}
+
+		return (double)av/100;
+	}
 }
+	
