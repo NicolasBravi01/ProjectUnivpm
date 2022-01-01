@@ -19,6 +19,9 @@ public class EventsFilter
 
 	public static void setEvents(Vector<Event> e) {
 		events = e;
+		
+		for(int i = 0; i<events.size(); i++)
+			addInformation(events.get(i));
 	}
 	
 	public static Vector<String> getStates() {

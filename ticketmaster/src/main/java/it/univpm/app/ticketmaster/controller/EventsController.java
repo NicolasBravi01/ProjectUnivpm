@@ -41,6 +41,41 @@ public class EventsController
 		return jB.build(EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
 	}
 	
+	
+	@GetMapping(value = "/stats/cities")
+	public JSONObject getStats(@RequestParam(name="cities", defaultValue="") String cities,
+						   @RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", cities, period, "", "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		JSONObject joInt;
+		String city;
+		
+		for(int i=0; i<EventsFilter.getCities().size(); i++)
+		{
+			 city = EventsFilter.getCities().get(i);
+			 joInt = new JSONObject();
+			
+			 filter.setCities(city);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 if(events.size()>0)
+			 {
+		
+				 joInt.put("numero eventi",  events.size());
+				 joInt.put("media eventi", 0);	//TODO
+				 
+				 jo.put(city, joInt);				 
+			 }
+		}
+		
+		return jo;
+	}
+	
+	
 	@GetMapping(value = "/events/cities")
 	public JSONObject getEventsForCities(@RequestParam(name="states", defaultValue="") String states,
 						  @RequestParam(name="period", defaultValue="") String period)
@@ -62,6 +97,59 @@ public class EventsController
 			 if(events.size()>0)
 			 {
 				 jo.put(city, jB.build(events));
+			 }
+		}
+		
+		return jo;
+	}
+	
+	@GetMapping(value = "/events/states")
+	public JSONObject getEventsForStates(@RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		String state;
+		
+		for(int i=0; i<EventsFilter.getStates().size(); i++)
+		{
+			 state = EventsFilter.getStates().get(i);
+			
+			 filter.setStates(state);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 if(events.size()>0)
+			 {
+				 jo.put(state, jB.build(events));
+			 }
+		}
+		
+		return jo;
+	}
+	
+	
+	@GetMapping(value = "/events/segments")
+	public JSONObject getEventsForCities(@RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		JsonBuilder jB = new JsonBuilder();
+		
+		Vector<Event> events;
+		JSONObject jo = new JSONObject();
+		String segment;
+		
+		for(int i=0; i<EventsFilter.getSegments().size(); i++)
+		{
+			 segment = EventsFilter.getSegments().get(i);
+			
+			 filter.setSegment(segment);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 if(events.size()>0)
+			 {
+				 jo.put(segment, jB.build(events));
 			 }
 		}
 		
@@ -94,6 +182,8 @@ public class EventsController
 		
 		return jo;
 	}
+	
+	
 	
 	
 	@GetMapping(value = "/states")

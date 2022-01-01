@@ -55,7 +55,6 @@ public class EventsParser
 			 Event e = new Event(name, url, localTime, locDt, venueName, cityName, stateName, nameSegment, nameGenre);
 			 
 			 listEvents.add(e);
-			 EventsFilter.addEvent(e);//provvisorio
 		}
 		
 		return listEvents;

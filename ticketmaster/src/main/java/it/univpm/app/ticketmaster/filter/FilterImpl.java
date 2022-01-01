@@ -66,6 +66,10 @@ public class FilterImpl implements Filter
 	public void setStates(Vector<String> states) {
 		this.states = states;
 	}
+	public void setStates(String state) {
+		this.states = new Vector<String>();
+		this.states.add(state);
+	}
 	public Vector<String> getCities() {
 		return cities;
 	}
@@ -163,7 +167,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedSegment(String segment)
 	{
-		boolean isIncluded = (this.segment == segment) || (this.segment.isEmpty());
+		boolean isIncluded = (this.segment.equals(segment)) || (this.segment.isEmpty());
 		return isIncluded;
 	}
 
