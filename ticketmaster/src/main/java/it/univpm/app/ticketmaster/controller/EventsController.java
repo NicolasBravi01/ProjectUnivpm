@@ -69,8 +69,8 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt.put("numero eventi", size);
-				 joInt.put("media eventi", average(size, period));				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period));
+				 //joInt.put("media eventi", average(size, period));				 
 				 
 				 jo.put(state, joInt);				 
 			 }
@@ -103,8 +103,8 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt.put("numero eventi", size);
-				 joInt.put("media eventi", average(size, period));				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period));
+				 //joInt.put("media eventi", average(size, period));				 
 				 
 				 jo.put(city, joInt);				 
 			 }
@@ -115,10 +115,9 @@ public class EventsController
 	
 	
 	@GetMapping(value = "/stats/segments")
-	public JSONObject getStatsPerSegments(@RequestParam(name="segment", defaultValue="") String segment,
-						   @RequestParam(name="period", defaultValue="") String period)
+	public JSONObject getStatsPerSegments(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, segment, "");
+		FilterImpl filter = new FilterImpl("", "", period, "", "");
 		JsonBuilder jB = new JsonBuilder();
 		
 		Vector<Event> events;
@@ -138,8 +137,8 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt.put("numero eventi", size);
-				 joInt.put("media eventi", average(size, period));				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period));
+				 //joInt.put("media eventi", average(size, period));				 
 				 
 				 jo.put(seg, joInt);				 
 			 }
@@ -173,8 +172,8 @@ public class EventsController
 		
 			 if(size > 0)
 			 {						 
-				 joInt.put("numero eventi", size);
-				 joInt.put("media eventi", average(size, period));				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period));
+				 //joInt.put("media eventi", average(size, period));				 
 				 
 				 jo.put(genre, joInt);				 
 			 }

@@ -21,19 +21,18 @@ public class ticketmasterConnection
 	
 	public static void getJSONEvents() 
 	{
-		String queryString = "?countryCode=" + countryCode + "&size=" + size + "&apikey=" + ApiKeyReader.getApiKey();
-		String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json" + queryString;
-
 		try
 		{
+			String queryString = "?countryCode=" + countryCode + "&size=" + size + "&apikey=" + ApiKeyReader.readApiKey();
+			String urlApiConnection = "https://app.ticketmaster.com/discovery/v2/events.json" + queryString;
+			
 			URLConnection openConnection = new URL(urlApiConnection).openConnection();
+			
 			InputStream input = openConnection.getInputStream();
-
+			BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+			
 			String data = "";
 			String line = "";
-			
-			
-			BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
 			while ((line = buf.readLine()) != null)
 				data += line;
@@ -47,7 +46,7 @@ public class ticketmasterConnection
 		}
 		catch (IOException e) 
 		{
-			e.printStackTrace();
+			e.printStackTrace();//invalid url
 		} 
 		catch (Exception e) 
 		{

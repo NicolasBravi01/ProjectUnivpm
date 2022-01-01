@@ -5,26 +5,28 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
+import it.univpm.app.ticketmaster.exception.NullApiKeyException;
+
 public class ApiKeyReader 
 {
-	private static String apiKey = "";
+	//private static String apiKey = "";
 	private final static String pathApiKey = "src/main/resources/apiKey.txt";
 
-	public static String getApiKey() 
+	/*public static String getApiKey() 
 	{
 		if(apiKey.isEmpty())
 			apiKey = readApiKey();;
 		return apiKey;
-	}
+	}*/
 
 	
-	private static String readApiKey() 
+	public static String readApiKey() throws NullApiKeyException
 	{
 		String msg="";
 		try 
 		{
 			Scanner reader = new Scanner(new BufferedReader(new FileReader(pathApiKey)));			
-			msg = reader.nextLine(); 
+			msg = reader.nextLine();
 		} 
 		catch (FileNotFoundException e) 
 		{
@@ -34,11 +36,12 @@ public class ApiKeyReader
 		{
 			System.out.println(e.toString());
 		}
-		
-		if(msg.isEmpty())
-			;//FILE VUOTO, GESTIRE L'ERRORE, MANCA APIKEY	//TODO
-		
-		
+		finally
+		{
+			if(msg.isEmpty())
+				throw new NullApiKeyException("ApiKey not found");
+		}
+				
 		return msg;
 	}
 	

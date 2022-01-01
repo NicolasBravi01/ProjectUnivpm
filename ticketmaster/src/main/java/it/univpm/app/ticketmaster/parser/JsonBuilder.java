@@ -15,4 +15,21 @@ public class JsonBuilder
 		obj.put("elements", listEvent.size());
 		return obj;
 	}
+	
+	
+	public JSONObject getJSONObjectStats(int n, double average)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("numero eventi", n);
+		obj.put("media eventi", average);		
+		return obj;
+	}
+	
+	public JSONObject getJSONObjectError(Error err)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("cause", err.getCause());
+		obj.put("message", err.getMessage());
+		return obj;
+	}
 }
