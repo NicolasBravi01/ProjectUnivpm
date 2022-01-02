@@ -17,11 +17,14 @@ public class JsonBuilder
 	}
 	
 	
-	public JSONObject getJSONObjectStats(int n, double average)
+	public JSONObject getJSONObjectStats(int n, String average, String min, String max)
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("numero eventi", n);
-		obj.put("media eventi", average);		
+		obj.put("media eventi", average);
+		obj.put("minimo eventi mensili", min);
+		obj.put("massimo eventi mensili", max);
+		
 		return obj;
 	}
 	

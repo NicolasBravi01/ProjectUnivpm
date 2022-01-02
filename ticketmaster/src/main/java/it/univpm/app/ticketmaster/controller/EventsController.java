@@ -7,8 +7,6 @@ import java.util.Vector;
 
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +29,6 @@ public class EventsController
 	}
 	
 	
-
 	@GetMapping(value = "/events")
 	public JSONObject getEvents(@RequestParam(name="states", defaultValue="") String states,
 						  @RequestParam(name="cities", defaultValue="") String cities,
@@ -69,15 +66,14 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period));
-				 //joInt.put("media eventi", average(size, period));				 
-				 
-				 jo.put(state, joInt);				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
+				 jo.put(state, joInt);	
 			 }
 		}
 		
 		return jo;
 	}
+	
 	
 	@GetMapping(value = "/stats/cities")
 	public JSONObject getStatsPerCities(@RequestParam(name="cities", defaultValue="") String cities,
@@ -103,10 +99,8 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period));
-				 //joInt.put("media eventi", average(size, period));				 
-				 
-				 jo.put(city, joInt);				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
+				 jo.put(city, joInt);
 			 }
 		}
 		
@@ -137,10 +131,8 @@ public class EventsController
 				
 			 if(size > 0)
 			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period));
-				 //joInt.put("media eventi", average(size, period));				 
-				 
-				 jo.put(seg, joInt);				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
+				 jo.put(seg, joInt);
 			 }
 		}
 		
@@ -172,10 +164,8 @@ public class EventsController
 		
 			 if(size > 0)
 			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period));
-				 //joInt.put("media eventi", average(size, period));				 
-				 
-				 jo.put(genre, joInt);				 
+				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
+				 jo.put(genre, joInt);	
 			 }
 		}
 		
@@ -208,6 +198,7 @@ public class EventsController
 		
 		return jo;
 	}
+	
 	
 	@GetMapping(value = "/events/cities")
 	public JSONObject getEventsForCities(@RequestParam(name="states", defaultValue="") String states,
@@ -263,6 +254,7 @@ public class EventsController
 		return jo;
 	}
 	
+	
 	@GetMapping(value = "/events/genres")
 	public JSONObject getEventsForGenres(@RequestParam(name="segment", defaultValue="") String segment,
 						  @RequestParam(name="period", defaultValue="") String period)
@@ -290,8 +282,6 @@ public class EventsController
 		
 		return jo;
 	}
-	
-	
 	
 	
 	@GetMapping(value = "/states")
@@ -326,21 +316,183 @@ public class EventsController
 	}
 	
 
-	private double average(int n, String period) 
+	private String average(int n, String period) 
 	{
-		long av;
+		double av;
+		String str = "";
+		String msg = "";
 		
 		if(period.equals(""))
-			av = 100 * n/12;
+		{
+			av = (double) n/12;
+		    str = " (media mensile, calcolata nell'arco di un intero anno)";
+		}
 		else
 		{
 			LocalDate startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
 			LocalDate endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 			
-			av =  (n * 30) / ChronoUnit.DAYS.between(startDate, endDate);		
+			av = (double) n / (double) ChronoUnit.DAYS.between(startDate, endDate);
+			str = " (media mensile calcolata nel periodo scelto)";
 		}
 
-		return (double)av/100;
+		av = Math.round(av*1000)/1000;
+		msg = av +str;
+		
+		return msg;
+		
+	}
+	
+	
+	private String min(Vector<Event> events) 
+	{
+		LocalDate date;
+		
+		int min = 0;
+		int [] arrayContatore = {0,0,0,0,0,0,0,0,0,0,0,0};
+		String str = "";
+		String msg = "";
+		
+		for(int i=0; i<events.size();i++)
+		{
+			date = events.get(i).getLocalDate();
+			int month = date.getDayOfMonth();
+			arrayContatore[month-1]++;
+		}
+		
+		for (int numero : arrayContatore) 
+		    if(numero < min)
+		    	min = numero;
+		
+		int monthMin = 0;
+		
+		for (int k = 0; k < arrayContatore.length; k++) 
+		{
+			if(arrayContatore[k] < min)
+			{
+		    	min = arrayContatore[k];
+		    	monthMin = k+1;
+			}
+		}
+		
+		switch(monthMin)
+		{
+			case 1:
+				str = "Gennaio";
+				break;
+			case 2:
+				str = "Febbraio";
+				break;
+			case 3:
+				str = "Marzo";
+				break;
+			case 4:
+				str = "Aprile";
+				break;
+			case 5:
+				str = "Maggio";
+				break;
+			case 6:
+				str = "Giugno";
+				break;
+			case 7:
+			    str = "Luglio";
+			    break;
+			case 8:
+			    str = "Agosto";
+			    break;
+			case 9:
+				str = "Settembre";
+				break;
+			case 10:
+				str = "Ottobre";
+				break;
+			case 11:
+				str = "Novembre";
+				break;
+			case 12:
+				str = "Dicembre";
+				break;
+		}
+		
+		msg = min + ", raggiunto nel mese di " + str;
+		return msg;	
+	}
+	
+	
+	private String max(Vector<Event> events) 
+	{
+		LocalDate date;
+		
+		int max = 0;
+		int [] arrayContatore = {0,0,0,0,0,0,0,0,0,0,0,0};
+		String str = "";
+		String msg = "";
+		
+		for(int i=0; i<events.size();i++)
+		{
+			date = events.get(i).getLocalDate();
+			int month = date.getDayOfMonth();
+			arrayContatore[month-1]++;
+		}
+		
+		for (int numero : arrayContatore) 
+		    if(numero < max)
+		    	max = numero;
+		
+		int monthMax = 0;
+		
+		for (int k = 0; k < arrayContatore.length; k++) 
+		{
+			if(arrayContatore[k] < max)
+			{
+		    	max = arrayContatore[k];
+		    	monthMax = k+1;
+			}
+		}
+		
+		switch(monthMax)
+		{
+			case 1:
+				str = "Gennaio";
+				break;
+			case 2:
+				str = "Febbraio";
+				break;
+			case 3:
+				str = "Marzo";
+				break;
+			case 4:
+				str = "Aprile";
+				break;
+			case 5:
+				str = "Maggio";
+				break;
+			case 6:
+				str = "Giugno";
+				break;
+			case 7:
+			    str = "Luglio";
+			    break;
+			case 8:
+			    str = "Agosto";
+			    break;
+			case 9:
+				str = "Settembre";
+				break;
+			case 10:
+				str = "Ottobre";
+				break;
+			case 11:
+				str = "Novembre";
+				break;
+			case 12:
+				str = "Dicembre";
+				break;
+		}
+		
+		msg = max + ", raggiunto nel mese di " + str;
+		return msg;	
 	}
 }
 	
