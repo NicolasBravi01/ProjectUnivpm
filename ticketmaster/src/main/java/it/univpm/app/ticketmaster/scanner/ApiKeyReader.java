@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-import it.univpm.app.ticketmaster.exception.NullApiKeyException;
+import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 
 public class ApiKeyReader 
 {
@@ -20,7 +20,7 @@ public class ApiKeyReader
 	}*/
 
 	
-	public static String readApiKey() throws NullApiKeyException
+	public static String readApiKey() throws ApiConnectionException
 	{
 		String msg="";
 		try 
@@ -31,15 +31,17 @@ public class ApiKeyReader
 		catch (FileNotFoundException e) 
 		{
 			System.out.println("File not found");
+			throw new ApiConnectionException("ApiKey not found");
 		}
 		catch (Exception e)
 		{
 			System.out.println(e.toString());
+			throw new ApiConnectionException("Found error searching ApiKey");
 		}
 		finally
 		{
 			if(msg.isEmpty())
-				throw new NullApiKeyException("ApiKey not found");
+				throw new ApiConnectionException("ApiKey not found");
 		}
 				
 		return msg;

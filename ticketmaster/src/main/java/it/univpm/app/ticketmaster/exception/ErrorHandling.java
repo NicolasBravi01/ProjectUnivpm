@@ -4,18 +4,26 @@ import java.util.Vector;
 
 public class ErrorHandling
 {
-	Vector<Exception> errors = new Vector<Exception>();
+	static Vector<Exception> errors = new Vector<Exception>();
 	
-	public boolean addError(Exception err)
+		
+	public static void addError(Exception e)
 	{
-		boolean exist = false;
+		if(!errors.contains(e))
+			errors.add(e);
+	}
+	
+	
+	public static boolean removeError(Exception e)
+	{
+		boolean exist = true;
 		
-		if(errors.contains(err))
-			exist = true;
+		if(errors.contains(e))
+			errors.remove(e);
 		else
-			errors.add(err);
+			exist = false;
 		
-		return exist;		
+		return exist;
 	}
 	
 }

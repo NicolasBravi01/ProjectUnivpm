@@ -10,6 +10,8 @@ public class Error
 	{
 		this.cause = cause;
 		this.message = message;
+		
+		//ErrorHandling.addError(this);
 	}
 	
 	

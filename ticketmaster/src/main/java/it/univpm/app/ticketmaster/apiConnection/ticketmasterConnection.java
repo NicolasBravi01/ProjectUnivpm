@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.parser.EventsParser;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
+import it.univpm.app.ticketmaster.exception.Error;
 
 
 public class ticketmasterConnection 
