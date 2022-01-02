@@ -14,13 +14,24 @@ import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.Error;
 
-
+/**
+ * Classe contenente la chiamata alla rotta events
+ * 
+ * @author sup3r
+ */
 public class ticketmasterConnection 
 {
-	final static String countryCode = "US";		//Eventi US, United States
-	final static int size = 200;		//Eventi US, United States
+	final static String countryCode = "US";
+	final static int size = 200;		
 	
-	
+	/**
+	 * Metodo static che effettua la chiamata alla rotta events e passa il json al metodo parse della classe EventsParser,
+	 * che restituirà un vettore di eventi, il quale a sua volta verrà passato al metodo setEvents della classe EventsFilter, 
+	 * che si occuperà di creare le liste contenenti tutti gli stati, le città, i segmenti e i generi che sono comparsi nel json.
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.EventsParser
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 */
 	public static void getJSONEvents() 
 	{
 		try

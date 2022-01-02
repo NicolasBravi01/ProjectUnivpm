@@ -21,9 +21,6 @@ public class TicketmasterApplication
 		
 		ticketmasterConnection.getJSONEvents();
 		new Home();
-		
-		
-		
 	}
 
 }
