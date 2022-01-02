@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.parser.EventsParser;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
+import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.Error;
 
 
@@ -40,7 +41,12 @@ public class ticketmasterConnection
 			
 			EventsParser eP = new EventsParser();	
 			EventsFilter.setEvents(eP.parse(data));
-		} 
+		}
+
+		catch (ApiConnectionException e) 
+		{
+			e.printStackTrace();
+		}
 		catch (MalformedURLException e) 
 		{
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package it.univpm.app.ticketmaster.gui;
+package it.univpm.app.ticketmaster.view;
 
 import java.util.Vector;
 
@@ -156,7 +156,6 @@ public class Home extends JFrame
 		
 
 
-		
 		
 		
 		/*

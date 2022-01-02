@@ -332,11 +332,11 @@ public class EventsController
 			LocalDate startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
 			LocalDate endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 			
-			av = (double) n / (double) ChronoUnit.DAYS.between(startDate, endDate);
+			av = (double) (30* n) / (double) ChronoUnit.DAYS.between(startDate, endDate);
 			str = " (media mensile calcolata nel periodo scelto)";
 		}
 
-		av = Math.round(av*1000)/1000;
+		av = (double)Math.round(av*100)/100;
 		msg = av +str;
 		
 		return msg;
@@ -350,13 +350,12 @@ public class EventsController
 		
 		int min = 0;
 		int [] arrayContatore = {0,0,0,0,0,0,0,0,0,0,0,0};
-		String str = "";
 		String msg = "";
 		
 		for(int i=0; i<events.size();i++)
 		{
 			date = events.get(i).getLocalDate();
-			int month = date.getDayOfMonth();
+			int month = date.getMonthValue();
 			arrayContatore[month-1]++;
 		}
 		
@@ -375,49 +374,11 @@ public class EventsController
 			}
 		}
 		
-		switch(monthMin)
-		{
-			case 1:
-				str = "Gennaio";
-				break;
-			case 2:
-				str = "Febbraio";
-				break;
-			case 3:
-				str = "Marzo";
-				break;
-			case 4:
-				str = "Aprile";
-				break;
-			case 5:
-				str = "Maggio";
-				break;
-			case 6:
-				str = "Giugno";
-				break;
-			case 7:
-			    str = "Luglio";
-			    break;
-			case 8:
-			    str = "Agosto";
-			    break;
-			case 9:
-				str = "Settembre";
-				break;
-			case 10:
-				str = "Ottobre";
-				break;
-			case 11:
-				str = "Novembre";
-				break;
-			case 12:
-				str = "Dicembre";
-				break;
-		}
 		
-		msg = min + ", raggiunto nel mese di " + str;
+		msg = min + ", raggiunto nel mese di " + monthToString(monthMin);
 		return msg;	
 	}
+	
 	
 	
 	private String max(Vector<Event> events) 
@@ -426,13 +387,12 @@ public class EventsController
 		
 		int max = 0;
 		int [] arrayContatore = {0,0,0,0,0,0,0,0,0,0,0,0};
-		String str = "";
 		String msg = "";
 		
 		for(int i=0; i<events.size();i++)
 		{
 			date = events.get(i).getLocalDate();
-			int month = date.getDayOfMonth();
+			int month = date.getMonthValue();
 			arrayContatore[month-1]++;
 		}
 		
@@ -451,7 +411,18 @@ public class EventsController
 			}
 		}
 		
-		switch(monthMax)
+		
+		msg = max + ", raggiunto nel mese di " + monthToString(monthMax);
+		return msg;	
+	}
+	
+	
+	
+	public String monthToString(int month)
+	{
+		String str = "";
+		
+		switch(month)
 		{
 			case 1:
 				str = "Gennaio";
@@ -491,8 +462,8 @@ public class EventsController
 				break;
 		}
 		
-		msg = max + ", raggiunto nel mese di " + str;
-		return msg;	
+		return str;
 	}
+	
 }
 	

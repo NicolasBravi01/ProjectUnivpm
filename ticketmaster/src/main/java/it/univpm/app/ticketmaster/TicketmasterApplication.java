@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
-import it.univpm.app.ticketmaster.gui.Home;
+import it.univpm.app.ticketmaster.view.Home;
 
 @SpringBootApplication
 public class TicketmasterApplication 
