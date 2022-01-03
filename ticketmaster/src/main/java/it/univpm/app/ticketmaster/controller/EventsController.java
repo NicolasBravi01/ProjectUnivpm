@@ -29,6 +29,7 @@ public class EventsController
 		this.filteredEvents = filteredEvents;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /events, 
 	 * che è in grado di generare filtri in base ai parametri forniti dall'utente
@@ -56,6 +57,7 @@ public class EventsController
 		JSONObject response = jB.getJSONObjectEvents(EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
 		return response;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /stats 
@@ -117,6 +119,7 @@ public class EventsController
 		return response;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /stats/cities, 
 	 * che è in grado di generare le statistiche per le città scelte dall'utente in un certo periodo
@@ -142,6 +145,7 @@ public class EventsController
 		return response;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /stats/segment, 
 	 * che è in grado di generare le statistiche per il segmento scelto dall'utente in un certo periodo
@@ -164,6 +168,7 @@ public class EventsController
 		
 		return response;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /stats/genres, 
@@ -190,6 +195,7 @@ public class EventsController
 		return response;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /events/states, 
 	 * che è restituisce la lista di eventi raggruppati per stati
@@ -211,6 +217,7 @@ public class EventsController
 		
 		return response;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /events/cities, 
@@ -235,6 +242,7 @@ public class EventsController
 		return response;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /events/segments, 
 	 * che è restituisce la lista di eventi raggruppati per segmenti
@@ -256,6 +264,7 @@ public class EventsController
 		
 		return response;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /events/genres, 
@@ -279,6 +288,7 @@ public class EventsController
 		return response;
 	}
 	
+	
 	/**
 	 * Metodo associato alla rotta get /states, 
 	 * che è restituisce la lista degli stati
@@ -289,6 +299,7 @@ public class EventsController
 		Vector<String> states = EventsFilter.getStates();
 		return states;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /cities, 
@@ -301,6 +312,7 @@ public class EventsController
 		return cities;
 	}
 
+	
 	/**
 	 * Metodo associato alla rotta get /segments, 
 	 * che è restituisce la lista dei segmenti
@@ -311,6 +323,7 @@ public class EventsController
 		Vector<String> segments = EventsFilter.getSegments();
 		return segments;
 	}
+	
 	
 	/**
 	 * Metodo associato alla rotta get /genres, 

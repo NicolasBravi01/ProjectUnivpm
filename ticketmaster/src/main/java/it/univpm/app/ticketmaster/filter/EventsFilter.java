@@ -39,7 +39,7 @@ public class EventsFilter
 	}
 
 	/**
-	 * metodo static (che verrà utilizzato nella chiamata all'api) che riempe i vettori sopracitati 
+	 * Metodo static (che verrà utilizzato nella chiamata all'api) che riempe i vettori sopracitati 
 	 * leggendo il vettore di tutti gli eventi che viene passato per parametro
 	 * 
 	 * @param e Vettore di tutti gli eventi 
@@ -54,26 +54,26 @@ public class EventsFilter
 	public static Vector<String> getStates() {
 		return states;
 	}
-
 	public static Vector<String> getCities() {
 		return cities;
 	}
-
 	public static Vector<String> getSegments() {
 		return segments;
 	}
-
 	public static Vector<String> getGenres() {
 		return genres;
 	}
 	
-	/*
 	public static void addEvent(Event e) {
 		events.add(e);
 		addInformation(e);
 	}
-	*/
 	
+	/**
+	 * Metodo che aggiunge le informazioni contenute nell'evento ai vettori sopracitati
+	 * 
+	 * @param e Evento 
+	 */
 	private static void addInformation(Event e) {
 		addState(e.getState());
 		addCity(e.getCity());
@@ -87,22 +87,24 @@ public class EventsFilter
 		if(!states.contains(state))
 			states.add(state);
 	}
-	
 	private static void addCity(String city) {
 		if(!cities.contains(city))
 			cities.add(city);
 	}
-	
 	private static void addSegment(String segment) {
 		if(!segments.contains(segment))
 			segments.add(segment);
 	}
-	
 	private static void addGenre(String genre) {
 		if(!genres.contains(genre))
 			genres.add(genre);
 	}
 	
+	/**
+	 * Metodo che assegna i valori ai parametri firstDate e lastDate (dichiarati nella classe Stats)
+	 * 
+	 * @param date Data dell'evento
+	 */
 	private static void updatePeriodStats(LocalDate date)
 	{		
 		if((Stats.getFirstDate() == null))
@@ -153,6 +155,5 @@ public class EventsFilter
 		
 		return filteredEvents;
 	}
-	
 	
 }

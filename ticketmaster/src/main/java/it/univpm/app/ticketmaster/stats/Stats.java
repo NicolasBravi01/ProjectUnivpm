@@ -27,24 +27,24 @@ public class Stats
 	public static LocalDate getFirstDate() {
 		return firstDate;
 	}
-
 	public static void setFirstDate(LocalDate firstDate) {
 		Stats.firstDate = firstDate;
 	}
-
 	public static LocalDate getLastDate() {
 		return lastDate;
 	}
-
 	public static void setLastDate(LocalDate lastDate) {
 		Stats.lastDate = lastDate;
 	}
 
+	
 	/**
 	 * Metodo che calcola la media mensile degli eventi, in base al periodo scelto dall'utente
 	 * 
 	 * @param n Numero di eventi
 	 * @param period Stringa contenente il periodo scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
 	 * @return av Media mensile degli eventi
 	 */
@@ -77,13 +77,15 @@ public class Stats
 		return av;		
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il minimo
 	 * 
 	 * @param events Vettore di eventi tra i quali si cerca di calcolare il minimo
 	 * 
-	 * @return msg Stringa che rivela il minimo e il mese in cui questo viene raggiunto
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
+	 * @return msg Stringa che rivela il minimo e il mese in cui questo viene raggiunto
 	 */
 	public String min(Vector<Event> events) 
 	{		
@@ -96,13 +98,15 @@ public class Stats
 		return msg;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il massimo
 	 * 
 	 * @param events Vettore di eventi tra i quali si cerca di calcolare il massimo
 	 * 
-	 * @return msg Stringa che rivela il massimo e il mese in cui questo viene raggiunto
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
+	 * @return msg Stringa che rivela il massimo e il mese in cui questo viene raggiunto
 	 */
 	public String max(Vector<Event> events) 
 	{	
@@ -115,10 +119,13 @@ public class Stats
 		return msg;	
 	}
 	
+	
 	/**
 	 * Metodo che converte un numero compreso tra 1 e 12 nella stringa del mese
 	 * 
 	 * @param month Numero del mese corrispondente 
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
 	 * @return str Stringa che rivela il mese a cui è associato il numero month
 	 */
@@ -169,10 +176,13 @@ public class Stats
 		return str;
 	}
 	
+	
 	/**
 	 * Metodo che crea un array contenente il numero di eventi accaduti in ogni mese
 	 * 
 	 * @param events Vettore di eventi 
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
 	 * @return counter Array che immagazzina il numero di eventi accaduti in ogni mese
 	 */
@@ -191,10 +201,13 @@ public class Stats
 		return counter;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce l'indice dell'array a cui corrisponde il valore massimo
 	 * 
 	 * @param vet Array di numeri
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
 	 * @return maxIndex Indice dell'array a cui corrisponde il valore massimo
 	 */
@@ -219,6 +232,8 @@ public class Stats
 	 * 
 	 * @param vet Array di numeri
 	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
 	 * @return minIndex Indice dell'array a cui corrisponde il valore minimo
 	 */
 	public int minValueIndex(int [] vet)
@@ -238,13 +253,15 @@ public class Stats
 	}
 	
 	
-
-	
-	
-	
-	/*
-	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
-	 * e il valore iniziale di *filter* non deve essere modificato
+	/**
+	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni stato,
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONBuilder
+	 * 
+	 * @param filter Filtro scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
+	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerStates(FilterImpl filter)
 	{
@@ -253,11 +270,13 @@ public class Stats
 		FilterImpl filterApp = new FilterImpl();
 		try
 		{
+			/*è stato istanziato un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
+			 *e il valore iniziale di *filter* non deve essere modificato */
+			
 			filterApp = (FilterImpl) filter.clone();
 		}
 		catch (CloneNotSupportedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -277,10 +296,15 @@ public class Stats
 	}
 	
 	
-	
-	/*
-	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
-	 * e il valore iniziale di *filter* non deve essere modificato
+	/**
+	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni città,
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerCities della classe JSONBuilder
+	 * 
+	 * @param filter Filtro scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
+	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerCities(FilterImpl filter)
 	{
@@ -293,7 +317,6 @@ public class Stats
 		}
 		catch (CloneNotSupportedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -313,10 +336,15 @@ public class Stats
 	}
 	
 	
-	
-	/*
-	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
-	 * e il valore iniziale di *filter* non deve essere modificato
+	/**
+	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni segmento,
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerSegment della classe JSONBuilder
+	 * 
+	 * @param filter Filtro scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
+	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerSegments(FilterImpl filter)
 	{
@@ -329,7 +357,6 @@ public class Stats
 		}
 		catch (CloneNotSupportedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -349,10 +376,15 @@ public class Stats
 	}
 	
 	
-	
-	/*
-	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
-	 * e il valore iniziale di *filter* non deve essere modificato
+	/**
+	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni genere,
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONBuilder
+	 * 
+	 * @param filter Filtro scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
+	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerGenres(FilterImpl filter)
 	{
@@ -365,7 +397,6 @@ public class Stats
 		}
 		catch (CloneNotSupportedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -383,10 +414,6 @@ public class Stats
 		
 		return counter;
 	}
-	
-	
-	
-	
 	
 }
 	

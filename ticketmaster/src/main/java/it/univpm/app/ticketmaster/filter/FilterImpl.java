@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
-import javax.annotation.PostConstruct;
-
 import it.univpm.app.ticketmaster.model.Event;
 
 public class FilterImpl implements Filter, Cloneable
@@ -19,7 +17,6 @@ public class FilterImpl implements Filter, Cloneable
 	
 	boolean error = false;
 	
-		
 	
 	public FilterImpl(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
 	{
@@ -39,7 +36,6 @@ public class FilterImpl implements Filter, Cloneable
 		this.segment = segment;
 		this.genres = genres;
 	}
-	
 	
 	public FilterImpl(String states, String cities, String period, String segment, String genres)
 	{
@@ -61,7 +57,6 @@ public class FilterImpl implements Filter, Cloneable
 		reset();
 	}
 	
-		
 	
 	public Vector<String> getStates() {
 		return states;
@@ -122,6 +117,8 @@ public class FilterImpl implements Filter, Cloneable
 		this.genres = new Vector<String>();
 		this.genres.add(genre);
 	}
+	
+	
 	public boolean isError() {
 		return error;
 	}
@@ -140,6 +137,7 @@ public class FilterImpl implements Filter, Cloneable
 		this.genres = new Vector<String>();
 	}
 	
+	
 	public Object clone() throws CloneNotSupportedException 
 	{
 		return (FilterImpl)super.clone();
@@ -151,15 +149,11 @@ public class FilterImpl implements Filter, Cloneable
 		return isIncluded;
 	}	
 	
-	
-	
 	public boolean isIncludedCity(String city)
 	{
 		boolean isIncluded =  ((city == null) ||(this.cities.size() == 0) || this.cities.contains(city));
 		return isIncluded;
 	}	
-
-	
 	
 	public boolean isIncludedDate(LocalDate localDate) 
 	{
@@ -175,24 +169,18 @@ public class FilterImpl implements Filter, Cloneable
 		
 		return isIncluded;
 	}
-
-	
 	
 	public boolean isIncludedSegment(String segment)
 	{
 		boolean isIncluded = ((segment == null) || (this.segment.isEmpty()) || this.segment.equals(segment));
 		return isIncluded;
 	}
-
-	
 	
 	public boolean isIncludedGenre(String genre)
 	{
 		boolean isIncluded = ((genre == null) || (this.genres.size() == 0) || this.genres.contains(genre));
 		return isIncluded;
 	}
-	
-	
 	
 	public boolean isIncludedEvent(Event e)
 	{
@@ -201,8 +189,13 @@ public class FilterImpl implements Filter, Cloneable
 		return isIncluded;
 	}
 	
-	
-
+	/**
+	 * Metodo (invocato dal costruttore) che converte un elenco di parole separate da una virgola in un vettore di stringhe 
+	 * 
+	 * @param toParse Stringa contenente parole separate da una virgola
+	 * 
+	 * @return list Vettore di stringhe
+	 */
 	private Vector<String> convertToVectorOfStrings(String toParse)
 	{
 		Vector<String> list = new Vector<String>();
@@ -219,6 +212,13 @@ public class FilterImpl implements Filter, Cloneable
 	}
 	
 	
+	/**
+	 * Metodo (invocato dal costruttore) che leggendo una stringa contenente due date (in formato LocalDate) separate da una virgola
+	 * assegna la prima data al valore startDate e la seconda data al valore endDate 
+	 * 
+	 * 
+	 * @param period Periodo scelto dall'utente
+	 */
 	private void loadPeriod(String period)
 	{
 		if(period.isEmpty())
@@ -248,6 +248,4 @@ public class FilterImpl implements Filter, Cloneable
 		}
 	}
 	
-	
-		
 }

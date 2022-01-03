@@ -17,6 +17,7 @@ import it.univpm.app.ticketmaster.stats.Stats;
  */
 public class JSONBuilder 
 {
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events
 	 * 
@@ -35,11 +36,14 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/states
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -68,11 +72,14 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/cities
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -101,11 +108,14 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/segments
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -134,11 +144,14 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/genres
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -167,16 +180,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	/*public JSONObject getJSONObjectStats(int n, double average, String min, String max)
-	{
-		JSONObject obj = new JSONObject();
-		obj.put("numero eventi", n);
-		obj.put("media eventi", average);
-		obj.put("minimo eventi mensili", min);
-		obj.put("massimo eventi mensili", max);
-		
-		return obj;
-	}*/
 	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats
@@ -184,6 +187,8 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -206,9 +211,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-
-
-	
 	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/states
@@ -216,6 +218,8 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -249,15 +253,14 @@ public class JSONBuilder
 	}
 	
 	
-	
-
-	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities
 	 * 
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -290,12 +293,15 @@ public class JSONBuilder
 		return obj;
 	}
 		
+	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/segments
 	 * 
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -328,9 +334,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
 
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/genres
@@ -338,6 +341,8 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
@@ -371,10 +376,21 @@ public class JSONBuilder
 	}
 	
 	
-	
-	
-	
-
+	/**
+	 * Metodo che viene utilizzato nel metodo getJSONObjectAllStats per restituire un JSONObject contenente 
+	 * lo stato con il maggior numero di eventi e 
+	 * lo stato con il minor numero di eventi
+	 * tra quelli filtrati dall'utente
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectMaxMinPerStates(FilterImpl filter)
 	{
@@ -398,6 +414,20 @@ public class JSONBuilder
 	}
 	
 	
+	/**
+	 * Metodo che viene utilizzato nel metodo getJSONObjectAllStats per restituire un JSONObject contenente 
+	 * la città con il maggior numero di eventi e 
+	 * la città con il minor numero di eventi
+	 * tra quelli filtrati dall'utente
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectMaxMinPerCities(FilterImpl filter)
 	{
@@ -421,7 +451,20 @@ public class JSONBuilder
 	}
 	
 	
-	
+	/**
+	 * Metodo che viene utilizzato nel metodo getJSONObjectAllStats per restituire un JSONObject contenente 
+	 * il segmento con il maggior numero di eventi e 
+	 * il segmento con il minor numero di eventi
+	 * tra quelli filtrati dall'utente
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectMaxMinPerSegments(FilterImpl filter)
 	{
@@ -445,6 +488,20 @@ public class JSONBuilder
 	}
 	
 	
+	/**
+	 * Metodo che viene utilizzato nel metodo getJSONObjectAllStats per restituire un JSONObject contenente 
+	 * il genere con il maggior numero di eventi e 
+	 * il genere con il minor numero di eventi
+	 * tra quelli filtrati dall'utente
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectMaxMinPerGenres(FilterImpl filter)
 	{
@@ -468,11 +525,6 @@ public class JSONBuilder
 	}
 	
 	
-	
-	
-	
-	
-	
 	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectError(Error err)
 	{
@@ -492,6 +544,20 @@ public class JSONBuilder
 	}
 	
 	
+	/**
+	 * Metodo che restituisce un JSONObject comune a tutte le rotte
+	 * che si occupano delle statistiche
+	 * 
+	 * @param events Vettore di eventi 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectStats(Vector<Event> events, FilterImpl filter)
 	{		
@@ -509,7 +575,20 @@ public class JSONBuilder
 	}
 	
 	
-	
+	/**
+	 * Metodo che restituisce un JSONObject contenente i nomi degli elementi con il maggior numero di eventi
+	 * e con il minor numero di eventi, il numero di eventi che li caratterizza e la loro media mensile
+	 * 
+	 * @param elements
+	 * @param counter
+	 * @param index
+	 * @param period Periodo scelto dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONObject getJSONObjectMaxMin(Vector<String> elements, int [] counter, int index, String period)
 	{
@@ -522,8 +601,5 @@ public class JSONBuilder
 		
 		return obj;
 	}
-	
-	
-	
 	
 }
