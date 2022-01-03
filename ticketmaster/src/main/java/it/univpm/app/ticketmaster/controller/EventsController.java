@@ -60,6 +60,44 @@ public class EventsController
 		return response;
 	}
 	
+	
+	
+	/**
+	 * Metodo associato alla rotta get /stats 
+	 * che è in grado di generare le statistiche per tutti gli eventi in un certo periodo
+	 * 
+	 * @param period Stringa contenente il periodo di interesse per l'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * 
+	 * @return response JSONObject contenente le statistiche degli eventi in un certo periodo
+	 */
+	@GetMapping(value = "/stats")
+	public JSONObject getStats(@RequestParam(name="period", defaultValue="") String period)
+	{	
+		FilterImpl filter = new FilterImpl(period);
+		JSONBuilder jB = new JSONBuilder();
+		
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		JSONObject response = new JSONObject();		
+		
+		int size = events.size();
+				
+		//if(size > 0)	//altrimenti generea Errore					 
+			//response = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
+		/*
+		 * 	else
+		 * 		response = getJSONObjectError("Lista eventi vuota");
+		 */
+		
+		response = jB.getJSONObjectStats(events, filter);
+		
+		return response;
+	}
+	
+	
+	
 	/**
 	 * Metodo associato alla rotta get /stats/states, 
 	 * che è in grado di generare le statistiche per gli stati scelti dall'utente in un certo periodo
@@ -70,7 +108,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente le statistiche degli stati filtrati dall'utente in un certo periodo
+	 * @return response JSONObject contenente le statistiche degli stati filtrati dall'utente in un certo periodo
 	 */
 	@GetMapping(value = "/stats/states")
 	public JSONObject getStatsPerStates(@RequestParam(name="states", defaultValue="") String states,
@@ -79,8 +117,8 @@ public class EventsController
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		JSONObject joInt;
 		String state;
 		
@@ -97,11 +135,14 @@ public class EventsController
 			 if(size > 0)
 			 {						 
 				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 jo.put(state, joInt);	
+				 response.put(state, joInt);	
 			 }
-		}
+		}*/
 		
-		return jo;
+		
+		JSONObject response = jB.getJSONObjectStatsPerStates(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -114,7 +155,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente le statistiche delle città filtrate dall'utente in un certo periodo
+	 * @return response JSONObject contenente le statistiche delle città filtrate dall'utente in un certo periodo
 	 */
 	@GetMapping(value = "/stats/cities")
 	public JSONObject getStatsPerCities(@RequestParam(name="cities", defaultValue="") String cities,
@@ -123,8 +164,8 @@ public class EventsController
 		FilterImpl filter = new FilterImpl("", cities, period, "", "");
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		JSONObject joInt;
 		String city;
 		
@@ -141,11 +182,13 @@ public class EventsController
 			 if(size > 0)
 			 {						 
 				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 jo.put(city, joInt);
+				 response.put(city, joInt);
 			 }
-		}
+		}*/
 		
-		return jo;
+		JSONObject response = jB.getJSONObjectStatsPerCities(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -157,16 +200,16 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente le statistiche del segmento scelto dall'utente in un certo periodo
+	 * @return response JSONObject contenente le statistiche del segmento scelto dall'utente in un certo periodo
 	 */
 	@GetMapping(value = "/stats/segment")
 	public JSONObject getStatsPerSegments(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		JSONObject joInt;
 		String seg;
 		
@@ -183,11 +226,13 @@ public class EventsController
 			 if(size > 0)
 			 {						 
 				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 jo.put(seg, joInt);
+				 response.put(seg, joInt);
 			 }
-		}
+		}*/
 		
-		return jo;
+		JSONObject response = jB.getJSONObjectStatsPerSegments(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -200,17 +245,17 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente le statistiche dei generi scelti dall'utente in un certo periodo
+	 * @return response JSONObject contenente le statistiche dei generi scelti dall'utente in un certo periodo
 	 */
 	@GetMapping(value = "/stats/genres")
 	public JSONObject getStatsPerGenres(@RequestParam(name="genres", defaultValue="") String genres,
 						   @RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, "", genres);
+		FilterImpl filter = new FilterImpl("" , "", period, "", genres);
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		JSONObject joInt;
 		String genre;
 		
@@ -227,11 +272,13 @@ public class EventsController
 			 if(size > 0)
 			 {						 
 				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
-				 jo.put(genre, joInt);	
+				 response.put(genre, joInt);	
 			 }
-		}
+		}*/
 		
-		return jo;
+		JSONObject response = jB.getJSONObjectStatsPerGenres(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -243,16 +290,16 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
+	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
 	 */
 	@GetMapping(value = "/events/states")
-	public JSONObject getEventsForStates(@RequestParam(name="period", defaultValue="") String period)
+	public JSONObject getEventsPerStates(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		String state;
 		
 		for(int i=0; i<EventsFilter.getStates().size(); i++)
@@ -264,11 +311,13 @@ public class EventsController
 		
 			 if(events.size()>0)
 			 {
-				 jo.put(state, jB.getJSONObjectEvents(events));
+				 response.put(state, jB.getJSONObjectEvents(events));
 			 }
-		}
+		}*/
 		
-		return jo;
+		JSONObject response = jB.getJSONObjectEventsPerStates(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -280,17 +329,17 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
+	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
 	 */
 	@GetMapping(value = "/events/cities")
-	public JSONObject getEventsForCities(@RequestParam(name="states", defaultValue="") String states,
+	public JSONObject getEventsPerCities(@RequestParam(name="states", defaultValue="") String states,
 						  @RequestParam(name="period", defaultValue="") String period)
 	{	
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		String city;
 		
 		for(int i=0; i<EventsFilter.getCities().size(); i++)
@@ -302,11 +351,14 @@ public class EventsController
 		
 			 if(events.size()>0)
 			 {
-				 jo.put(city, jB.getJSONObjectEvents(events));
+				 response.put(city, jB.getJSONObjectEvents(events));
 			 }
-		}
+		}*/
 		
-		return jo;
+
+		JSONObject response = jB.getJSONObjectEventsPerCities(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -318,16 +370,16 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente la lista di eventi raggruppati per segmenti in un certo periodo
+	 * @return response JSONObject contenente la lista di eventi raggruppati per segmenti in un certo periodo
 	 */
 	@GetMapping(value = "/events/segments")
-	public JSONObject getEventsForCities(@RequestParam(name="period", defaultValue="") String period)
+	public JSONObject getEventsPerSegments(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, "", "");
+		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		String segment;
 		
 		for(int i=0; i<EventsFilter.getSegments().size(); i++)
@@ -339,11 +391,14 @@ public class EventsController
 		
 			 if(events.size()>0)
 			 {
-				 jo.put(segment, jB.getJSONObjectEvents(events));
+				 response.put(segment, jB.getJSONObjectEvents(events));
 			 }
-		}
+		}*/
 		
-		return jo;
+
+		JSONObject response = jB.getJSONObjectEventsPerSegments(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -355,18 +410,17 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
 	 * 
-	 * @return jo JSONObject contenente la lista di eventi raggruppati per generi in un certo periodo
+	 * @return response JSONObject contenente la lista di eventi raggruppati per generi in un certo periodo
 	 */
 	@GetMapping(value = "/events/genres")
-	public JSONObject getEventsForGenres(@RequestParam(name="segment", defaultValue="") String segment,
-						  @RequestParam(name="period", defaultValue="") String period)
+	public JSONObject getEventsPerGenres(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl("", "", period, segment, "");
+		FilterImpl filter = new FilterImpl(period);
 		
 		JSONBuilder jB = new JSONBuilder();
 		
-		Vector<Event> events;
-		JSONObject jo = new JSONObject();
+		/*Vector<Event> events;
+		JSONObject response = new JSONObject();
 		String genre;
 		
 		for(int i=0; i<EventsFilter.getGenres().size(); i++)
@@ -378,11 +432,14 @@ public class EventsController
 		
 			 if(events.size()>0)
 			 {
-				 jo.put(genre, jB.getJSONObjectEvents(events));
+				 response.put(genre, jB.getJSONObjectEvents(events));
 			 }
-		}
+		}*/
 		
-		return jo;
+
+		JSONObject response = jB.getJSONObjectEventsPerGenres(filter);
+		
+		return response;
 	}
 	
 	/**
@@ -429,144 +486,6 @@ public class EventsController
 		return genres;
 	}
 	
-	
-	private String average(int n, String period) 
-	{
-		double av;
-		String str = "";
-		String msg = "";
-		
-		if(period.equals(""))
-		{
-			av = (double) n/12;
-		    str = " (media mensile, calcolata nell'arco di un intero anno)";
-		}
-		else
-		{
-			LocalDate startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
-			LocalDate endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
-			
-			av = (double) (30* n) / (double) ChronoUnit.DAYS.between(startDate, endDate);
-			str = " (media mensile calcolata nel periodo scelto)";
-		}
-
-		av = (double)Math.round(av*100)/100;
-		msg = av +str;
-		
-		return msg;
-		
-	}
-	
-	
-	private String min(Vector<Event> events) 
-	{
-		LocalDate date;
-		
-		int min = 0;
-		int [] counter = {0,0,0,0,0,0,0,0,0,0,0,0};
-		String msg = "";
-		
-		for(int i=0; i<events.size();i++)
-		{
-			date = events.get(i).getLocalDate();
-			int month = date.getMonthValue();
-			counter[month-1]++;
-		}
-	
-		int monthMin = 0;
-		
-		for (int k = 0; k < counter.length; k++) 
-		{
-			if(counter[k] <= min)
-			{
-		    	min = counter[k];
-		    	monthMin = k+1;
-			}
-		}
-
-		msg = min + ", raggiunto nel mese di " + monthToString(monthMin);
-		return msg;	
-	}
-	
-	
-	private String max(Vector<Event> events) 
-	{
-		LocalDate date;
-		
-		int max = 0;
-		
-		int [] counter = {0,0,0,0,0,0,0,0,0,0,0,0};
-		String msg = "";
-		
-		for(int i=0; i<events.size();i++)
-		{
-			date = events.get(i).getLocalDate();
-			int month = date.getMonthValue();
-			counter[month-1]++;
-		}
-		
-		int monthMax = 0;
-		
-		for (int k = 0; k < counter.length; k++) 
-		{
-			if(counter[k] > max)
-			{
-		    	max = counter[k];
-		    	monthMax = k+1;
-			}
-		}
-		
-		msg = max + ", raggiunto nel mese di " + monthToString(monthMax);
-		return msg;	
-	}
-	
-	
-	public String monthToString(int month)
-	{
-		String str = "";
-		
-		switch(month)
-		{
-			case 1:
-				str = "Gennaio";
-				break;
-			case 2:
-				str = "Febbraio";
-				break;
-			case 3:
-				str = "Marzo";
-				break;
-			case 4:
-				str = "Aprile";
-				break;
-			case 5:
-				str = "Maggio";
-				break;
-			case 6:
-				str = "Giugno";
-				break;
-			case 7:
-			    str = "Luglio";
-			    break;
-			case 8:
-			    str = "Agosto";
-			    break;
-			case 9:
-				str = "Settembre";
-				break;
-			case 10:
-				str = "Ottobre";
-				break;
-			case 11:
-				str = "Novembre";
-				break;
-			case 12:
-				str = "Dicembre";
-				break;
-		}
-		
-		return str;
-	}
 	
 }
 	

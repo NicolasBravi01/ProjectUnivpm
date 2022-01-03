@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
+import javax.annotation.PostConstruct;
+
 import it.univpm.app.ticketmaster.model.Event;
 
 public class FilterImpl implements Filter
@@ -59,6 +61,7 @@ public class FilterImpl implements Filter
 		reset();
 	}
 	
+		
 	
 	public Vector<String> getStates() {
 		return states;
@@ -96,6 +99,13 @@ public class FilterImpl implements Filter
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	public String getPeriod(){
+		String period = "";
+		if((this.startDate != null) && (this.endDate != null))
+			period = this.startDate + "," + this.endDate;
+		
+		return period;
+	}
 	public String getSegment() {
 		return segment;
 	}
@@ -126,7 +136,7 @@ public class FilterImpl implements Filter
 		this.cities = new Vector<String>();
 		this.startDate = null;
 		this.endDate = null;
-		this.segment = null;
+		this.segment = "";
 		this.genres = new Vector<String>();
 	}
 	
@@ -134,7 +144,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedState(String state)
 	{
-		boolean isIncluded = (this.states.contains(state)) || (this.states.size() == 0);
+		boolean isIncluded = ((state == null) || (this.states.size() == 0) || this.states.contains(state));
 		return isIncluded;
 	}	
 	
@@ -142,7 +152,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedCity(String city)
 	{
-		boolean isIncluded = (this.cities.contains(city) || (this.cities.size() == 0));
+		boolean isIncluded =  ((city == null) ||(this.cities.size() == 0) || this.cities.contains(city));
 		return isIncluded;
 	}	
 
@@ -167,7 +177,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedSegment(String segment)
 	{
-		boolean isIncluded = (this.segment.equals(segment)) || (this.segment.isEmpty());
+		boolean isIncluded = ((segment == null) || (this.segment.isEmpty()) || this.segment.equals(segment));
 		return isIncluded;
 	}
 
@@ -175,7 +185,7 @@ public class FilterImpl implements Filter
 	
 	public boolean isIncludedGenre(String genre)
 	{
-		boolean isIncluded = (this.genres.contains(genre)) || (this.genres.size() == 0);
+		boolean isIncluded = ((genre == null) || (this.genres.size() == 0) || this.genres.contains(genre));
 		return isIncluded;
 	}
 	
@@ -236,9 +246,5 @@ public class FilterImpl implements Filter
 	}
 	
 	
-	public boolean check()
-	{
-		return error;
-	}
 		
 }
