@@ -300,13 +300,6 @@ public class JSONBuilder
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	public JSONObject getJSONObjectError(Error err)
 	{
 		JSONObject obj = new JSONObject();

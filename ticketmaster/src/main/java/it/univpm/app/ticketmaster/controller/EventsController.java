@@ -116,30 +116,7 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
-		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		JSONObject joInt;
-		String state;
-		
-		for(int i=0; i<EventsFilter.getStates().size(); i++)
-		{
-			 state = EventsFilter.getStates().get(i);
-			 joInt = new JSONObject();
-			
-			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 int size = events.size();
 				
-			 if(size > 0)
-			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 response.put(state, joInt);	
-			 }
-		}*/
-		
-		
 		JSONObject response = jB.getJSONObjectStatsPerStates(filter);
 		
 		return response;
@@ -163,29 +140,7 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl("", cities, period, "", "");
 		JSONBuilder jB = new JSONBuilder();
-		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		JSONObject joInt;
-		String city;
-		
-		for(int i=0; i<EventsFilter.getCities().size(); i++)
-		{
-			 city = EventsFilter.getCities().get(i);
-			 joInt = new JSONObject();
-			
-			 filter.setCities(city);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 int size = events.size();
 				
-			 if(size > 0)
-			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 response.put(city, joInt);
-			 }
-		}*/
-		
 		JSONObject response = jB.getJSONObjectStatsPerCities(filter);
 		
 		return response;
@@ -207,29 +162,7 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
-		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		JSONObject joInt;
-		String seg;
-		
-		for(int i=0; i<EventsFilter.getSegments().size(); i++)
-		{
-			 seg = EventsFilter.getSegments().get(i);
-			 joInt = new JSONObject();
-			
-			 filter.setSegment(seg);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 int size = events.size();
 				
-			 if(size > 0)
-			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));	
-				 response.put(seg, joInt);
-			 }
-		}*/
-		
 		JSONObject response = jB.getJSONObjectStatsPerSegments(filter);
 		
 		return response;
@@ -254,28 +187,6 @@ public class EventsController
 		FilterImpl filter = new FilterImpl("" , "", period, "", genres);
 		JSONBuilder jB = new JSONBuilder();
 		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		JSONObject joInt;
-		String genre;
-		
-		for(int i = 0; i < EventsFilter.getGenres().size(); i++)
-		{
-			 genre = EventsFilter.getGenres().get(i);
-			 joInt = new JSONObject();
-			
-			 filter.setGenres(genre);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-			 
-			 int size = events.size();
-		
-			 if(size > 0)
-			 {						 
-				 joInt = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
-				 response.put(genre, joInt);	
-			 }
-		}*/
-		
 		JSONObject response = jB.getJSONObjectStatsPerGenres(filter);
 		
 		return response;
@@ -297,24 +208,7 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
-		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		String state;
-		
-		for(int i=0; i<EventsFilter.getStates().size(); i++)
-		{
-			 state = EventsFilter.getStates().get(i);
-			
-			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 if(events.size()>0)
-			 {
-				 response.put(state, jB.getJSONObjectEvents(events));
-			 }
-		}*/
-		
+
 		JSONObject response = jB.getJSONObjectEventsPerStates(filter);
 		
 		return response;
@@ -338,24 +232,6 @@ public class EventsController
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
 		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		String city;
-		
-		for(int i=0; i<EventsFilter.getCities().size(); i++)
-		{
-			 city = EventsFilter.getCities().get(i);
-			
-			 filter.setCities(city);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 if(events.size()>0)
-			 {
-				 response.put(city, jB.getJSONObjectEvents(events));
-			 }
-		}*/
-		
-
 		JSONObject response = jB.getJSONObjectEventsPerCities(filter);
 		
 		return response;
@@ -378,24 +254,6 @@ public class EventsController
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
 		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		String segment;
-		
-		for(int i=0; i<EventsFilter.getSegments().size(); i++)
-		{
-			 segment = EventsFilter.getSegments().get(i);
-			
-			 filter.setSegment(segment);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 if(events.size()>0)
-			 {
-				 response.put(segment, jB.getJSONObjectEvents(events));
-			 }
-		}*/
-		
-
 		JSONObject response = jB.getJSONObjectEventsPerSegments(filter);
 		
 		return response;
@@ -415,28 +273,9 @@ public class EventsController
 	@GetMapping(value = "/events/genres")
 	public JSONObject getEventsPerGenres(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		FilterImpl filter = new FilterImpl(period);
-		
+		FilterImpl filter = new FilterImpl(period);		
 		JSONBuilder jB = new JSONBuilder();
 		
-		/*Vector<Event> events;
-		JSONObject response = new JSONObject();
-		String genre;
-		
-		for(int i=0; i<EventsFilter.getGenres().size(); i++)
-		{
-			 genre = EventsFilter.getGenres().get(i);
-			
-			 filter.setGenres(genre);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 if(events.size()>0)
-			 {
-				 response.put(genre, jB.getJSONObjectEvents(events));
-			 }
-		}*/
-		
-
 		JSONObject response = jB.getJSONObjectEventsPerGenres(filter);
 		
 		return response;
