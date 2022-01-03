@@ -11,16 +11,33 @@ import it.univpm.app.ticketmaster.model.Event;
  * per poter produrre i vari jsonobject corrispondenti alle rotte del controller
  * 
  * @author sup3r
+ * @author nicol
  */
 public class Stats 
 {
 	/*
 	 * Da usare per il metodo average
 	 */
-	//static LocalDate firstDate;
-	//static LocalDate lastDate;
+	static LocalDate firstDate;
+	static LocalDate lastDate;
 	
 	
+	public static LocalDate getFirstDate() {
+		return firstDate;
+	}
+
+	public static void setFirstDate(LocalDate firstDate) {
+		Stats.firstDate = firstDate;
+	}
+
+	public static LocalDate getLastDate() {
+		return lastDate;
+	}
+
+	public static void setLastDate(LocalDate lastDate) {
+		Stats.lastDate = lastDate;
+	}
+
 	/**
 	 * Metodo che calcola la media mensile degli eventi, in base al periodo scelto dall'utente
 	 * 
@@ -31,21 +48,30 @@ public class Stats
 	 */
 	public double average(int n, String period) 
 	{
-		double av;		
+		/*
+		 * if((this.firstDate == null) || (this.lastDate == null))
+		 * 		Vuol dire che la lista degli eventi è vuota, gestire errore 
+		 */
+		
+		double av;	
+		
+		LocalDate startDate;
+		LocalDate endDate;
 		
 		if(period.equals(""))
 		{
-			av = (double) n/12;
+			startDate = firstDate;
+			endDate = lastDate;
 		}
 		else
 		{
-			LocalDate startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
-			LocalDate endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
-			
-			av = (double) (30* n) / (double) ChronoUnit.DAYS.between(startDate, endDate);
+			startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
+			endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 		}
 
-		av = (double)Math.round(av*100)/100;		
+		av = (30 * n) / (double) ChronoUnit.DAYS.between(startDate, endDate);
+		av = Math.floor(av*100)/100;
+		
 		return av;		
 	}
 	

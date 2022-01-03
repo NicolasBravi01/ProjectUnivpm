@@ -1,8 +1,10 @@
 package it.univpm.app.ticketmaster.filter;
 
+import java.time.LocalDate;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.stats.Stats;
 
 public class EventsFilter 
 {
@@ -77,6 +79,8 @@ public class EventsFilter
 		addCity(e.getCity());
 		addSegment(e.getSegment());
 		addGenre(e.getGenre());
+		
+		updatePeriodStats(e.getLocalDate());
 	}
 		
 	private static void addState(String state) {
@@ -98,6 +102,27 @@ public class EventsFilter
 		if(!genres.contains(genre))
 			genres.add(genre);
 	}
+	
+	private static void updatePeriodStats(LocalDate date)
+	{		
+		if((Stats.getFirstDate() == null))
+		{
+			Stats.setFirstDate(date);
+			Stats.setLastDate(date);
+		}
+		else
+		{
+			if(date.isBefore(Stats.getFirstDate()))
+			{
+				Stats.setFirstDate(date);
+			}
+			else if(date.isAfter(Stats.getLastDate()))
+			{
+				Stats.setLastDate(date);
+			}
+		}		
+	}
+	
 	
 	/**
 	 * Metodo static che restituisce il vettore di tutti gli eventi dopo che l'utente ha inserito i filtri,
