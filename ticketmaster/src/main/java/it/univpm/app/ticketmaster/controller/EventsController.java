@@ -79,7 +79,7 @@ public class EventsController
 		
 		int size = events.size();
 				
-		//if(size > 0)	//altrimenti generea Errore					 
+		//if(size > 0)	//altrimenti genera Errore					 
 			//response = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
 		/*
 		 * 	else

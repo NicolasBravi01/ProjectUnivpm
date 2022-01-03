@@ -193,6 +193,11 @@ public class JSONBuilder
 		obj.put("media eventi", stats.average(size, filter.getPeriod()));
 		obj.put("minimo eventi mensili", stats.min(events));
 		obj.put("massimo eventi mensili", stats.max(events));
+
+		//obj.put("stato con più eventi", stats.min(events));
+		//obj.put("città con più eventi", stats.min(events));
+		//obj.put("segmento con più eventi", stats.min(events));
+		//obj.put("genere con più eventi", stats.min(events));
 		
 		return obj;
 	}
@@ -233,6 +238,33 @@ public class JSONBuilder
 		
 		return obj;
 	}
+	
+	public void maxMinPerStates(FilterImpl filter)
+	{
+		Vector<Event> events;
+		String state;
+		
+		Stats stats = new Stats();		
+		
+		int [] counter = new int[EventsFilter.getStates().size()];
+		
+		for(int i = 0; i < counter.length ; i++)
+		{
+			 state = EventsFilter.getStates().get(i);
+			
+			 filter.setStates(state);
+			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+			 counter[i] = events.size();			
+		}
+		
+		int maxIndex = stats.maxValueIndex(counter);
+		int minIndex = stats.minValueIndex(counter);
+		stats.average(maxIndex, filter.getPeriod());
+		stats.average(minIndex, filter.getPeriod());
+		
+	}
+	
 	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities

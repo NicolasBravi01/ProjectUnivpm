@@ -196,7 +196,7 @@ public class Stats
 	 * 
 	 * @return maxIndex Indice dell'array a cui corrisponde il valore massimo
 	 */
-	private int maxValueIndex(int [] vet)
+	public int maxValueIndex(int [] vet)
 	{
 		int max = 0, maxIndex = 0;
 		
@@ -219,7 +219,7 @@ public class Stats
 	 * 
 	 * @return minIndex Indice dell'array a cui corrisponde il valore minimo
 	 */
-	private int minValueIndex(int [] vet)
+	public int minValueIndex(int [] vet)
 	{
 		int max = vet[0], minIndex = 0;
 		
@@ -234,5 +234,12 @@ public class Stats
 		
 		return minIndex;
 	}
+	
+	
+	/*private String findTheBiggest()
+	{
+		
+	}
+	*/
 }
 	
