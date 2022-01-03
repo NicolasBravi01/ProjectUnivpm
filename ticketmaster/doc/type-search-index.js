@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"it.univpm.app.ticketmaster.filter","l":"FilterImpl"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"it.univpm.app.ticketmaster.controller","l":"EventsController"}];updateSearchResults();

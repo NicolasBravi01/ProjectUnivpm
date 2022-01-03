@@ -6,6 +6,12 @@ import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+ * Classe che si occupa del calcolo delle statistiche, che verranno in seguito passate alla classe JSONBuilder,
+ * per poter produrre i vari jsonobject corrispondenti alle rotte del controller
+ * 
+ * @author sup3r
+ */
 public class Stats 
 {
 	/*
@@ -14,6 +20,15 @@ public class Stats
 	//static LocalDate firstDate;
 	//static LocalDate lastDate;
 	
+	
+	/**
+	 * Metodo che calcola la media mensile degli eventi, in base al periodo scelto dall'utente
+	 * 
+	 * @param n Numero di eventi
+	 * @param period Stringa contenente il periodo scelto dall'utente
+	 * 
+	 * @return av Media mensile degli eventi
+	 */
 	public double average(int n, String period) 
 	{
 		double av;		
@@ -34,7 +49,14 @@ public class Stats
 		return av;		
 	}
 	
-	
+	/**
+	 * Metodo che restituisce il minimo
+	 * 
+	 * @param events Vettore di eventi tra i quali si cerca di calcolare il minimo
+	 * 
+	 * @return msg Stringa che rivela il minimo e il mese in cui questo viene raggiunto
+	 * 
+	 */
 	public String min(Vector<Event> events) 
 	{		
 		int [] counter = eventsPerMonth(events);
@@ -46,7 +68,14 @@ public class Stats
 		return msg;
 	}
 	
-	
+	/**
+	 * Metodo che restituisce il massimo
+	 * 
+	 * @param events Vettore di eventi tra i quali si cerca di calcolare il massimo
+	 * 
+	 * @return msg Stringa che rivela il massimo e il mese in cui questo viene raggiunto
+	 * 
+	 */
 	public String max(Vector<Event> events) 
 	{	
 		int [] counter = eventsPerMonth(events);
@@ -58,7 +87,13 @@ public class Stats
 		return msg;	
 	}
 	
-	
+	/**
+	 * Metodo che converte un numero compreso tra 1 e 12 nella stringa del mese
+	 * 
+	 * @param month Numero del mese corrispondente 
+	 * 
+	 * @return str Stringa che rivela il mese a cui è associato il numero month
+	 */
 	public String monthToString(int month)
 	{
 		String str = "";
@@ -106,8 +141,13 @@ public class Stats
 		return str;
 	}
 	
-	
-	
+	/**
+	 * Metodo che crea un array contenente il numero di eventi accaduti in ogni mese
+	 * 
+	 * @param events Vettore di eventi 
+	 * 
+	 * @return counter Array che immagazzina il numero di eventi accaduti in ogni mese
+	 */
 	private int [] eventsPerMonth(Vector<Event> events)
 	{
 		int [] counter = {0,0,0,0,0,0,0,0,0,0,0,0};
@@ -123,7 +163,13 @@ public class Stats
 		return counter;
 	}
 	
-	
+	/**
+	 * Metodo che restituisce l'indice dell'array a cui corrisponde il valore massimo
+	 * 
+	 * @param vet Array di numeri
+	 * 
+	 * @return maxIndex Indice dell'array a cui corrisponde il valore massimo
+	 */
 	private int maxValueIndex(int [] vet)
 	{
 		int max = 0, maxIndex = 0;
@@ -140,6 +186,13 @@ public class Stats
 		return maxIndex;
 	}
 	
+	/**
+	 * Metodo che restituisce l'indice dell'array a cui corrisponde il valore minimo
+	 * 
+	 * @param vet Array di numeri
+	 * 
+	 * @return minIndex Indice dell'array a cui corrisponde il valore minimo
+	 */
 	private int minValueIndex(int [] vet)
 	{
 		int max = vet[0], minIndex = 0;

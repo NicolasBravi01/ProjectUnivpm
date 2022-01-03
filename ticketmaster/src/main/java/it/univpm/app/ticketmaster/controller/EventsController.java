@@ -1,8 +1,5 @@
 package it.univpm.app.ticketmaster.controller;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
@@ -60,8 +57,6 @@ public class EventsController
 		return response;
 	}
 	
-	
-	
 	/**
 	 * Metodo associato alla rotta get /stats 
 	 * che è in grado di generare le statistiche per tutti gli eventi in un certo periodo
@@ -97,7 +92,6 @@ public class EventsController
 	}
 	
 	
-	
 	/**
 	 * Metodo associato alla rotta get /stats/states, 
 	 * che è in grado di generare le statistiche per gli stati scelti dall'utente in un certo periodo
@@ -107,6 +101,7 @@ public class EventsController
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche degli stati filtrati dall'utente in un certo periodo
 	 */
@@ -131,6 +126,7 @@ public class EventsController
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche delle città filtrate dall'utente in un certo periodo
 	 */
@@ -154,10 +150,11 @@ public class EventsController
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche del segmento scelto dall'utente in un certo periodo
 	 */
-	@GetMapping(value = "/stats/segment")
+	@GetMapping(value = "/stats/segments")
 	public JSONObject getStatsPerSegments(@RequestParam(name="period", defaultValue="") String period)
 	{	
 		FilterImpl filter = new FilterImpl(period);
@@ -174,6 +171,7 @@ public class EventsController
 	 * 
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
+	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder

@@ -1,7 +1,5 @@
 package it.univpm.app.ticketmaster.parser;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
@@ -11,8 +9,22 @@ import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
 
+/**
+ * Classe che si occupa di costruire i JSONObject restituiti dal controller
+ * 
+ * @author sup3r
+ */
 public class JSONBuilder 
 {
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /events
+	 * 
+	 * @param listEvent Vettore di eventi 
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectEvents(Vector<Event> listEvent)
 	{
 		JSONObject obj = new JSONObject();
@@ -21,8 +33,15 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /events/states
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectEventsPerStates(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -46,9 +65,15 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /events/cities
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectEventsPerCities(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -72,8 +97,15 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /events/segments
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectEventsPerSegments(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -97,9 +129,15 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /events/genres
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectEventsPerGenres(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -123,13 +161,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	/*public JSONObject getJSONObjectStats(int n, double average, String min, String max)
 	{
 		JSONObject obj = new JSONObject();
@@ -141,6 +172,16 @@ public class JSONBuilder
 		return obj;
 	}*/
 	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /stats
+	 * 
+	 * @param events Vettore di eventi
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectStats(Vector<Event> events, FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
@@ -156,17 +197,21 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /stats/states
+	 * 
+	 * @param events Vettore di eventi
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectStatsPerStates(FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Stats stats = new Stats();
-
 		Vector<Event> events;
 		String state;
 		
@@ -181,7 +226,6 @@ public class JSONBuilder
 				
 			 if(size > 0)
 			 {						 
-				 //objInt = getJSONObjectStats(size, stats.average(size, filter.getPeriod()), stats.min(events), stats.max(events));	
 				 objInt = getJSONObjectStats(events, filter);	
 				 obj.put(state, objInt);	
 			 }
@@ -190,16 +234,21 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities
+	 * 
+	 * @param events Vettore di eventi
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectStatsPerCities(FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Stats stats = new Stats();
-
 		Vector<Event> events;
 		String city;
 		
@@ -214,7 +263,6 @@ public class JSONBuilder
 				
 			 if(size > 0)
 			 {						 
-				 //objInt = getJSONObjectStats(size, stats.average(size, filter.getPeriod()), stats.min(events), stats.max(events));	
 				 objInt = getJSONObjectStats(events, filter);
 				 obj.put(city, objInt);
 			 }
@@ -222,17 +270,22 @@ public class JSONBuilder
 		
 		return obj;
 	}
-	
-	
-	
-	
+		
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /stats/segments
+	 * 
+	 * @param events Vettore di eventi
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectStatsPerSegments(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Stats stats = new Stats();
-
 		Vector<Event> events;
 		String segment;
 		
@@ -247,7 +300,6 @@ public class JSONBuilder
 				
 			 if(size > 0)
 			 {						 
-				 //objInt = getJSONObjectStats(size, stats.average(size, filter.getPeriod()), stats.min(events), stats.max(events));	
 				 objInt = getJSONObjectStats(events, filter);
 				 obj.put(segment, objInt);
 			 }
@@ -256,17 +308,21 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Metodo che restituisce il JSONObject associato alla rotta /stats/genres
+	 * 
+	 * @param events Vettore di eventi
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * 
+	 * @return obj JSONObject
+	 */
 	public JSONObject getJSONObjectStatsPerGenres(FilterImpl filter)
 	{			
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Stats stats = new Stats();
-
 		Vector<Event> events;
 		String genre;
 		
@@ -282,22 +338,12 @@ public class JSONBuilder
 		
 			 if(size > 0)
 			 {						 
-				 //objInt = getJSONObjectStats(size, stats.average(size, filter.getPeriod()), stats.min(events), stats.max(events));	
-				 objInt = getJSONObjectStats(events, filter);	
 				 obj.put(genre, objInt);	
 			 }
 		}
 
 		return obj;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public JSONObject getJSONObjectError(Error err)
@@ -307,6 +353,7 @@ public class JSONBuilder
 		obj.put("message", err.getMessage());
 		return obj;
 	}
+	
 	
 	public JSONObject getJSONObjectError(String err)
 	{
