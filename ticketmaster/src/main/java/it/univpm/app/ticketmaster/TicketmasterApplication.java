@@ -20,7 +20,7 @@ public class TicketmasterApplication
 		ConfigurableApplicationContext context = builder.run(args);
 		
 		ticketmasterConnection.getJSONEvents();
-		new Home();
+		//new Home();
 	}
 
 }

@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 
 import it.univpm.app.ticketmaster.model.Event;
 
-public class FilterImpl implements Filter
+public class FilterImpl implements Filter, Cloneable
 {
 	Vector<String> states;
 	Vector<String> cities;
@@ -140,7 +140,10 @@ public class FilterImpl implements Filter
 		this.genres = new Vector<String>();
 	}
 	
-	
+	public Object clone() throws CloneNotSupportedException 
+	{
+		return (FilterImpl)super.clone();
+	}
 	
 	public boolean isIncludedState(String state)
 	{

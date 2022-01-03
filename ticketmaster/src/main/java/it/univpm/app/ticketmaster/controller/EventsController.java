@@ -86,7 +86,7 @@ public class EventsController
 		 * 		response = getJSONObjectError("Lista eventi vuota");
 		 */
 		
-		response = jB.getJSONObjectStats(events, filter);
+		response = jB.getJSONObjectAllStats(events, filter);
 		
 		return response;
 	}

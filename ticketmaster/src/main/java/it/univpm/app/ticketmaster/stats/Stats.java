@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Vector;
 
+import it.univpm.app.ticketmaster.filter.EventsFilter;
+import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
 
 /**
@@ -236,10 +238,155 @@ public class Stats
 	}
 	
 	
-	/*private String findTheBiggest()
+
+	
+	
+	
+	/*
+	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
+	 * e il valore iniziale di *filter* non deve essere modificato
+	 */
+	public int [] getArrayStatsPerStates(FilterImpl filter)
 	{
+		Vector<Event> events;
+		String state;
+		FilterImpl filterApp = new FilterImpl();
+		try
+		{
+			filterApp = (FilterImpl) filter.clone();
+		}
+		catch (CloneNotSupportedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		int [] counter = new int[EventsFilter.getStates().size()];
+		
+		for(int i = 0; i < counter.length; i++)
+		{
+			 state = EventsFilter.getStates().get(i);
+			
+			 filterApp.setStates(state);
+			 events = EventsFilter.getFilteredEvents(filterApp, EventsFilter.getEvents());
+		
+			 counter[i] = events.size();			
+		}
+		
+		return counter;	
 	}
-	*/
+	
+	
+	
+	/*
+	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
+	 * e il valore iniziale di *filter* non deve essere modificato
+	 */
+	public int [] getArrayStatsPerCities(FilterImpl filter)
+	{
+		Vector<Event> events;
+		String city;
+		FilterImpl filterApp = new FilterImpl();
+		try
+		{
+			filterApp = (FilterImpl) filter.clone();
+		}
+		catch (CloneNotSupportedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int [] counter = new int[EventsFilter.getCities().size()];
+		
+		for(int i = 0; i < counter.length; i++)
+		{
+			 city = EventsFilter.getCities().get(i);
+			
+			 filterApp.setCities(city);
+			 events = EventsFilter.getFilteredEvents(filterApp, EventsFilter.getEvents());
+		
+			 counter[i] = events.size();			
+		}
+		
+		return counter;			
+	}
+	
+	
+	
+	/*
+	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
+	 * e il valore iniziale di *filter* non deve essere modificato
+	 */
+	public int [] getArrayStatsPerSegments(FilterImpl filter)
+	{
+		Vector<Event> events;
+		String segment;
+		FilterImpl filterApp = new FilterImpl();
+		try
+		{
+			filterApp = (FilterImpl) filter.clone();
+		}
+		catch (CloneNotSupportedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int [] counter = new int[EventsFilter.getSegments().size()];
+		
+		for(int i = 0; i < counter.length; i++)
+		{
+			 segment = EventsFilter.getSegments().get(i);
+			
+			 filterApp.setSegment(segment);
+			 events = EventsFilter.getFilteredEvents(filterApp, EventsFilter.getEvents());
+		
+			 counter[i] = events.size();			
+		}
+		
+		return counter;	
+	}
+	
+	
+	
+	/*
+	 * Istanzio un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
+	 * e il valore iniziale di *filter* non deve essere modificato
+	 */
+	public int [] getArrayStatsPerGenres(FilterImpl filter)
+	{
+		Vector<Event> events;
+		String genre;
+		FilterImpl filterApp = new FilterImpl();
+		try
+		{
+			filterApp = (FilterImpl) filter.clone();
+		}
+		catch (CloneNotSupportedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int [] counter = new int[EventsFilter.getGenres().size()];
+		
+		for(int i = 0; i < counter.length; i++)
+		{
+			 genre = EventsFilter.getGenres().get(i);
+			
+			 filterApp.setGenres(genre);
+			 events = EventsFilter.getFilteredEvents(filterApp, EventsFilter.getEvents());
+		
+			 counter[i] = events.size();			
+		}
+		
+		return counter;
+	}
+	
+	
+	
+	
+	
 }
 	

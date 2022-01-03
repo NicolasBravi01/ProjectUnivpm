@@ -2,6 +2,7 @@ package it.univpm.app.ticketmaster.parser;
 
 import java.util.Vector;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
@@ -25,6 +26,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectEvents(Vector<Event> listEvent)
 	{
 		JSONObject obj = new JSONObject();
@@ -42,6 +44,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectEventsPerStates(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -74,6 +77,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectEventsPerCities(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -106,6 +110,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectEventsPerSegments(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -138,6 +143,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectEventsPerGenres(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -182,25 +188,27 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
-	public JSONObject getJSONObjectStats(Vector<Event> events, FilterImpl filter)
+	@SuppressWarnings("unchecked")
+	public JSONObject getJSONObjectAllStats(Vector<Event> events, FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
-		Stats stats = new Stats();
+		JSONObject objInt = new JSONObject();
 		
-		int size = events.size();
+		obj = this.getJSONObjectStats(events, filter);
 		
-		obj.put("numero eventi", size);
-		obj.put("media eventi", stats.average(size, filter.getPeriod()));
-		obj.put("minimo eventi mensili", stats.min(events));
-		obj.put("massimo eventi mensili", stats.max(events));
-
-		//obj.put("stato con più eventi", stats.min(events));
-		//obj.put("città con più eventi", stats.min(events));
-		//obj.put("segmento con più eventi", stats.min(events));
-		//obj.put("genere con più eventi", stats.min(events));
+		objInt.put("states", this.getJSONObjectMaxMinPerStates(filter));
+		objInt.put("cities", this.getJSONObjectMaxMinPerCities(filter));
+		objInt.put("segments", this.getJSONObjectMaxMinPerSegments(filter));
+		objInt.put("genres", this.getJSONObjectMaxMinPerGenres(filter));
+		
+		obj.put("Respect", objInt);
 		
 		return obj;
 	}
+	
+
+
+	
 	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/states
@@ -212,6 +220,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectStatsPerStates(FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
@@ -239,32 +248,9 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	public void maxMinPerStates(FilterImpl filter)
-	{
-		Vector<Event> events;
-		String state;
-		
-		Stats stats = new Stats();		
-		
-		int [] counter = new int[EventsFilter.getStates().size()];
-		
-		for(int i = 0; i < counter.length ; i++)
-		{
-			 state = EventsFilter.getStates().get(i);
-			
-			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		
-			 counter[i] = events.size();			
-		}
-		
-		int maxIndex = stats.maxValueIndex(counter);
-		int minIndex = stats.minValueIndex(counter);
-		stats.average(maxIndex, filter.getPeriod());
-		stats.average(minIndex, filter.getPeriod());
-		
-	}
 	
+	
+
 	
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities
@@ -276,6 +262,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectStatsPerCities(FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
@@ -313,6 +300,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectStatsPerSegments(FilterImpl filter)
 	{		
 		JSONObject obj = new JSONObject();
@@ -340,6 +328,10 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	
+	
+	
+
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/genres
 	 * 
@@ -350,6 +342,7 @@ public class JSONBuilder
 	 * 
 	 * @return obj JSONObject
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectStatsPerGenres(FilterImpl filter)
 	{			
 		JSONObject obj = new JSONObject();
@@ -378,6 +371,109 @@ public class JSONBuilder
 	}
 	
 	
+	
+	
+	
+
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectMaxMinPerStates(FilterImpl filter)
+	{
+		JSONObject obj = new JSONObject();
+		JSONObject objInt;		
+		
+		Stats stats = new Stats();		
+		
+		int [] counter = stats.getArrayStatsPerStates(filter);
+		
+		int maxIndex = stats.maxValueIndex(counter);
+		int minIndex = stats.minValueIndex(counter);		
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getStates(), counter, maxIndex, filter.getPeriod());
+		obj.put("max", objInt);
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getStates(), counter, minIndex, filter.getPeriod());				
+		obj.put("min", objInt);
+		
+		return obj;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectMaxMinPerCities(FilterImpl filter)
+	{
+		JSONObject obj = new JSONObject();
+		JSONObject objInt;		
+		
+		Stats stats = new Stats();		
+		
+		int [] counter = stats.getArrayStatsPerCities(filter);
+		
+		int maxIndex = stats.maxValueIndex(counter);
+		int minIndex = stats.minValueIndex(counter);		
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getCities(), counter, maxIndex, filter.getPeriod());
+		obj.put("max", objInt);
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getCities(), counter, minIndex, filter.getPeriod());				
+		obj.put("min", objInt);
+		
+		return obj;
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectMaxMinPerSegments(FilterImpl filter)
+	{
+		JSONObject obj = new JSONObject();
+		JSONObject objInt;		
+		
+		Stats stats = new Stats();		
+		
+		int [] counter = stats.getArrayStatsPerSegments(filter);
+		
+		int maxIndex = stats.maxValueIndex(counter);
+		int minIndex = stats.minValueIndex(counter);		
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getSegments(), counter, maxIndex, filter.getPeriod());
+		obj.put("max", objInt);
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getSegments(), counter, minIndex, filter.getPeriod());				
+		obj.put("min", objInt);
+		
+		return obj;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectMaxMinPerGenres(FilterImpl filter)
+	{
+		JSONObject obj = new JSONObject();
+		JSONObject objInt;		
+		
+		Stats stats = new Stats();		
+		
+		int [] counter = stats.getArrayStatsPerGenres(filter);
+		
+		int maxIndex = stats.maxValueIndex(counter);
+		int minIndex = stats.minValueIndex(counter);		
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getGenres(), counter, maxIndex, filter.getPeriod());
+		obj.put("max", objInt);
+		
+		objInt = getJSONObjectMaxMin(EventsFilter.getGenres(), counter, minIndex, filter.getPeriod());				
+		obj.put("min", objInt);
+		
+		return obj;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectError(Error err)
 	{
 		JSONObject obj = new JSONObject();
@@ -387,12 +483,47 @@ public class JSONBuilder
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectError(String err)
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("error", err);
 		return obj;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectStats(Vector<Event> events, FilterImpl filter)
+	{		
+		JSONObject obj = new JSONObject();
+		
+		Stats stats = new Stats();		
+		int size = events.size();
+		
+		obj.put("numero eventi", size);
+		obj.put("media eventi", stats.average(size, filter.getPeriod()));
+		obj.put("minimo eventi mensili", stats.min(events));
+		obj.put("massimo eventi mensili", stats.max(events));		
+		
+		return obj;
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	private JSONObject getJSONObjectMaxMin(Vector<String> elements, int [] counter, int index, String period)
+	{
+		JSONObject obj = new JSONObject();
+		Stats stats = new Stats();
+
+		obj.put("name", elements.get(index));
+		obj.put("n events", counter[index]);
+		obj.put("average", stats.average(counter[index], period));
+		
+		return obj;
+	}
+	
+	
 	
 	
 }
