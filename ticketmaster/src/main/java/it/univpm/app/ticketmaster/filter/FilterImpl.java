@@ -138,11 +138,40 @@ public class FilterImpl implements Filter, Cloneable
 	}
 	
 	
-	public Object clone() throws CloneNotSupportedException 
+	
+	/**
+	 * Metodo che restituisce una copia dell'oggetto stesso
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.stats.Stats
+	 * 
+	 * @return clone FilterImpl
+	 */
+	public FilterImpl clone()
 	{
-		return (FilterImpl)super.clone();
+		FilterImpl clone;
+		try
+		{
+			clone = (FilterImpl) super.clone();
+		}
+		catch (CloneNotSupportedException e) 
+		{
+			clone = this.copy();
+		}
+		
+		return clone;
 	}
 	
+	
+	/*
+	 * Nel caso in cui il metodo FilterImpl.clone() generi l'eccezione CloneNotSupportedException,
+	 * viene restituita l'istanza di un nuovo oggetto con i valori di quello che chiama questo metodo
+	 * 
+	 */
+	private FilterImpl copy()
+	{
+		return new FilterImpl(this.states, this.cities, this.startDate, this.endDate, this.segment, this.genres);	
+	}
+
 	public boolean isIncludedState(String state)
 	{
 		boolean isIncluded = ((state == null) || (this.states.size() == 0) || this.states.contains(state));

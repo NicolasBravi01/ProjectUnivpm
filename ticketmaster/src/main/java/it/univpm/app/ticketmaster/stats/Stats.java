@@ -268,17 +268,8 @@ public class Stats
 		Vector<Event> events;
 		String state;
 		FilterImpl filterApp = new FilterImpl();
-		try
-		{
-			/*è stato istanziato un altro oggetto FilterImpl in quanto gli oggetti vengono passati per riferimento
-			 *e il valore iniziale di *filter* non deve essere modificato */
-			
-			filterApp = (FilterImpl) filter.clone();
-		}
-		catch (CloneNotSupportedException e)
-		{
-			e.printStackTrace();
-		}
+		
+		filterApp = filter.clone();
 		
 		int [] counter = new int[EventsFilter.getStates().size()];
 		
@@ -311,15 +302,9 @@ public class Stats
 		Vector<Event> events;
 		String city;
 		FilterImpl filterApp = new FilterImpl();
-		try
-		{
-			filterApp = (FilterImpl) filter.clone();
-		}
-		catch (CloneNotSupportedException e)
-		{
-			e.printStackTrace();
-		}
 		
+		filterApp = filter.clone();
+				
 		int [] counter = new int[EventsFilter.getCities().size()];
 		
 		for(int i = 0; i < counter.length; i++)
@@ -351,15 +336,9 @@ public class Stats
 		Vector<Event> events;
 		String segment;
 		FilterImpl filterApp = new FilterImpl();
-		try
-		{
-			filterApp = (FilterImpl) filter.clone();
-		}
-		catch (CloneNotSupportedException e)
-		{
-			e.printStackTrace();
-		}
 		
+		filterApp = (FilterImpl) filter.clone();
+				
 		int [] counter = new int[EventsFilter.getSegments().size()];
 		
 		for(int i = 0; i < counter.length; i++)
@@ -391,15 +370,9 @@ public class Stats
 		Vector<Event> events;
 		String genre;
 		FilterImpl filterApp = new FilterImpl();
-		try
-		{
-			filterApp = (FilterImpl) filter.clone();
-		}
-		catch (CloneNotSupportedException e)
-		{
-			e.printStackTrace();
-		}
 		
+		filterApp = (FilterImpl) filter.clone();
+				
 		int [] counter = new int[EventsFilter.getGenres().size()];
 		
 		for(int i = 0; i < counter.length; i++)
