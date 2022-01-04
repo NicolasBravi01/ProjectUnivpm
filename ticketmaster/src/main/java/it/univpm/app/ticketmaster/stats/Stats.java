@@ -17,10 +17,14 @@ import it.univpm.app.ticketmaster.model.Event;
  */
 public class Stats 
 {
-	/*
-	 * Da usare per il metodo average
+	/**
+	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
 	 */
 	static LocalDate firstDate;
+	
+	/**
+	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
+	 */
 	static LocalDate lastDate;
 	
 	

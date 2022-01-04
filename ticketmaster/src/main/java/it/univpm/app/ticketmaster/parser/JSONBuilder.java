@@ -2,7 +2,6 @@ package it.univpm.app.ticketmaster.parser;
 
 import java.util.Vector;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
