@@ -3,14 +3,19 @@ package it.univpm.app.ticketmaster.view;
 import java.util.Vector;
 
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,8 +24,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import org.jdesktop.swingx.JXDatePicker;
+
+import javax.swing.*;
+
+//import org.jdesktop.swingx.JXDatePicker;
+
 
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
@@ -56,9 +68,14 @@ public class Home extends JFrame
 		this.setSize(1000, 500);
 		this.setResizable(true);
 		this.setLayout(new FlowLayout());
+		
+		this.getContentPane().setBackground(new Color(180, 200, 180));
+		
+		
 		//this.pack();
 		
 
+		
 		
 		/*
 		 * 	LABEL
@@ -92,70 +109,14 @@ public class Home extends JFrame
 		statesBox.setBounds(450, 310, 250, 30);
 		//statesBox.setAlignmentY(50);
 		
+		//aggiunge ActionListener delle comboBox per filtrare
+		addComboBoxesActionListener();
+		
 		this.add(statesBox);
 		this.add(citiesBox);
 		this.add(segmentsBox);
 		this.add(genresBox);
 		
-		
-		this.statesBox.addActionListener (new ActionListener () 
-		{
-			@Override
-		    public void actionPerformed(ActionEvent e) 
-		    {
-		    	if(statesBox.getSelectedIndex() == 0)
-		    		addAllStatesFilter();
-		    	else
-		    		addStateFilter(statesBox.getSelectedItem().toString());
-		    	
-		    	loadStatesLabel();
-		    }
-		});
-		
-		this.citiesBox.addActionListener(new ActionListener()
-		{
-			@Override
-		    public void actionPerformed(ActionEvent e) 
-		    {
-		    	if(citiesBox.getSelectedIndex() == 0)
-		    		addAllCitiesFilter();
-		    	else
-		    		addCityFilter(citiesBox.getSelectedItem().toString());
-		    	
-		    	loadCitiesLabel();
-		    }
-		});
-		
-		this.segmentsBox.addActionListener(new ActionListener() 
-		{
-			@Override
-		    public void actionPerformed(ActionEvent e) 
-		    {
-		    	if(segmentsBox.getSelectedIndex() == 0)
-		    		addAllSegmentsFilter();
-		    	else
-		    		setSegmentFilter(segmentsBox.getSelectedItem().toString());
-		    	
-		    	loadSegmentLabel();
-		    }
-		});
-		
-		this.genresBox.addActionListener(new ActionListener() 
-		{
-			@Override
-		    public void actionPerformed(ActionEvent e) 
-		    {
-		    	if(genresBox.getSelectedIndex() == 0)
-		    		addAllGenresFilter();
-		    	else
-		    		addGenreFilter(genresBox.getSelectedItem().toString());
-		    	
-		    	loadGenresLabel();
-		    }
-		});  
-		
-
-
 		
 		
 		/*
@@ -169,25 +130,63 @@ public class Home extends JFrame
 		this.add(exitButton);
 		
 		
-		exitButton.addMouseListener(new MouseAdapter()
-		{
-			public void mouseClicked(MouseEvent me)
-			{
-				System.exit(NORMAL);
-			}
-		});
+		//aggiunge ActionListener dei bottoni
+		addButtonsMouseListener();
 		
 		
 		
-		searchButton.addMouseListener(new MouseAdapter()
-		{
-			public void mouseClicked(MouseEvent me)
-			{
-				System.out.println("Vorrei cercare");
-				//Effettuare chiamata
-			}
-		});
-	
+		/*
+		 * CALENDARIO
+		 */
+		JXDatePicker fromDatePicker = new JXDatePicker();
+		fromDatePicker.setDate(Calendar.getInstance().getTime());
+		fromDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
+        
+		JXDatePicker toDatePicker = new JXDatePicker();
+		toDatePicker.setDate(Calendar.getInstance().getTime());
+		toDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
+				
+		this.add(fromDatePicker);
+		this.add(toDatePicker);
+		
+		LocalDate from = getLocalDate(fromDatePicker.getDate());
+		
+
+		/*
+		 * PANEL
+		 */
+		
+		/*JPanel pan1 = new JPanel();
+		JPanel pan2 = new JPanel();
+		JPanel pan3 = new JPanel();
+		JPanel pan4 = new JPanel();
+		JPanel pan5 = new JPanel();
+		
+		pan1.setBackground(Color.red);
+		pan1.setBounds(0, 0, 100, 100);	
+
+		pan2.setBackground(Color.green);
+		pan2.setBounds(100, 0, 50, 50);		
+
+		pan3.setBackground(Color.blue);
+		pan3.setBounds(100, 50, 50, 50);
+		
+		pan1.setVisible(true);
+		pan2.setVisible(true);
+		pan3.setVisible(true);
+		
+		pan1.add(statesLabel);
+		//pan1.setLayout(null);
+		
+		this.add(pan1);
+		this.add(pan2);
+		this.add(pan3);
+		*/
+		
+		
+		
+		
+		
 		
 		this.setVisible(true);
 	}
@@ -373,6 +372,7 @@ public class Home extends JFrame
 	}
 	
 	
+	
 	public void loadLabels()
 	{
 		loadStatesLabel();
@@ -380,4 +380,134 @@ public class Home extends JFrame
 		loadSegmentLabel();
 		loadGenresLabel();
 	}
+	
+	
+	
+	public void addComboBoxesActionListener()
+	{
+		addStatesBoxActionListener();
+		addCitiesBoxActionListener();
+		addSegmentsBoxActionListener();
+		addGenresBoxActionListener();
+	}
+	
+	
+	public void addStatesBoxActionListener()
+	{
+		this.statesBox.addActionListener (new ActionListener () 
+		{
+			@Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	if(statesBox.getSelectedIndex() == 0)
+		    		addAllStatesFilter();
+		    	else
+		    		addStateFilter(statesBox.getSelectedItem().toString());
+		    	
+		    	loadStatesLabel();
+		    }
+		});
+	}
+	
+	
+	public void addCitiesBoxActionListener()
+	{
+		this.citiesBox.addActionListener(new ActionListener()
+		{
+			@Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	if(citiesBox.getSelectedIndex() == 0)
+		    		addAllCitiesFilter();
+		    	else
+		    		addCityFilter(citiesBox.getSelectedItem().toString());
+		    	
+		    	loadCitiesLabel();
+		    }
+		});
+	}
+	
+	
+	public void addSegmentsBoxActionListener()
+	{		
+		this.segmentsBox.addActionListener(new ActionListener() 
+		{
+			@Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	if(segmentsBox.getSelectedIndex() == 0)
+		    		addAllSegmentsFilter();
+		    	else
+		    		setSegmentFilter(segmentsBox.getSelectedItem().toString());
+		    	
+		    	loadSegmentLabel();
+		    }
+		});
+	}
+
+	
+	public void addGenresBoxActionListener()
+	{
+		this.genresBox.addActionListener(new ActionListener() 
+		{
+			@Override
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		    	if(genresBox.getSelectedIndex() == 0)
+		    		addAllGenresFilter();
+		    	else
+		    		addGenreFilter(genresBox.getSelectedItem().toString());
+		    	
+		    	loadGenresLabel();
+		    }
+		});  
+		
+	}
+	
+	
+	
+	
+	
+	public void addButtonsMouseListener()
+	{
+		addExitButtonMouseListener();
+		addSearchButtonMouseListener();
+	}
+	
+	
+	
+	public void addExitButtonMouseListener()
+	{
+		exitButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				System.exit(NORMAL);
+			}
+		});
+	}
+	
+	
+	public void addSearchButtonMouseListener()
+	{
+		searchButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				System.out.println("Vorrei cercare");
+				//Effettuare chiamata
+			}
+		});
+	}
+	
+	
+	
+	
+	public LocalDate getLocalDate(Date date)
+	{
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
+	
+	
 }

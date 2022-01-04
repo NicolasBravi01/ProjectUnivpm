@@ -20,7 +20,7 @@ public class TicketmasterApplication
 		ConfigurableApplicationContext context = builder.run(args);
 		
 		callEvents();
-		//new Home();
+		new Home();
 	}
 	
 	
