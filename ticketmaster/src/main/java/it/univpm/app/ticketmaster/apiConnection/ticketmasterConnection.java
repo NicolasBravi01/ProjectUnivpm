@@ -32,7 +32,7 @@ public class ticketmasterConnection
 	 * @see it.univpm.app.ticketmaster.parser.EventsParser
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 */
-	public static void getJSONEvents() 
+	public static void callEvents() 
 	{
 		try
 		{

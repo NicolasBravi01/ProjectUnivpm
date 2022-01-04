@@ -19,8 +19,19 @@ public class TicketmasterApplication
 		builder.headless(false);
 		ConfigurableApplicationContext context = builder.run(args);
 		
-		ticketmasterConnection.getJSONEvents();
+		callEvents();
 		//new Home();
+	}
+	
+	
+
+	
+	/*
+	 * Metodo che effettua la chiamata all'api di ticketmaster per ricevere la lista degli eventi
+	 */
+	static void callEvents()
+	{
+		ticketmasterConnection.callEvents();
 	}
 
 }
