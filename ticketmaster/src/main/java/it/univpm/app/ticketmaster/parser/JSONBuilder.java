@@ -31,8 +31,8 @@ public class JSONBuilder
 	public JSONObject getJSONObjectEvents(Vector<Event> listEvent)
 	{
 		JSONObject obj = new JSONObject();
-		obj.put("listEvent", listEvent);
-		obj.put("elements", listEvent.size());
+		obj.put("list events", listEvent);
+		obj.put("number events", listEvent.size());
 		return obj;
 	}
 	
@@ -543,6 +543,12 @@ public class JSONBuilder
 		return obj;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public JSONObject getJSONObjectErrorNoEvents()
+	{
+		return this.getJSONObjectError("there aren't events, change filters");
+	}
+	
 	
 	/**
 	 * Metodo che restituisce un JSONObject comune a tutte le rotte
@@ -566,10 +572,10 @@ public class JSONBuilder
 		Stats stats = new Stats();		
 		int size = events.size();
 		
-		obj.put("numero eventi", size);
-		obj.put("media eventi", stats.average(size, filter.getPeriod()));
-		obj.put("minimo eventi mensili", stats.min(events));
-		obj.put("massimo eventi mensili", stats.max(events));		
+		obj.put("number events", size);
+		obj.put("monthly average", stats.average(size, filter.getPeriod()));
+		obj.put("min events in a month", stats.min(events));
+		obj.put("max events in a month", stats.max(events));		
 		
 		return obj;
 	}

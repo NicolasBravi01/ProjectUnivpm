@@ -94,7 +94,7 @@ public class Stats
 		int monthMin = minValueIndex(counter) + 1;
 		int min = counter[monthMin - 1];
 		
-		String msg = min + ", raggiunto nel mese di " + monthToString(monthMin);
+		String msg = min + ", in " + monthToString(monthMin);
 		return msg;
 	}
 	
@@ -115,7 +115,7 @@ public class Stats
 		int monthMax = maxValueIndex(counter) + 1;
 		int max = counter[monthMax - 1];
 		
-		String msg = max + ", raggiunto nel mese di " + monthToString(monthMax);
+		String msg = max + ", in " + monthToString(monthMax);
 		return msg;	
 	}
 	
@@ -136,40 +136,40 @@ public class Stats
 		switch(month)
 		{
 			case 1:
-				str = "Gennaio";
+				str = "January";
 				break;
 			case 2:
-				str = "Febbraio";
+				str = "February";
 				break;
 			case 3:
-				str = "Marzo";
+				str = "March";
 				break;
 			case 4:
-				str = "Aprile";
+				str = "April";
 				break;
 			case 5:
-				str = "Maggio";
+				str = "May";
 				break;
 			case 6:
-				str = "Giugno";
+				str = "June";
 				break;
 			case 7:
-			    str = "Luglio";
+			    str = "July";
 			    break;
 			case 8:
-			    str = "Agosto";
+			    str = "August";
 			    break;
 			case 9:
-				str = "Settembre";
+				str = "September";
 				break;
 			case 10:
-				str = "Ottobre";
+				str = "October";
 				break;
 			case 11:
-				str = "Novembre";
+				str = "November";
 				break;
 			case 12:
-				str = "Dicembre";
+				str = "December";
 				break;
 		}
 		

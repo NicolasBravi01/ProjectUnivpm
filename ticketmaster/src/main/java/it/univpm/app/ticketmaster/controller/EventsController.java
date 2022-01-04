@@ -53,8 +53,15 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(states, cities, period, segment, genres);
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;
 		
-		JSONObject response = jB.getJSONObjectEvents(EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());		
+		
+		if(events.size() > 0)
+			response = jB.getJSONObjectEvents(events);
+		else
+			response = jB.getJSONObjectErrorNoEvents();		
+		
 		return response;
 	}
 	
@@ -75,20 +82,15 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;
 		
-		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-		JSONObject response = new JSONObject();		
-		
-		int size = events.size();
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());			
 				
-		//if(size > 0)	//altrimenti genera Errore					 
-			//response = jB.getJSONObjectStats(size, average(size, period), min(events), max(events));
-		/*
-		 * 	else
-		 * 		response = getJSONObjectError("Lista eventi vuota");
-		 */
-		
-		response = jB.getJSONObjectAllStats(events, filter);
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectAllStats(events, filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();		
+		 
 		
 		return response;
 	}
@@ -113,8 +115,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
-				
-		JSONObject response = jB.getJSONObjectStatsPerStates(filter);
+		JSONObject response;	
+		
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectStatsPerStates(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -139,8 +147,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl("", cities, period, "", "");
 		JSONBuilder jB = new JSONBuilder();
-				
-		JSONObject response = jB.getJSONObjectStatsPerCities(filter);
+		JSONObject response;	
+		
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectStatsPerCities(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -163,8 +177,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
-				
-		JSONObject response = jB.getJSONObjectStatsPerSegments(filter);
+		JSONObject response;	
+		
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectStatsPerSegments(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -189,8 +209,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl("" , "", period, "", genres);
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;	
 		
-		JSONObject response = jB.getJSONObjectStatsPerGenres(filter);
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectStatsPerGenres(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -212,9 +238,15 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
-
-		JSONObject response = jB.getJSONObjectEventsPerStates(filter);
+		JSONObject response;	
 		
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectEventsPerStates(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
+	
 		return response;
 	}
 	
@@ -236,8 +268,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(states, "", period, "", "");
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;	
 		
-		JSONObject response = jB.getJSONObjectEventsPerCities(filter);
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectEventsPerCities(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -259,8 +297,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;	
 		
-		JSONObject response = jB.getJSONObjectEventsPerSegments(filter);
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectEventsPerSegments(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
@@ -282,8 +326,14 @@ public class EventsController
 	{	
 		FilterImpl filter = new FilterImpl(period);		
 		JSONBuilder jB = new JSONBuilder();
+		JSONObject response;	
 		
-		JSONObject response = jB.getJSONObjectEventsPerGenres(filter);
+		Vector<Event> events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+		
+		if(events.size() > 0)				 
+			response = jB.getJSONObjectEventsPerGenres(filter);
+		else
+			response = jB.getJSONObjectErrorNoEvents();
 		
 		return response;
 	}
