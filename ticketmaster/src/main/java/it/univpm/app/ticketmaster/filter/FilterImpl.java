@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
+import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.model.Event;
 
 public class FilterImpl implements Filter, Cloneable
@@ -161,7 +162,6 @@ public class FilterImpl implements Filter, Cloneable
 		return clone;
 	}
 	
-	
 	/*
 	 * Nel caso in cui il metodo FilterImpl.clone() generi l'eccezione CloneNotSupportedException,
 	 * viene restituita l'istanza di un nuovo oggetto con i valori di quello che chiama questo metodo
@@ -255,6 +255,7 @@ public class FilterImpl implements Filter, Cloneable
 			this.startDate = null;
 			this.endDate = null;
 		}
+		
 		else
 		{
 			try
@@ -263,7 +264,16 @@ public class FilterImpl implements Filter, Cloneable
 				this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 				
 				if(this.startDate.isAfter(endDate))
-					this.error = true;// Gestire errore
+				{
+					this.error = true;
+					throw new IncorrectOrderOfDatesException();
+				}
+			}
+			catch(IncorrectOrderOfDatesException e)
+			{
+				LocalDate temp = startDate;
+				startDate = endDate;
+				endDate = temp;
 			}
 			catch(DateTimeParseException e)
 			{
