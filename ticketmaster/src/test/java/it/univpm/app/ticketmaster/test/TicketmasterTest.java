@@ -2,6 +2,7 @@ package it.univpm.app.ticketmaster.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.Vector;
 
 import org.junit.jupiter.api.AfterEach;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.univpm.app.ticketmaster.TicketmasterApplication;
+import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
+import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
@@ -16,39 +20,18 @@ import it.univpm.app.ticketmaster.stats.Stats;
 
 class TicketmasterTest 
 {
+	FilterImpl filter;
+	
 	/*
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception 
 	{
 		
 	}
-	*/
 
-	Stats stats = new Stats();
-	FilterImpl filter = new FilterImpl();
-	Vector<Event> events = EventsFilter.getEvents();
-	
 	@BeforeEach
-	void setUp() throws ArrayIndexOutOfBoundsException 
+	void setUp() throws Exception 
 	{
-		try
-		{
-			int [] vetEventsStates = stats.getArrayStatsPerStates(filter);
-			int monthMinStates = stats.minValueIndex(vetEventsStates);
-			
-			int [] vetEventsCities = stats.getArrayStatsPerCities(filter);
-			int monthMinCities = stats.minValueIndex(vetEventsCities);
-			
-			int [] vetEventsSegments = stats.getArrayStatsPerSegments(filter);
-			int monthMinSegments = stats.minValueIndex(vetEventsSegments);
-			
-			int [] vetEventsGenres = stats.getArrayStatsPerStates(filter);
-			int monthMinGenres = stats.minValueIndex(vetEventsGenres);
-		}
-		catch(ArrayIndexOutOfBoundsException e)
-		{
-			System.out.println("Array vuoto");
-		}
 		
 	}
 
@@ -57,29 +40,19 @@ class TicketmasterTest
 	{
 	
 	}
+	*/
 
 	@Test
-	void testMinEventsStatesEqualsZero() 
+	void testDatesCorrectOrder() 
 	{
-		assertEquals(stats.min(events), 0 + ", in " + stats.monthToString(monthMinStates));
-	}
+		String period = "2023-04-04,2022-01-01";
+		
+		IncorrectOrderOfDatesException exc = assertThrows(IncorrectOrderOfDatesException.class, () -> {
+			filter = new FilterImpl("", "", period, "", "");
+		});
 	
-	@Test
-	void testMinEventsCitiesEqualsZero() 
-	{
-		assertEquals(stats.min(events), 0 + ", in " + stats.monthToString(monthMinCities));
-	}
-	
-	@Test
-	void testMinEventsSegmentsEqualsZero() 
-	{
-		assertEquals(stats.min(events), 0 + ", in " + stats.monthToString(monthMinCities));
-	}
-	
-	@Test
-	void testMinEventsGenresEqualsZero() 
-	{
-		assertEquals(stats.min(events), 0 + ", in " + stats.monthToString(monthMinCities));
+		assertEquals("ERROR: dates in incorrect order", exc.getMsg());
+		
 	}
 
 }
