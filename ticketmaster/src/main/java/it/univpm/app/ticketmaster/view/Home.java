@@ -36,6 +36,7 @@ import javax.swing.*;
 
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
+import it.univpm.app.ticketmaster.filter.FilterImpl;
 
 public class Home extends JFrame
 {	
@@ -59,6 +60,10 @@ public class Home extends JFrame
 	JLabel citiesLabel;
 	JLabel segmentLabel;
 	JLabel genresLabel;
+	
+	
+	JXDatePicker fromDatePicker;
+	JXDatePicker toDatePicker;
 
 
 	public Home()
@@ -138,11 +143,11 @@ public class Home extends JFrame
 		/*
 		 * CALENDARIO
 		 */
-		JXDatePicker fromDatePicker = new JXDatePicker();
+		fromDatePicker = new JXDatePicker();
 		fromDatePicker.setDate(Calendar.getInstance().getTime());
 		fromDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
         
-		JXDatePicker toDatePicker = new JXDatePicker();
+		toDatePicker = new JXDatePicker();
 		toDatePicker.setDate(Calendar.getInstance().getTime());
 		toDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
 				
@@ -190,6 +195,16 @@ public class Home extends JFrame
 		
 		this.setVisible(true);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -496,11 +511,47 @@ public class Home extends JFrame
 			{
 				System.out.println("Vorrei cercare");
 				//Effettuare chiamata
+				
+				FilterImpl filter = readFilter();
+				
+				/*
+				 * 	Controlla filtri, se è tutto ok allora richiedi eventi
+				 */
+				
+				//eventi filtrati
+				
+				Hide();
+				new Result(getThis(), EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
+				
 			}
 		});
 	}
 	
 	
+	public void Hide()
+	{
+		this.setVisible(false);
+	}
+	
+	
+	public Home getThis()
+	{
+		return this;
+	}
+	
+	public FilterImpl readFilter()
+	{
+		FilterImpl filter = new FilterImpl();
+
+		filter.setStates(this.states);
+		filter.setCities(this.cities);
+		filter.setSegment(this.segment);
+		filter.setGenres(this.genres);
+		filter.setStartDate(getLocalDate(this.fromDatePicker.getDate()));
+		filter.setEndDate(getLocalDate(this.toDatePicker.getDate()));
+		
+		return filter;
+	}
 	
 	
 	public LocalDate getLocalDate(Date date)
