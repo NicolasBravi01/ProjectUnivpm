@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -14,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import it.univpm.app.ticketmaster.filter.EventsFilter;
+import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
 
 public class Result extends JFrame
@@ -21,8 +25,17 @@ public class Result extends JFrame
 	JScrollPane scrollRisultato;
 	JTextArea risultato;
 	
+	JButton backButton;
+	JButton exitButton;
+	
+	
+	Home home;
+	
+	
 	public Result(Home home, Vector<Event> events)
 	{
+		this.home = home;
+		
 		/*this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(1280, 720);
@@ -51,13 +64,13 @@ public class Result extends JFrame
 		JScrollPane scrollRisultato = new JScrollPane(risultato);
 				
 		
-		this.setSize(1280, 720);
+		this.setSize(1280, 730);
 		this.setTitle("Result events");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setLocationRelativeTo(null);
+		//this.setLocationRelativeTo(null);
 		this.setResizable(true);
-		this.setUndecorated(true);
+		//this.setUndecorated(true);
 		//this.getContentPane().setBackground(new Color(30, 30, 30));
 		//this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		this.setVisible(true);
@@ -78,11 +91,82 @@ public class Result extends JFrame
 		
 		
 		
+		
+		
+		
+		
 		/*
-		 * SE FACCIO "RICERCA DI NUOVO, ALLORA
-		 * 
-		 * home.setVisible(true);
+		 * BUTTON
 		 */
-		 		 
+		backButton = new JButton("Back");
+		exitButton = new JButton("Exit");
+		
+		backButton.setBounds(920, 624, 120, 60);
+		exitButton.setBounds(1090, 624, 120, 60);
+		
+		this.add(backButton);
+		this.add(exitButton);
+		
+		
+		
+		//aggiunge ActionListener dei bottoni
+		addButtonsMouseListener();
+		
+		
+		this.setVisible(true);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void addButtonsMouseListener()
+	{
+		addExitButtonMouseListener();
+		addBackButtonMouseListener();
+	}
+	
+	
+	
+	
+	public void addExitButtonMouseListener()
+	{
+		exitButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				System.exit(NORMAL);
+			}
+		});
+	}
+	
+	
+	public void addBackButtonMouseListener()
+	{
+		backButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				close();
+				home.visible(true);			
+			}
+		});
+	}
+	
+	
+	
+	/*
+	 * Metodo che permette di modificare la visibilità della finestra, fatto
+	 * perchè all'interno dell'actionListener, l'oggetto this non è accessibile
+	 */
+	public void close()
+	{
+		this.dispose();
+	}
+	
+	
 }

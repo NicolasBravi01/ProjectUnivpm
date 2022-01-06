@@ -520,7 +520,7 @@ public class Home extends JFrame
 				
 				//eventi filtrati
 				
-				Hide();
+				visible(false);
 				new Result(getThis(), EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
 				
 			}
@@ -528,12 +528,22 @@ public class Home extends JFrame
 	}
 	
 	
-	public void Hide()
+	
+	/*
+	 * Metodo che permette di modificare la visibilità della finestra, fatto
+	 * perchè all'interno dell'actionListener, l'oggetto this non è accessibile
+	 */
+	public void visible(boolean visible)
 	{
-		this.setVisible(false);
+		this.setVisible(visible);
 	}
 	
 	
+	
+	/*
+	 * Metodo che ritorna l'oggetto stesso, fatto perchè all'interno
+	 * dell'actionListener, l'oggetto this non è accessibile
+	 */
 	public Home getThis()
 	{
 		return this;
