@@ -340,10 +340,10 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /states, 
-	 * che è restituisce la lista degli stati
+	 * Metodo associato alla rotta get /list//states, 
+	 * che restituisce la lista degli stati
 	 */
-	@GetMapping(value = "/states")
+	@GetMapping(value = "/list/states")
 	public Vector<String> getStates()
 	{	
 		Vector<String> states = EventsFilter.getStates();
@@ -352,10 +352,10 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /cities, 
-	 * che è restituisce la lista delle città
+	 * Metodo associato alla rotta get /list//cities, 
+	 * che restituisce la lista delle città
 	 */
-	@GetMapping(value = "/cities")
+	@GetMapping(value = "/list/cities")
 	public Vector<String> getCities()
 	{	
 		Vector<String> cities = EventsFilter.getCities();
@@ -364,10 +364,10 @@ public class EventsController
 
 	
 	/**
-	 * Metodo associato alla rotta get /segments, 
-	 * che è restituisce la lista dei segmenti
+	 * Metodo associato alla rotta get /list//segments, 
+	 * che restituisce la lista dei segmenti
 	 */
-	@GetMapping(value = "/segments")
+	@GetMapping(value = "/list/segments")
 	public Vector<String> getSegments()
 	{	
 		Vector<String> segments = EventsFilter.getSegments();
@@ -376,10 +376,10 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /genres, 
-	 * che è restituisce la lista dei generi
+	 * Metodo associato alla rotta get /list//genres, 
+	 * che restituisce la lista dei generi
 	 */
-	@GetMapping(value = "/genres")
+	@GetMapping(value = "/list/genres")
 	public Vector<String> getGenres()
 	{	
 		Vector<String> genres = EventsFilter.getGenres();

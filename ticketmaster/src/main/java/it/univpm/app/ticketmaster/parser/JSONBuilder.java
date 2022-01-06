@@ -366,7 +366,8 @@ public class JSONBuilder
 			 int size = events.size();
 		
 			 if(size > 0)
-			 {						 
+			 {			
+				 objInt = getJSONObjectStats(events, filter);
 				 obj.put(genre, objInt);	
 			 }
 		}
