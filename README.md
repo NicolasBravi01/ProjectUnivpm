@@ -5,18 +5,18 @@
 
 ## Indice
 
-* [Introduzione](#id-section1)
-* [Installazione ed utilizzo](#id-section2)
-* [Rotte](#id-section3)
-* [Autori](#id-section4)
+* [Introduzione](#introduzione)
+* [Installazione ed utilizzo](#installazione-ed-utilizzo)
+* [Rotte](#rotte)
+* [Autori](#autori)
 
-<div id='id-section1'/>
+<div id='introduzione'/>
 
 ## Introduzione
 
-L'applicazione SpringBoot utilizza il sito di Ticketmaster, un software che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le Application Programming Interface, comunemente note come `api`, derivate dalla pagina TM Developer e accessibili mediante l’indirizzo [Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
+L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le Application Programming Interface, comunemente note come `api`, derivate dalla pagina TM Developer e accessibili mediante l’indirizzo [Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
 
-<div id='id-section2'/>
+<div id='installazione-ed-utilizzo'/>
 
 ## Installazione ed utilizzo
 
@@ -26,18 +26,19 @@ Successivamente sarà possibile mandare in esecuzione il programma con un IDE (a
 
 In seguito l'utente deve accedere alla cartella resources, reperibile attraverso il percorso `ProjectUnivpm\ticketmaster\src\main\resources`, e creare il file **apiKey.txt**,  dentro il quale è necessario inserire la propria `apiKey`, ottenuta in seguito all'autenticazione sul portale TM Developer ([Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)).
 
-Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che verranno elencate e spiegate nel paragrafo successivo) sul client [Postman](https://www.postman.com/), che permettono di visualizzare anche le statistiche ed altre informazioni relative agli eventi, oppure tramite la Graphic User Interface implementata all'interno del progetto (che verrà spiegata nel paragrafo successivo alle rotte), che consente unicamente di ottenere la lista deglie eventi filtrata dall'utente.
+Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che verranno elencate e spiegate nel paragrafo successivo) sul client [Postman](https://www.postman.com/), che permettono di visualizzare anche le statistiche ed altre informazioni relative agli eventi, oppure tramite la Graphic User Interface implementata all'interno del progetto (che verrà spiegata nel paragrafo successivo alle rotte), che consente unicamente di ottenere la lista degli eventi filtrata dall'utente.
 
-<div id='id-section3'/>
+<div id='rotte'/>
 
 ## Rotte
 
 Le rotte si dividono in 3 categorie in base a ciò che restituiscono, ma prima di analizzarle è importante comprendere il significato dei parametri:
 - `states` è una stringa contenente i nomi di uno o più stati
 - `cities` è una stringa contenente i nomi di uno o più città
-- `period` è una stringa contenente il periodo (data iniziale e data finale scritte in formato LocalDate e separate da una virgola)
-- `segment` è una stringa contente il nome del segmento
-- `states` è una stringa contenente i nomi di uno o più generi
+- `period` è una stringa contenente il periodo (data iniziale e data finale, scritte nel formato yyyy-mm-dd e separate da una virgola)
+- `segment` è una stringa contenente il nome del segmento (l'unico parametro che impone una scelta unica perché si è pensato che l'utente sia interessato ad un solo segmento)
+- `genres` è una stringa contenente i nomi di uno o più generi
+
 
 ### Rotte /events
 
@@ -45,17 +46,19 @@ Le rotte **/events** permettono di ottenere la lista di tutti gli eventi, che po
 
 I parametri inseriti dall'utente servono per filtrare la lista di tutti gli eventi e visualizzare solo quelli di interesse (ad esempio solo quelli che hanno luogo in alcuni stati o che fanno parte di un certo segmento; inoltre si può selezionare anche il periodo di interesse per filtrare gli eventi e visualizzare solo quelli che ricadono in questo arco temporale. Se i parametri di filtraggio non vengono inseriti non viene effettuato alcun filtro, e dunque verranno restituiti tutti gli eventi, raggruppati o meno a seconda della rotta.
 
-| Tipo    | Rotta /events                            | Descrizione                                                         | Parametri                                   |
-|---------|------------------------------------------|---------------------------------------------------------------------|---------------------------------------------|
-| ` get ` | [`/events`](#/events)                    | Restituisce l'elenco di tutti gli eventi                            |`states`,`cities`,`period`,`segment`,`genres`|
-| ` get ` | [`/events/states`](#/events/states)      | Restituisce l'elenco di tutti gli eventi raggruppati per stati      | `period`                                    |
-| ` get ` | [`/events/cities`](#/events/cities)      | Restituisce l'elenco di tutti gli eventi raggruppati per città      | `states`,`period`                           |  
-| ` get ` | [`/events/segments`](#/events/segments)  | Restituisce l'elenco di tutti gli eventi raggruppati per segmenti   | `period`                                    |
-| ` get ` | [`/events/genres`](#/events/genres)      | Restituisce l'elenco di tutti gli eventi raggruppati per generi     | `period`,`segment`                          |              
+| Tipo    | Rotta /events                            | Descrizione                                                         | Parametri                                    |
+|---------|------------------------------------------|---------------------------------------------------------------------|----------------------------------------------|
+| ` GET ` | [`/events`](#/events)                    | Restituisce l'elenco di tutti gli eventi                            | `states`,`cities`,`period`,`segment`,`genres`|
+| ` GET ` | [`/events/states`](#/events/states)      | Restituisce l'elenco di tutti gli eventi raggruppati per stati      | `period`                                     |
+| ` GET ` | [`/events/cities`](#/events/cities)      | Restituisce l'elenco di tutti gli eventi raggruppati per città      | `states`,`period`                            |  
+| ` GET ` | [`/events/segments`](#/events/segments)  | Restituisce l'elenco di tutti gli eventi raggruppati per segmenti   | `period`                                     |
+| ` GET ` | [`/events/genres`](#/events/genres)      | Restituisce l'elenco di tutti gli eventi raggruppati per generi     | `period`,`segment`                           |              
+
+<div id='/events'/>
 
 #### /events
 
-La rotta `/events` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/events` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -100,9 +103,11 @@ La rotta `/events` restituisce un JSONObject strutturato nel seguente modo:
 }
 ```
 
+<div id='/events/states'/>
+
 #### /events/states
 
-La rotta `/events/states` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/events/states` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -177,10 +182,11 @@ La rotta `/events/states` restituisce un JSONObject strutturato nel seguente mod
     },
  }    
 ```
+<div id='/events/cities'/>
 
 #### /events/cities
 
-La rotta `/events/cities` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/events/cities` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -255,10 +261,11 @@ La rotta `/events/cities` restituisce un JSONObject strutturato nel seguente mod
     },
  }    
 ```
+<div id='/events/segments'/>
 
 #### /events/segments
 
-La rotta `/events/segments` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/events/segments` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -346,10 +353,11 @@ La rotta `/events/segments` restituisce un JSONObject strutturato nel seguente m
     },
  }    
 ```
+<div id='/events/genres'/>
 
 #### /events/genres
 
-La rotta `/events/genres` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/events/genres` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -440,25 +448,31 @@ La rotta `/events/genres` restituisce un JSONObject strutturato nel seguente mod
 
 Le rotte **/stats** permettono di visualizzare le statistiche relative agli eventi, ad esempio il numero massimo, il numero minimo e la media di eventi di determinati stati, città, segmenti o generi, in base alla rotta scelta dall'utente; in alternativa, se si vuole avere una visione ancora più ampia, si potranno anche visionare le statistiche ancora più generali, che indicano gli stati, le città, i segmenti e i generi con il maggiore e minore numero di eventi.
 
-L'unico parametro che l'utente può immettere è il periodo di interesse, che in questo caso rappresenta il periodo sul quale verranno calcolate le statistiche.
+I parametri che l'utente può immettere gli permettono di visualizzare le statistiche relative agli stati, alle città e ai generi selezionati, nonché di filtrare gli eventi e considerare solo quelli che si verificano solo in un determinato arco temporale. Se l'utente non seleziona alcun periodo, veranno calcolate le statistiche su tutti gli eventi e come periodo di riferimento si prenderà quello che va dalla prima data all'ultima data nella lista di tutti gli eventi presenti; altrimenti se l'utente inserisce un periodo, verranno scelti solamente gli eventi che si verificano in quell'arco temporale e questo periodo verrà anche utilizzato per effettuare le statistiche.
 
-| Tipo    | Rotta /stats                              | Descrizione                                                                  | Parametri       |
-|---------|-------------------------------------------|------------------------------------------------------------------------------|-----------------|
-| ` get ` | [`/stats`](#/stats)                       | Restituisce il quadro generale delle statistiche                             | `period`        |
-| ` get ` | [`/stats/states`](#/stats/states)         | Restituisce le statistiche per ogni stato calcolate su tutti gli eventi      | `period`        |
-| ` get ` | [`/stats/cities`](#/stats/cities)         | Restituisce le statistiche per ogni città calcolate su tutti gli eventi      | `period`        |
-| ` get ` | [`/stats/segments`](#/stats/segments)     | Restituisce le statistiche per ogni segmento calcolate su tutti gli eventi   | `period`        |
-| ` get ` | [`/stats/genres`](#/stats/genres)         | Restituisce le statistiche per ogni stato calcolate su tutti gli eventi      | `period`        |
+| Tipo    | Rotta /stats                              | Descrizione                                       | Parametri         |
+|---------|-------------------------------------------|---------------------------------------------------|-------------------|
+| ` GET ` | [`/stats`](#/stats)                       | Restituisce il quadro generale delle statistiche  | `period`          |
+| ` GET ` | [`/stats/states`](#/stats/states)         | Restituisce le statistiche per ogni stato         | `states`,`period` |
+| ` GET ` | [`/stats/cities`](#/stats/cities)         | Restituisce le statistiche per ogni città         | `cities`,`period` |         
+| ` GET ` | [`/stats/segments`](#/stats/segments)     | Restituisce le statistiche per ogni segmento      | `period`          |
+| ` GET ` | [`/stats/genres`](#/stats/genres)         | Restituisce le statistiche per ogni genere        | `period`,`genres` |      
+
+<div id='/stats'/>
 
 #### /stats
 
-La rotta `/stats` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/stats` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "min events in a month": "0, in July",
-    "max events in a month": "123, in January",
-    "Respect": {
+    "general": {
+        "min events in a month": "0, in July",
+        "max events in a month": "120, in January",
+        "monthly average": 25.42,
+        "number events": 200
+    },
+    "perspectives": {
         "cities": {
             "min": {
                 "average": 0.12,
@@ -466,19 +480,19 @@ La rotta `/stats` restituisce un JSONObject strutturato nel seguente modo:
                 "n events": 1
             },
             "max": {
-                "average": 2.78,
+                "average": 2.66,
                 "name": "Phoenix",
-                "n events": 22
+                "n events": 21
             }
         },
         "genres": {
             "min": {
-                "average": 0.12,
+                "average": 0.25,
                 "name": "Fairs & Festivals",
-                "n events": 1
+                "n events": 2
             },
             "max": {
-                "average": 8.86,
+                "average": 8.89,
                 "name": "Basketball",
                 "n events": 70
             }
@@ -490,32 +504,31 @@ La rotta `/stats` restituisce un JSONObject strutturato nel seguente modo:
                 "n events": 1
             },
             "max": {
-                "average": 4.43,
+                "average": 3.55,
                 "name": "California",
-                "n events": 35
+                "n events": 28
             }
         },
         "segments": {
             "min": {
-                "average": 0.88,
+                "average": 1.39,
                 "name": "Arts & Theatre",
-                "n events": 7
+                "n events": 11
             },
             "max": {
-                "average": 17.08,
+                "average": 17.16,
                 "name": "Sports",
                 "n events": 135
             }
         }
-    },
-    "monthly average": 25.31,
-    "number events": 200
-}  
+    }
+}
 ```
+<div id='/stats/states'/>
 
-#### /stats/events
+#### /stats/states
 
-La rotta `/stats/events` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/stats/events` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -541,10 +554,11 @@ La rotta `/stats/events` restituisce un JSONObject strutturato nel seguente modo
     },
 }
 ```
+<div id='/stats/cities'/>
 
 #### /stats/cities
 
-La rotta `/stats/cities` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/stats/cities` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -570,10 +584,11 @@ La rotta `/stats/cities` restituisce un JSONObject strutturato nel seguente modo
     }
 }
 ```
+<div id='/stats/segments'/>
 
 #### /stats/segments
 
-La rotta `/stats/segments` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/stats/segments` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -603,10 +618,11 @@ La rotta `/stats/segments` restituisce un JSONObject strutturato nel seguente mo
     }
 }
 ```
+<div id='/stats/genres'/>
 
 #### /stats/genres
 
-La rotta `/stats/genres` restituisce un JSONObject strutturato nel seguente modo:
+La rotta `/stats/genres` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
@@ -639,64 +655,84 @@ Le rotte **/list** permettono semplicemente di visualizzare la lista di tutti gl
 
 | Tipo    | Rotta /list                             | Descrizione                              |
 |---------|-----------------------------------------|------------------------------------------|
-| ` get ` | [`/list/states`](#/list/states)         | Restituisce la lista di tutti gli stati  |               
-| ` get ` | [`/list/cities`](#/list/cities)         | Restituisce la lista di tutte le città   |                
-| ` get ` | [`/list/ssegments`](#/list/segments)    | Restituisce la lista di tutti i segmenti |                 
-| ` get ` | [`/list/genres`](#/list/genres)         | Restituisce la lista di tutti i generi   |                
+| ` GET ` | [`/list/states`](#/list/states)         | Restituisce la lista di tutti gli stati  |               
+| ` GET ` | [`/list/cities`](#/list/cities)         | Restituisce la lista di tutte le città   |                
+| ` GET ` | [`/list/ssegments`](#/list/segments)    | Restituisce la lista di tutti i segmenti |                 
+| ` GET ` | [`/list/genres`](#/list/genres)         | Restituisce la lista di tutti i generi   |                
+
+<div id='/list/states'/> 
 
 #### /list/states
 
-La rotta `/list/states` restituisce:
+La rotta `/list/states` restituisce un JSON strutturato nel seguente modo:
 
 ```json
-[
-    "Arizona",
-    "Indiana",
-    "California",
-    "Louisiana",
-    "Utah",
-    "",
-]
+{
+    "list states": [
+        "Arizona",
+        "Indiana",
+        "California",
+        "Utah",
+        "Wisconsin",
+        ""
+    ],
+    "number states": 31
+}
 ```
+<div id='/list/cities'/> 
+
 #### /list/cities
 
-La rotta `/list/cities` restituisce:
+La rotta `/list/cities` restituisce un JSON strutturato nel seguente modo:
 
 ```json
-[
-    "Phoenix",
-    "Indianapolis",
-    "San Francisco",
-    "New Orleans",
-    "Salt Lake City",
-    "",
-]
+{
+    "number cities": 60,
+    "list cities": [
+        "Phoenix",
+        "Indianapolis",
+        "San Francisco",
+        "Salt Lake City",
+        "Milwaukee",
+        ""
+    ]
+}
 ```
+<div id='/list/segments'/> 
+
 #### /list/segments
 
-La rotta `/list/segments` restituisce:
+La rotta `/list/segments` restituisce un JSON strutturato nel seguente modo:
 
 ```json
-[
-    "Sports",
-    "Music",
-    "Miscellaneous",
-    "Arts & Theatre"
-]
+{
+    "list segments": [
+        "Sports",
+        "Music",
+        "Miscellaneous",
+        "Arts & Theatre"
+    ],
+    "number segments": 4
+}
 ```
+<div id='/list/genres'/> 
+
 #### /list/genres
 
-La rotta `/list/genres` restituisce:
+La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
 
 ```json
-[
-    "Basketball",
-    "Football",
-    "Rock",
-    "Hockey",
-    "Motorsports/Racing",
-    "",
-]
+{
+    "number genres": 10,
+    "list genres": [
+        "Basketball",
+        "Football",
+        "Rock",
+        "Hockey",
+        "Fairs & Festivals",
+        ""
+    ]
+}
 ```
 
 
