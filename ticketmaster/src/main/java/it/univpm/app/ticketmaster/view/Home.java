@@ -28,8 +28,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.JXLabel;
 
 import javax.swing.*;
+
+import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.stats.Stats;
 
 //import org.jdesktop.swingx.JXDatePicker;
 
@@ -46,73 +50,150 @@ public class Home extends JFrame
 	String segment = "";
 	Vector<String> genres = new Vector<String>();
 	
-	JComboBox<String> statesBox;
-	JComboBox<String> citiesBox;
-	JComboBox<String> segmentsBox;
-	JComboBox<String> genresBox;
-	
-	
-	JButton searchButton;
-	JButton exitButton;
-	
-
-	JLabel statesLabel;
-	JLabel citiesLabel;
-	JLabel segmentLabel;
-	JLabel genresLabel;
-	
-	
-	JXDatePicker fromDatePicker;
-	JXDatePicker toDatePicker;
 
 
+	JComboBox<String> statesBox = new JComboBox<String>();
+	JComboBox<String> citiesBox = new JComboBox<String>();
+	JComboBox<String> segmentsBox = new JComboBox<String>();
+	JComboBox<String> genresBox = new JComboBox<String>();
+	
+		
+	JButton searchButton = new JButton("Search");
+	JButton resetButton = new JButton("Reset");
+	JButton exitButton = new JButton("Exit");
+	
+	
+	JXLabel statesFilterLabel = new JXLabel();
+	JXLabel citiesFilterLabel = new JXLabel();
+	JXLabel segmentFilterLabel = new JXLabel();
+	JXLabel genresFilterLabel = new JXLabel();
+	
+	JXLabel statesBoxLabel = new JXLabel("STATES");
+	JXLabel citiesBoxLabel = new JXLabel("CITIES");
+	JXLabel segmentBoxLabel = new JXLabel("SEGMENT");
+	JXLabel genresBoxLabel = new JXLabel("GENRES");
+	
+	JXLabel statesFilterTitleLabel = new JXLabel("STATES");
+	JXLabel citiesFilterTitleLabel = new JXLabel("CITIES");
+	JXLabel segmentFilterTitleLabel = new JXLabel("SEGMENT");
+	JXLabel genresFilterTitleLabel = new JXLabel("GENRES");
+	JXLabel periodTitleLabel = new JXLabel("PERIOD");
+	
+	JXLabel fromDateLabel = new JXLabel("From:");
+	JXLabel toDateLabel = new JXLabel("To:");
+	
+	
+	
+	JXDatePicker fromDatePicker = new JXDatePicker();
+	JXDatePicker toDatePicker = new JXDatePicker();
+
+
+	
+	
+	
 	public Home()
 	{
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1000, 500);
-		this.setResizable(true);
-		this.setLayout(new FlowLayout());
+		this.setSize(1200, 780);
+		this.setResizable(false);
+		//this.setLayout(new FlowLayout());//poi mettere null
+		this.setLayout(null);
 		
-		this.getContentPane().setBackground(new Color(180, 200, 180));
+		
+		this.getContentPane().setBackground(new Color(120, 120, 120));
 		
 		
 		//this.pack();
+		
+		//filtraggio.setSize(1280, 720);
+		//filtraggio.setLayout(null);
+		this.setLocationRelativeTo(null);
+		//filtraggio.getContentPane().setBackground(new Color(30, 30, 30));
+		//filtraggio.setVisible(true);
+		
 		
 
 		
 		
 		/*
-		 * 	LABEL
+		 * 	LABELS
 		 */		
-		statesLabel = new JLabel();
-		citiesLabel = new JLabel();
-		segmentLabel = new JLabel();
-		genresLabel = new JLabel();
 		
 		loadLabels();
 
+		statesFilterLabel.setBounds(20, 300, 900, 83);
+		citiesFilterLabel.setBounds(20, 410, 900, 83);
+		segmentFilterLabel.setBounds(20, 520, 900, 40);
+		genresFilterLabel.setBounds(20, 610, 900, 83);
+		
+		statesFilterTitleLabel.setBounds(20, 278, 90, 21);
+		citiesFilterTitleLabel.setBounds(20, 388, 90, 21);
+		segmentFilterTitleLabel.setBounds(20, 498, 90, 21);
+		genresFilterTitleLabel.setBounds(20, 588, 90, 21);
+		
+		statesBoxLabel.setBounds(22, 20, 165, 22);
+		citiesBoxLabel.setBounds(212, 20, 165, 22);
+		segmentBoxLabel.setBounds(407, 20, 165, 22);
+		genresBoxLabel.setBounds(607, 20, 165, 22);
+		periodTitleLabel.setBounds(890, 20, 165, 22);
+		
+		fromDateLabel.setBounds(840, 55, 40, 30);
+		toDateLabel.setBounds(840, 135, 40, 30);
 
-		statesLabel.setBounds(50, 450, 95, 60);
+		
+		setFiltersLabelFont(new Font("Calibri", Font.PLAIN, 17));
+		setTitlesLabelsFont(new Font("Calibri", Font.BOLD, 19));		
+		
+
+		this.statesFilterLabel.setLineWrap(true);
+		this.citiesFilterLabel.setLineWrap(true);
+		this.segmentFilterLabel.setLineWrap(true);
+		this.genresFilterLabel.setLineWrap(true);
+		
+		setAlignmentFilterLabels(JXLabel.LEFT, JXLabel.TOP);
+		setAlignmentFilterTitleLabels(JXLabel.LEFT, JXLabel.TOP);
 		
 		
-		this.add(statesLabel);
-		this.add(citiesLabel);
-		this.add(segmentLabel);
-		this.add(genresLabel);
+		this.add(statesFilterLabel);
+		this.add(citiesFilterLabel);
+		this.add(segmentFilterLabel);
+		this.add(genresFilterLabel);
+		
+		this.add(statesFilterTitleLabel);
+		this.add(citiesFilterTitleLabel);
+		this.add(segmentFilterTitleLabel);
+		this.add(genresFilterTitleLabel);
+
+		this.add(statesBoxLabel);
+		this.add(citiesBoxLabel);
+		this.add(segmentBoxLabel);
+		this.add(genresBoxLabel);
+		this.add(periodTitleLabel);
+
+		this.add(fromDateLabel);
+		this.add(toDateLabel);
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		/* 
-		 *	COMBOBOX 
+		 *	COMBOBOXES
 		 */
-		statesBox = new JComboBox<String>();
-		citiesBox = new JComboBox<String>();
-		segmentsBox = new JComboBox<String>();
-		genresBox = new JComboBox<String>();		
+				
+		statesBox.setBounds(20, 45, 165, 40);
+		citiesBox.setBounds(210, 45, 165, 40);
+		segmentsBox.setBounds(405, 45, 165, 40);
+		genresBox.setBounds(600, 45, 165, 40);
+		
+		setComboBoxesFont(new Font("Calibri", Font.PLAIN, 16));		
 		
 		loadBox();
-		statesBox.setBounds(450, 310, 250, 30);
-		//statesBox.setAlignmentY(50);
 		
 		//aggiunge ActionListener delle comboBox per filtrare
 		addComboBoxesActionListener();
@@ -121,17 +202,27 @@ public class Home extends JFrame
 		this.add(citiesBox);
 		this.add(segmentsBox);
 		this.add(genresBox);
+
+
 		
 		
 		
+		
+		
+
 		/*
-		 * BUTTON
+		 * BUTTONS
 		 */
-		searchButton = new JButton("Search");
-		exitButton = new JButton("Exit");
 		
-		//searchButton.setBounds(100,100,200,15);
+		
+		searchButton.setBounds(950,500,150,65);
+		resetButton.setBounds(950,580,150,65);
+		exitButton.setBounds(950,660,150,65);
+		
+		setButtonsFont(new Font("Calibri", Font.BOLD, 18));
+		
 		this.add(searchButton);
+		this.add(resetButton);
 		this.add(exitButton);
 		
 		
@@ -141,20 +232,23 @@ public class Home extends JFrame
 		
 		
 		/*
-		 * CALENDARIO
+		 * DATEPICKERS
 		 */
-		fromDatePicker = new JXDatePicker();
 		fromDatePicker.setDate(Calendar.getInstance().getTime());
 		fromDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
-        
-		toDatePicker = new JXDatePicker();
+		fromDatePicker.setBounds(880, 55, 200, 30);
+		
+		//FontDate
+		
 		toDatePicker.setDate(Calendar.getInstance().getTime());
 		toDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
+		toDatePicker.setBounds(880, 135, 200, 30);
+
+		resetPeriod();
 				
 		this.add(fromDatePicker);
 		this.add(toDatePicker);
 		
-		LocalDate from = getLocalDate(fromDatePicker.getDate());
 		
 
 		/*
@@ -180,7 +274,7 @@ public class Home extends JFrame
 		pan2.setVisible(true);
 		pan3.setVisible(true);
 		
-		pan1.add(statesLabel);
+		pan1.add(statesFilterLabel);
 		//pan1.setLayout(null);
 		
 		this.add(pan1);
@@ -238,6 +332,33 @@ public class Home extends JFrame
 			this.states.remove(state);			
 	}
 	
+	public void addCityFilter(String city)
+	{
+		if(!this.cities.contains(city))
+			this.cities.add(city);
+		else
+			this.cities.remove(city);	
+	}
+	
+	
+	public void setSegmentFilter(String segment)
+	{
+		if(!this.segment.equals(segment))
+			this.segment = segment;
+		else
+			this.segment = "";
+	}
+	
+	public void addGenreFilter(String genre)
+	{
+		if(!this.genres.contains(genre))
+			this.genres.add(genre);
+		else
+			this.genres.remove(genre);
+	}
+	
+	
+	
 	
 	
 	/*
@@ -249,17 +370,10 @@ public class Home extends JFrame
 	public void addAllStatesFilter()
 	{
 		this.states.removeAllElements();
-		this.statesLabel.setText("All States");
+		this.statesFilterLabel.setText("All States");
 	}
 	
 	
-	public void addCityFilter(String city)
-	{
-		if(!this.cities.contains(city))
-			this.cities.add(city);
-		else
-			this.cities.remove(city);	
-	}
 	
 	/*
 	 * Per filtrare gli eventi per tutte le città, invece di scriverli tutti è sufficiente
@@ -274,34 +388,7 @@ public class Home extends JFrame
 	
 	
 	
-	public void addGenreFilter(String genre)
-	{
-		if(!this.genres.contains(genre))
-			this.genres.add(genre);
-		else
-			this.genres.remove(genre);
-	}
 	
-	/*
-	 * Per filtrare gli eventi per tutti i generi, invece di scriverli tutti è sufficiente
-	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per generi
-	 * 
-	 * @see FilterImpl.isIncludedGenre(String) 
-	 */
-	public void addAllGenresFilter()
-	{
-		this.genres.removeAllElements();
-	}
-	
-	
-	
-	public void setSegmentFilter(String segment)
-	{
-		if(!this.segment.equals(segment))
-			this.segment = segment;
-		else
-			this.segment = "";
-	}
 	
 	/*
 	 * Per filtrare gli eventi per tutti gli stati, invece di scriverli tutti è sufficiente
@@ -316,10 +403,35 @@ public class Home extends JFrame
 	
 	
 	
-	public void loadStatesLabel()
+	/*
+	 * Per filtrare gli eventi per tutti i generi, invece di scriverli tutti è sufficiente
+	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per generi
+	 * 
+	 * @see FilterImpl.isIncludedGenre(String) 
+	 */
+	public void addAllGenresFilter()
 	{
+		this.genres.removeAllElements();
+	}
+	
+	
+	
+	
+	
+
+	public void resetPeriod()
+	{
+		fromDatePicker.setDate(convertToDate(Stats.getFirstDate()));
+		toDatePicker.setDate(convertToDate(Stats.getLastDate()));
+	}
+	
+	
+	
+	
+	public void loadstatesFilterLabel()
+	{		
 		String text;
-		
+				
 		if(this.states.size() == 0)
 		{
 			text = "All states";
@@ -330,11 +442,13 @@ public class Home extends JFrame
 			text = text.substring(1, text.length() - 1);
 		}
 		
-		this.statesLabel.setText(text);
+		this.statesFilterLabel.setText(text);
 	}
 	
 	
-	public void loadCitiesLabel()
+	
+	
+	public void loadcitiesFilterLabel()
 	{
 		String text;
 		
@@ -348,11 +462,12 @@ public class Home extends JFrame
 			text = text.substring(1, text.length() - 1);
 		}		
 		
-		this.citiesLabel.setText(text);
+		this.citiesFilterLabel.setText(text);
 	}
 	
 	
-	public void loadSegmentLabel()
+	
+	public void loadsegmentFilterLabel()
 	{
 		String text;
 		
@@ -365,11 +480,12 @@ public class Home extends JFrame
 			text = this.segment;
 		}		
 		
-		this.segmentLabel.setText(text);
+		this.segmentFilterLabel.setText(text);
 	}
 	
+	
 
-	public void loadGenresLabel()
+	public void loadgenresFilterLabel()
 	{
 		String text;
 		
@@ -383,18 +499,20 @@ public class Home extends JFrame
 			text = text.substring(1, text.length() - 1);
 		}		
 		
-		this.genresLabel.setText(text);
+		this.genresFilterLabel.setText(text);
 	}
+	
 	
 	
 	
 	public void loadLabels()
 	{
-		loadStatesLabel();
-		loadCitiesLabel();
-		loadSegmentLabel();
-		loadGenresLabel();
+		loadstatesFilterLabel();
+		loadcitiesFilterLabel();
+		loadsegmentFilterLabel();
+		loadgenresFilterLabel();
 	}
+	
 	
 	
 	
@@ -405,6 +523,7 @@ public class Home extends JFrame
 		addSegmentsBoxActionListener();
 		addGenresBoxActionListener();
 	}
+	
 	
 	
 	public void addStatesBoxActionListener()
@@ -419,10 +538,11 @@ public class Home extends JFrame
 		    	else
 		    		addStateFilter(statesBox.getSelectedItem().toString());
 		    	
-		    	loadStatesLabel();
+		    	loadstatesFilterLabel();
 		    }
 		});
 	}
+	
 	
 	
 	public void addCitiesBoxActionListener()
@@ -437,10 +557,11 @@ public class Home extends JFrame
 		    	else
 		    		addCityFilter(citiesBox.getSelectedItem().toString());
 		    	
-		    	loadCitiesLabel();
+		    	loadcitiesFilterLabel();
 		    }
 		});
 	}
+	
 	
 	
 	public void addSegmentsBoxActionListener()
@@ -455,11 +576,13 @@ public class Home extends JFrame
 		    	else
 		    		setSegmentFilter(segmentsBox.getSelectedItem().toString());
 		    	
-		    	loadSegmentLabel();
+		    	loadsegmentFilterLabel();
 		    }
 		});
 	}
 
+	
+	
 	
 	public void addGenresBoxActionListener()
 	{
@@ -473,7 +596,7 @@ public class Home extends JFrame
 		    	else
 		    		addGenreFilter(genresBox.getSelectedItem().toString());
 		    	
-		    	loadGenresLabel();
+		    	loadgenresFilterLabel();
 		    }
 		});  
 		
@@ -486,8 +609,10 @@ public class Home extends JFrame
 	public void addButtonsMouseListener()
 	{
 		addExitButtonMouseListener();
+		addResetButtonMouseListener();
 		addSearchButtonMouseListener();
 	}
+	
 	
 	
 	
@@ -501,6 +626,8 @@ public class Home extends JFrame
 			}
 		});
 	}
+	
+	
 	
 	
 	public void addSearchButtonMouseListener()
@@ -518,14 +645,55 @@ public class Home extends JFrame
 				 * 	Controlla filtri, se è tutto ok allora richiedi eventi
 				 */
 				
-				//eventi filtrati
+				Vector<Event> events = new Vector<Event>();
+				events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
 				
-				visible(false);
-				new Result(getThis(), EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents()));
+				
+				if(events.size() == 0)
+				{
+					JOptionPane.showMessageDialog(null, "There aren't events with your filters", "Warning", JOptionPane.WARNING_MESSAGE);
+				}
+				else
+				{
+					visible(false);
+					new Result(getThis(), events);
+				}
+				
+				
 				
 			}
 		});
 	}
+	
+	
+	
+	
+	public void addResetButtonMouseListener()
+	{
+		resetButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				resetFilters();
+				loadLabels();
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	public void resetFilters()
+	{
+		addAllStatesFilter();
+		addAllCitiesFilter();
+		addAllSegmentsFilter();
+		addAllGenresFilter();
+		resetPeriod();		
+	}
+	
+	
 	
 	
 	
@@ -539,7 +707,6 @@ public class Home extends JFrame
 	}
 	
 	
-	
 	/*
 	 * Metodo che ritorna l'oggetto stesso, fatto perchè all'interno
 	 * dell'actionListener, l'oggetto this non è accessibile
@@ -549,6 +716,9 @@ public class Home extends JFrame
 		return this;
 	}
 	
+	
+	
+	
 	public FilterImpl readFilter()
 	{
 		FilterImpl filter = new FilterImpl();
@@ -557,18 +727,103 @@ public class Home extends JFrame
 		filter.setCities(this.cities);
 		filter.setSegment(this.segment);
 		filter.setGenres(this.genres);
-		filter.setStartDate(getLocalDate(this.fromDatePicker.getDate()));
-		filter.setEndDate(getLocalDate(this.toDatePicker.getDate()));
+		filter.setStartDate(convertToLocalDate(this.fromDatePicker.getDate()));
+		filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
 		
 		return filter;
 	}
 	
 	
-	public LocalDate getLocalDate(Date date)
+	public LocalDate convertToLocalDate(Date date)
 	{
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	
+	public Date convertToDate(LocalDate date)
+	{
+	    return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	
+	
+	
+	
+	
+	public void setFiltersLabelFont(Font font)
+	{
+		statesFilterLabel.setFont(font);
+		citiesFilterLabel.setFont(font);
+		segmentFilterLabel.setFont(font);
+		genresFilterLabel.setFont(font);
+	}
+	
+	
+	public void setTitlesLabelsFont(Font font)
+	{		
+		statesFilterTitleLabel.setFont(font);
+		citiesFilterTitleLabel.setFont(font);
+		segmentFilterTitleLabel.setFont(font);
+		genresFilterTitleLabel.setFont(font);
+		
+		statesBoxLabel.setFont(font);
+		citiesBoxLabel.setFont(font);
+		segmentBoxLabel.setFont(font);
+		genresBoxLabel.setFont(font);;
+		periodTitleLabel.setFont(font);
+	}
+	
+	
+	public void setComboBoxesFont(Font font)
+	{
+		statesBox.setFont(font);
+		citiesBox.setFont(font);
+		segmentsBox.setFont(font);
+		genresBox.setFont(font);
+	}
+	
+	
+	public void setButtonsFont(Font font)
+	{
+		searchButton.setFont(font);
+		resetButton.setFont(font);
+		exitButton.setFont(font);
+	}
+	
+	
+	
+	
+	
+	
+	public void setAlignmentFilterLabels(int horizontal, int vertical)
+	{
+		this.statesFilterLabel.setHorizontalAlignment(horizontal);
+		this.statesFilterLabel.setVerticalAlignment(vertical);		
+		
+		this.citiesFilterLabel.setHorizontalAlignment(horizontal);
+		this.citiesFilterLabel.setVerticalAlignment(vertical);		
+		
+		this.segmentFilterLabel.setHorizontalAlignment(horizontal);
+		this.segmentFilterLabel.setVerticalAlignment(vertical);		
+		
+		this.genresFilterLabel.setHorizontalAlignment(horizontal);
+		this.genresFilterLabel.setVerticalAlignment(vertical);				
+	}
+	
+	
+	public void setAlignmentFilterTitleLabels(int horizontal, int vertical)
+	{
+		this.statesFilterTitleLabel.setHorizontalAlignment(horizontal);
+		this.statesFilterLabel.setVerticalAlignment(vertical);		
+		
+		this.citiesFilterTitleLabel.setHorizontalAlignment(horizontal);
+		this.citiesFilterTitleLabel.setVerticalAlignment(vertical);		
+		
+		this.segmentFilterTitleLabel.setHorizontalAlignment(horizontal);
+		this.segmentFilterTitleLabel.setVerticalAlignment(vertical);		
+		
+		this.genresFilterTitleLabel.setHorizontalAlignment(horizontal);
+		this.genresFilterTitleLabel.setVerticalAlignment(vertical);				
+	}
 	
 	
 }

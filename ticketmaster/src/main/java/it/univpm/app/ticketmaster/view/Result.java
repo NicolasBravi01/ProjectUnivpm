@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.parser.JSONBuilder;
 
 public class Result extends JFrame
 {
@@ -28,6 +29,7 @@ public class Result extends JFrame
 	JButton backButton;
 	JButton exitButton;
 	
+	JSONBuilder jB = new JSONBuilder();
 	
 	Home home;
 	
@@ -76,15 +78,15 @@ public class Result extends JFrame
 		this.setVisible(true);
 		
 		
+		//String text = events.toString();
+		String text = jB.getJSONObjectEvents(events).toJSONString();
 		
-		
-		
-		//risultato.setBackground(new Color(50, 50, 50));
+		risultato.setBackground(new Color(150, 150, 150));
 		risultato.setEditable(false);
-		risultato.setText(events.toString());
+		risultato.setText(text);
 		risultato.setCaretPosition(0);
-		//risultato.setForeground(Color.WHITE);
-		//risultato.setFont(new Font("Arial", Font.PLAIN, 20));
+		risultato.setForeground(Color.BLACK);
+		risultato.setFont(new Font("Arial", Font.PLAIN, 20));
 		risultato.setMargin(new Insets(0, 50, 0, 0));
 		scrollRisultato.setBounds(60, 50, 1150, 550);
 		this.add(scrollRisultato);
