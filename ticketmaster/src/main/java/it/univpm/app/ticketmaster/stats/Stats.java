@@ -48,7 +48,7 @@ public class Stats
 	 * @param n Numero di eventi
 	 * @param period Stringa contenente il periodo scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return av Media mensile degli eventi
 	 */
@@ -87,7 +87,7 @@ public class Stats
 	 * 
 	 * @param events Vettore di eventi tra i quali si cerca di calcolare il minimo
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return msg Stringa che rivela il minimo e il mese in cui questo viene raggiunto
 	 */
@@ -108,7 +108,7 @@ public class Stats
 	 * 
 	 * @param events Vettore di eventi tra i quali si cerca di calcolare il massimo
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return msg Stringa che rivela il massimo e il mese in cui questo viene raggiunto
 	 */
@@ -129,7 +129,7 @@ public class Stats
 	 * 
 	 * @param month Numero del mese corrispondente 
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return str Stringa che rivela il mese a cui è associato il numero month
 	 */
@@ -186,7 +186,7 @@ public class Stats
 	 * 
 	 * @param events Vettore di eventi 
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array che immagazzina il numero di eventi accaduti in ogni mese
 	 */
@@ -211,7 +211,7 @@ public class Stats
 	 * 
 	 * @param vet Array di numeri
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return maxIndex Indice dell'array a cui corrisponde il valore massimo
 	 */
@@ -236,7 +236,7 @@ public class Stats
 	 * 
 	 * @param vet Array di numeri
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return minIndex Indice dell'array a cui corrisponde il valore minimo
 	 */
@@ -263,7 +263,7 @@ public class Stats
 	 * 
 	 * @param filter Filtro scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
@@ -297,7 +297,7 @@ public class Stats
 	 * 
 	 * @param filter Filtro scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
@@ -331,7 +331,7 @@ public class Stats
 	 * 
 	 * @param filter Filtro scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
@@ -365,7 +365,7 @@ public class Stats
 	 * 
 	 * @param filter Filtro scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */

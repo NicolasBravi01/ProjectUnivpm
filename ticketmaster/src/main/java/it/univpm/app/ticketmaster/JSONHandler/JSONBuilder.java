@@ -1,4 +1,4 @@
-package it.univpm.app.ticketmaster.parser;
+package it.univpm.app.ticketmaster.JSONHandler;
 
 import java.util.Vector;
 
@@ -196,16 +196,18 @@ public class JSONBuilder
 	public JSONObject getJSONObjectAllStats(Vector<Event> events, FilterImpl filter)
 	{
 		JSONObject obj = new JSONObject();
-		JSONObject objInt = new JSONObject();
+		JSONObject objInt1 = new JSONObject();
+		JSONObject objInt2 = new JSONObject();
+
+		objInt1 = this.getJSONObjectStats(events, filter);
 		
-		obj = this.getJSONObjectStats(events, filter);
+		objInt2.put("states", this.getJSONObjectMaxMinPerStates(filter));
+		objInt2.put("cities", this.getJSONObjectMaxMinPerCities(filter));
+		objInt2.put("segments", this.getJSONObjectMaxMinPerSegments(filter));
+		objInt2.put("genres", this.getJSONObjectMaxMinPerGenres(filter));
 		
-		objInt.put("states", this.getJSONObjectMaxMinPerStates(filter));
-		objInt.put("cities", this.getJSONObjectMaxMinPerCities(filter));
-		objInt.put("segments", this.getJSONObjectMaxMinPerSegments(filter));
-		objInt.put("genres", this.getJSONObjectMaxMinPerGenres(filter));
-		
-		obj.put("Respect", objInt);
+		obj.put("general", objInt1);
+		obj.put("perspectives", objInt2);
 		
 		return obj;
 	}
@@ -543,7 +545,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectErrorNoEvents()
 	{
 		return this.getJSONObjectError("there aren't events, change filters");

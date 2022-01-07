@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
+import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
 import it.univpm.app.ticketmaster.view.Home;
 
 @SpringBootApplication
@@ -31,7 +31,7 @@ public class TicketmasterApplication
 	 */
 	static void callEvents()
 	{
-		ticketmasterConnection.callEvents();
+		TicketmasterConnection.callEvents();
 	}
 
 }

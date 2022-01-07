@@ -9,17 +9,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.parser.EventsParser;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
+import it.univpm.app.ticketmaster.JSONHandler.EventsParser;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
-import it.univpm.app.ticketmaster.exception.Error;
+
 
 /**
  * Classe contenente la chiamata alla rotta events
  * 
  * @author sup3r
  */
-public class ticketmasterConnection 
+public class TicketmasterConnection 
 {
 	final static String countryCode = "US";
 	final static int size = 200;		
@@ -29,7 +29,7 @@ public class ticketmasterConnection
 	 * che restituirà un vettore di eventi, il quale a sua volta verrà passato al metodo setEvents della classe EventsFilter, 
 	 * che si occuperà di creare le liste contenenti tutti gli stati, le città, i segmenti e i generi che sono comparsi nel json.
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.EventsParser
+	 * @see it.univpm.app.ticketmaster.JSONHandler.EventsParser
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 */
 	public static void callEvents() 

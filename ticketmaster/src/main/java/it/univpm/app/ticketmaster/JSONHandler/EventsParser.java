@@ -1,4 +1,4 @@
-package it.univpm.app.ticketmaster.parser;
+package it.univpm.app.ticketmaster.JSONHandler;
 
 import java.time.LocalDate;
 import java.util.Vector;
@@ -11,7 +11,7 @@ import org.json.simple.parser.ParseException;
 import it.univpm.app.ticketmaster.model.Event;
 
 /**
- * Classe che analizza il codice json della chiamata alla rotta events dell'api di ticketmaster
+ * Classe che analizza il codice JSON della chiamata alla rotta events dell'api di ticketmaster
  * 
  * @author sup3r
  */
@@ -20,7 +20,7 @@ public class EventsParser
 	/**
 	 * Metodo che analizza il json della chiamata events e restituisce un vettore di eventi
 	 * 
-	 * @param json Fornisce il codice json che viene analizzato dal metodo
+	 * @param json Fornisce il file json (come stringa) che viene analizzato dal metodo
 	 * 
 	 * @return listEvents Vettore di Eventi contenente gli eventi creati, poi restituito
 	 * 
@@ -33,11 +33,11 @@ public class EventsParser
 	{	
 		/**
 		 * Vettore di Eventi nel quale vengono inseriti gli eventi creati
-		 * a partire dal json e poi viene restituito alla classe ticketmasterConnection
+		 * a partire dal json e poi viene restituito alla classe TicketmasterConnection
 		 */
 		Vector<Event> listEvents = new Vector<Event>();
 		
-		JSONParser parser = new JSONParser();			
+		JSONParser parser = new  JSONParser();
 		JSONObject jO= (JSONObject) parser.parse(json);
 		
 		JSONObject embedded1 = (JSONObject) jO.get("_embedded");

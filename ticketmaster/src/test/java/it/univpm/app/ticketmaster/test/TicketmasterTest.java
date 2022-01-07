@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.TicketmasterApplication;
-import it.univpm.app.ticketmaster.apiConnection.ticketmasterConnection;
+import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.FilterImpl;
@@ -52,7 +52,23 @@ class TicketmasterTest
 		});
 	
 		assertEquals("ERROR: dates in incorrect order", exc.getMsg());
-		
 	}
+	
+	@Test
+	void testCityBelongsToState() 
+	{
+		/*
+		String period = "2023-04-04,2022-01-01";
+		
+		IncorrectOrderOfDatesException exc = assertThrows(IncorrectOrderOfDatesException.class, () -> {
+			filter = new FilterImpl("", "", period, "", "");
+		});
+	
+		assertEquals("ERROR: dates in incorrect order", exc.getMsg());
+		*/
+	}
+
+	
+	
 
 }

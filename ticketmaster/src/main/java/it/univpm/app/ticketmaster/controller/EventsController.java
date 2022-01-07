@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.FilterImpl;
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.parser.JSONBuilder;
 
 /**
  * Controller delle varie rotte
@@ -36,11 +36,11 @@ public class EventsController
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
-	 * @param segment Stringa contenente i segmenti di interesse per l'utente
+	 * @param segment Stringa contenente il segmento di interesse per l'utente
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject strutturato secondo il model e contenente la lista di tutti gli eventi filtrati dall'utente
 	 */
@@ -73,7 +73,7 @@ public class EventsController
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente le statistiche degli eventi in un certo periodo
 	 */
@@ -104,7 +104,7 @@ public class EventsController
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche degli stati filtrati dall'utente in un certo periodo
@@ -136,7 +136,7 @@ public class EventsController
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche delle città filtrate dall'utente in un certo periodo
@@ -167,7 +167,7 @@ public class EventsController
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @return response JSONObject contenente le statistiche del segmento scelto dall'utente in un certo periodo
@@ -199,7 +199,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente le statistiche dei generi scelti dall'utente in un certo periodo
 	 */
@@ -224,12 +224,12 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/states, 
-	 * che è restituisce la lista di eventi raggruppati per stati
+	 * che restituisce la lista di eventi raggruppati per stati
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
 	 */
@@ -253,12 +253,12 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/cities, 
-	 * che è restituisce la lista di eventi raggruppati per città
+	 * che restituisce la lista di eventi raggruppati per città
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
 	 */
@@ -283,12 +283,12 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/segments, 
-	 * che è restituisce la lista di eventi raggruppati per segmenti
+	 * che restituisce la lista di eventi raggruppati per segmenti
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente la lista di eventi raggruppati per segmenti in un certo periodo
 	 */
@@ -312,12 +312,12 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/genres, 
-	 * che è restituisce la lista di eventi raggruppati per genres
+	 * che restituisce la lista di eventi raggruppati per genres
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.parser.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return response JSONObject contenente la lista di eventi raggruppati per generi in un certo periodo
 	 */
@@ -340,50 +340,78 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /list//states, 
+	 * Metodo associato alla rotta get /list/states, 
 	 * che restituisce la lista degli stati
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/states")
-	public Vector<String> getStates()
+	public JSONObject getStates()
 	{	
+		JSONObject obj = new JSONObject();
 		Vector<String> states = EventsFilter.getStates();
-		return states;
+		int size = states.size();
+		
+		obj.put("list states", states);
+		obj.put("number states", size);
+		
+		return obj;
 	}
 	
 	
 	/**
-	 * Metodo associato alla rotta get /list//cities, 
+	 * Metodo associato alla rotta get /list/cities, 
 	 * che restituisce la lista delle città
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/cities")
-	public Vector<String> getCities()
-	{	
+	public JSONObject getCities()
+	{			
+		JSONObject obj = new JSONObject();
 		Vector<String> cities = EventsFilter.getCities();
-		return cities;
+		int size = cities.size();
+		
+		obj.put("list cities", cities);
+		obj.put("number cities", size);
+		
+		return obj;
 	}
 
 	
 	/**
-	 * Metodo associato alla rotta get /list//segments, 
+	 * Metodo associato alla rotta get /list/segments, 
 	 * che restituisce la lista dei segmenti
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/segments")
-	public Vector<String> getSegments()
+	public JSONObject getSegments()
 	{	
+		JSONObject obj = new JSONObject();
 		Vector<String> segments = EventsFilter.getSegments();
-		return segments;
+		int size = segments.size();
+		
+		obj.put("list segments", segments);
+		obj.put("number segments", size);
+		
+		return obj;
 	}
 	
 	
 	/**
-	 * Metodo associato alla rotta get /list//genres, 
+	 * Metodo associato alla rotta get /list/genres, 
 	 * che restituisce la lista dei generi
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/genres")
-	public Vector<String> getGenres()
+	public JSONObject getGenres()
 	{	
+		JSONObject obj = new JSONObject();
 		Vector<String> genres = EventsFilter.getGenres();
-		return genres;
+		int size = genres.size();
+		
+		obj.put("list genres", genres);
+		obj.put("number genres", size);
+		
+		return obj;
 	}
 	
 	

@@ -7,7 +7,7 @@ import java.util.Vector;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.model.Event;
 
-public class FilterImpl implements Filter, Cloneable
+public class FilterImpl implements Cloneable
 {
 	Vector<String> states;
 	Vector<String> cities;
@@ -171,6 +171,7 @@ public class FilterImpl implements Filter, Cloneable
 	{
 		return new FilterImpl(this.states, this.cities, this.startDate, this.endDate, this.segment, this.genres);	
 	}
+	
 
 	public boolean isIncludedState(String state)
 	{
@@ -286,5 +287,7 @@ public class FilterImpl implements Filter, Cloneable
 				
 		}
 	}
+	
+	
 	
 }
