@@ -29,11 +29,6 @@ public class Stats
 	 */
 	public double average(int n, String period) 
 	{
-		/*
-		 * if((this.firstDate == null) || (this.lastDate == null))
-		 * 		Vuol dire che la lista degli eventi è vuota, gestire errore 
-		 */
-		
 		double av;	
 		
 		LocalDate startDate;
@@ -60,7 +55,7 @@ public class Stats
 	/**
 	 * Metodo che restituisce il minimo
 	 * 
-	 * @param events Vettore di eventi tra i quali si cerca di calcolare il minimo
+	 * @param events Lista di eventi tra i quali si cerca di calcolare il minimo
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -81,7 +76,7 @@ public class Stats
 	/**
 	 * Metodo che restituisce il massimo
 	 * 
-	 * @param events Vettore di eventi tra i quali si cerca di calcolare il massimo
+	 * @param events Lista di eventi tra i quali si cerca di calcolare il massimo
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -159,7 +154,7 @@ public class Stats
 	/**
 	 * Metodo che crea un array contenente il numero di eventi accaduti in ogni mese
 	 * 
-	 * @param events Vettore di eventi 
+	 * @param events Lista di eventi 
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -237,6 +232,7 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONBuilder
 	 * 
 	 * @param filter Filtro scelto dall'utente
+	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -269,6 +265,7 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerCities della classe JSONBuilder
 	 * 
 	 * @param filter Filtro scelto dall'utente
+	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -301,6 +298,7 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerSegment della classe JSONBuilder
 	 * 
 	 * @param filter Filtro scelto dall'utente
+	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
@@ -333,6 +331,7 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONBuilder
 	 * 
 	 * @param filter Filtro scelto dall'utente
+	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 

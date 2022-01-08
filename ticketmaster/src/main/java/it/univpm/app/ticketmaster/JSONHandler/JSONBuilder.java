@@ -20,7 +20,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events
 	 * 
-	 * @param listEvent Vettore di eventi 
+	 * @param listEvent Lista di eventi 
 	 * 
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
@@ -187,7 +187,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats
 	 * 
-	 * @param events Vettore di eventi
+	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -220,7 +220,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/states
 	 * 
-	 * @param events Vettore di eventi
+	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -261,7 +261,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities
 	 * 
-	 * @param events Vettore di eventi
+	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -302,7 +302,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/segments
 	 * 
-	 * @param events Vettore di eventi
+	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -343,7 +343,7 @@ public class JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/genres
 	 * 
-	 * @param events Vettore di eventi
+	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -532,7 +532,13 @@ public class JSONBuilder
 	
 
 
-	
+	/**
+	 * Metodo che restituisce un JSONObject contenente un messaggio di errore
+	 * 
+	 * @param err toString dell'errore
+	 * 
+	 * @return obj JSONObject
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectError(String err)
 	{
@@ -542,12 +548,11 @@ public class JSONBuilder
 	}
 	
 	
-	
 	/**
 	 * Metodo che restituisce un JSONObject comune a tutte le rotte
 	 * che si occupano delle statistiche
 	 * 
-	 * @param events Vettore di eventi 
+	 * @param events Lista di eventi 
 	 * @param filter Filtro inserito dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
@@ -578,9 +583,9 @@ public class JSONBuilder
 	 * Metodo che restituisce un JSONObject contenente i nomi degli elementi con il maggior numero di eventi
 	 * e con il minor numero di eventi, il numero di eventi che li caratterizza e la loro media mensile
 	 * 
-	 * @param elements
-	 * @param counter
-	 * @param index
+	 * @param elements Lista di elementi su cui lavorare
+	 * @param counter Array in cui sono stati inseriti il numero di eventi
+	 * @param index Indice dell'array
 	 * @param period Periodo scelto dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.stats.Stats

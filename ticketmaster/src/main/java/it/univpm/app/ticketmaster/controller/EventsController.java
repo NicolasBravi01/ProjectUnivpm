@@ -24,7 +24,7 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events, 
-	 * che è in grado di generare filtri in base ai parametri forniti dall'utente
+	 * che restituisce il JSONObject contenente la lista di eventi filtrati secondo i parametri forniti dall'utente
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
@@ -34,7 +34,7 @@ public class EventsController
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject strutturato secondo il model e contenente la lista di tutti gli eventi filtrati dall'utente
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/events")
 	public JSONObject getEvents(@RequestParam(name="states", defaultValue="") String states,
@@ -71,14 +71,14 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/states, 
-	 * che restituisce la lista di eventi raggruppati per stati
+	 * che restituisce il JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/events/states")
 	public JSONObject getEventsPerStates(@RequestParam(name="period", defaultValue="") String period)
@@ -110,14 +110,14 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/cities, 
-	 * che restituisce la lista di eventi raggruppati per città
+	 * che restituisce il JSONObject contenente la lista di eventi raggruppati per città in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/events/cities")
 	public JSONObject getEventsPerCities(@RequestParam(name="states", defaultValue="") String states,
@@ -151,14 +151,14 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/segments, 
-	 * che restituisce la lista di eventi raggruppati per segmenti
+	 * che restituisce la lista di eventi raggruppati per segmenti in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente la lista di eventi raggruppati per segmenti in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/events/segments")
 	public JSONObject getEventsPerSegments(@RequestParam(name="period", defaultValue="") String period)
@@ -190,14 +190,14 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /events/genres, 
-	 * che restituisce la lista di eventi raggruppati per genres
+	 * che restituisce la lista di eventi raggruppati per generi in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente la lista di eventi raggruppati per generi in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/events/genres")
 	public JSONObject getEventsPerGenres(@RequestParam(name="period", defaultValue="") String period)
@@ -227,8 +227,6 @@ public class EventsController
 	}
 	
 	
-	
-	
 	/**
 	 * Metodo associato alla rotta get /stats 
 	 * che è in grado di generare le statistiche per tutti gli eventi in un certo periodo
@@ -238,7 +236,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente le statistiche degli eventi in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/stats")
 	public JSONObject getStats(@RequestParam(name="period", defaultValue="") String period)
@@ -248,7 +246,6 @@ public class EventsController
 		Vector<Event> events;
 		
 		JSONObject response;	
-		
 		
 		try
 		{
@@ -277,7 +274,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
-	 * @return response JSONObject contenente le statistiche degli stati filtrati dall'utente in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/stats/states")
 	public JSONObject getStatsPerStates(@RequestParam(name="states", defaultValue="") String states,
@@ -316,7 +313,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
-	 * @return response JSONObject contenente le statistiche delle città filtrate dall'utente in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/stats/cities")
 	public JSONObject getStatsPerCities(@RequestParam(name="cities", defaultValue="") String cities,
@@ -346,7 +343,7 @@ public class EventsController
 	
 	/**
 	 * Metodo associato alla rotta get /stats/segment, 
-	 * che è in grado di generare le statistiche per il segmento scelto dall'utente in un certo periodo
+	 * che è in grado di generare le statistiche per tutti i segmenti in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
@@ -354,7 +351,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * 
-	 * @return response JSONObject contenente le statistiche del segmento scelto dall'utente in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/stats/segments")
 	public JSONObject getStatsPerSegments(@RequestParam(name="period", defaultValue="") String period)
@@ -393,7 +390,7 @@ public class EventsController
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return response JSONObject contenente le statistiche dei generi scelti dall'utente in un certo periodo
+	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
 	@GetMapping(value = "/stats/genres")
 	public JSONObject getStatsPerGenres(@RequestParam(name="genres", defaultValue="") String genres,
@@ -419,10 +416,6 @@ public class EventsController
 		
 		return response;
 	}
-	
-	
-	
-	
 	
 	
 	/**

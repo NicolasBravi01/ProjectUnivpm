@@ -1,6 +1,5 @@
 package it.univpm.app.ticketmaster.exception;
 
-import java.util.Arrays;
 
 /**
  * Eccezione generata se almeno una città inserita non appartiene ad uno degli stati inseriti

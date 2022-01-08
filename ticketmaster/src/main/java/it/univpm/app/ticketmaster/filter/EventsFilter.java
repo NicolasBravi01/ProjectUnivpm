@@ -43,10 +43,6 @@ public class EventsFilter
 	static LocalDate lastDate;
 	
 	
-	
-	
-	
-	
 	public static Vector<Event> getEvents() {
 		return events;
 	}
@@ -151,19 +147,14 @@ public class EventsFilter
 	}
 	
 	
-	
-	
-	
-	
-	
 	/**
-	 * Metodo static che restituisce il vettore di tutti gli eventi dopo che l'utente ha inserito i filtri,
-	 * che verrà preso come parametro nelle rotte della classe EventsController
+	 * Metodo static che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
+	 * a partire da una lista di eventi passata come parametro
 	 * 
 	 * @param filter Filtro inserito dall'utente
-	 * @param eventsToFilter Vettore di eventi da filtrare 
+	 * @param eventsToFilter Lista di eventi da filtrare 
 	 * 
-	 * @return filteredEvents Vettore di tutti gli eventi filtrati
+	 * @return filteredEvents Lista di tutti gli eventi filtrati
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
@@ -172,7 +163,6 @@ public class EventsFilter
 	{
 		Vector<Event> filteredEvents = new Vector<Event>();
 	
-		
 		for(int i=0; i<eventsToFilter.size(); i++)
 		{			
 			Event e = eventsToFilter.get(i);
@@ -186,10 +176,17 @@ public class EventsFilter
 		return filteredEvents;
 	}
 	
-	
-	
-
-	
+	/**
+	 * Metodo static che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
+	 * a partire dalla lista degli eventi
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * 
+	 * @return filteredEvents Lista di tutti gli eventi filtrati
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 */
 	public static Vector<Event> getFilteredEvents (Filter filter) 
 	{
 		return getFilteredEvents(filter, events);

@@ -20,9 +20,9 @@ public class EventsParser
 	/**
 	 * Metodo che analizza il json della chiamata events e restituisce un vettore di eventi
 	 * 
-	 * @param json Fornisce il file json (come stringa) che viene analizzato dal metodo
+	 * @param json Fornisce il file JSON (come stringa) che viene analizzato dal metodo
 	 * 
-	 * @return listEvents Vettore di Eventi contenente gli eventi creati, poi restituito
+	 * @return listEvents Lista di Eventi contenente gli eventi creati, poi restituito
 	 * 
 	 * @throws ParseException
 	 * 

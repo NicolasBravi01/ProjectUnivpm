@@ -15,10 +15,7 @@ public class Filter implements Cloneable
 	LocalDate endDate;
 	String segment;
 	Vector<String> genres;
-	
-	
-	boolean error = false;
-	
+
 	
 	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
 	{
@@ -121,14 +118,6 @@ public class Filter implements Cloneable
 	}
 	
 	
-	public boolean isError() {
-		return error;
-	}
-	public void setError(boolean error) {
-		this.error = error;
-	}
-
-	
 	public void reset()
 	{
 		this.states = new Vector<String>();
@@ -138,7 +127,6 @@ public class Filter implements Cloneable
 		this.segment = "";
 		this.genres = new Vector<String>();
 	}
-	
 	
 	
 	/**
@@ -162,6 +150,7 @@ public class Filter implements Cloneable
 		
 		return clone;
 	}
+	
 	
 	/*
 	 * Nel caso in cui il metodo FilterImpl.clone() generi l'eccezione CloneNotSupportedException,
@@ -220,12 +209,13 @@ public class Filter implements Cloneable
 		return isIncluded;
 	}
 	
+	
 	/**
 	 * Metodo (invocato dal costruttore) che converte un elenco di parole separate da una virgola in un vettore di stringhe 
 	 * 
 	 * @param toParse Stringa contenente parole separate da una virgola
 	 * 
-	 * @return list Vettore di stringhe
+	 * @return list Lista di stringhe
 	 */
 	private Vector<String> convertToVectorOfStrings(String toParse)
 	{
@@ -244,7 +234,7 @@ public class Filter implements Cloneable
 	
 	
 	/**
-	 * Metodo (invocato dal costruttore) che leggendo una stringa contenente due date (in formato LocalDate) separate da una virgola
+	 * Metodo (invocato dal costruttore) che leggendo una stringa contenente due date (di tipo LocalDate) separate da una virgola
 	 * assegna la prima data al valore startDate e la seconda data al valore endDate 
 	 * 
 	 * 
