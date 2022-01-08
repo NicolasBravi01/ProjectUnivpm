@@ -7,7 +7,7 @@ import java.util.Vector;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.model.Event;
 
-public class FilterImpl implements Cloneable
+public class Filter implements Cloneable
 {
 	Vector<String> states;
 	Vector<String> cities;
@@ -16,10 +16,11 @@ public class FilterImpl implements Cloneable
 	String segment;
 	Vector<String> genres;
 	
+	
 	boolean error = false;
 	
 	
-	public FilterImpl(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
+	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
 	{
 		this.states = states;
 		this.cities = cities;
@@ -29,7 +30,7 @@ public class FilterImpl implements Cloneable
 		this.genres = genres;
 	}
 	
-	public FilterImpl(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres)
+	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres)
 	{
 		this.states = states;
 		this.cities = cities;
@@ -38,7 +39,7 @@ public class FilterImpl implements Cloneable
 		this.genres = genres;
 	}
 	
-	public FilterImpl(String states, String cities, String period, String segment, String genres)
+	public Filter(String states, String cities, String period, String segment, String genres)
 	{
 		this.states = convertToVectorOfStrings(states);
 		this.cities = convertToVectorOfStrings(cities);
@@ -47,13 +48,13 @@ public class FilterImpl implements Cloneable
 		this.genres = convertToVectorOfStrings(genres);
 	}
 	
-	public FilterImpl(String period)
+	public Filter(String period)
 	{
 		reset();
 		loadPeriod(period);
 	}
 	
-	public FilterImpl()
+	public Filter()
 	{
 		reset();
 	}
@@ -147,12 +148,12 @@ public class FilterImpl implements Cloneable
 	 * 
 	 * @return clone FilterImpl
 	 */
-	public FilterImpl clone()
+	public Filter clone()
 	{
-		FilterImpl clone;
+		Filter clone;
 		try
 		{
-			clone = (FilterImpl) super.clone();
+			clone = (Filter) super.clone();
 		}
 		catch (CloneNotSupportedException e) 
 		{
@@ -167,9 +168,9 @@ public class FilterImpl implements Cloneable
 	 * viene restituita l'istanza di un nuovo oggetto con i valori di quello che chiama questo metodo
 	 * 
 	 */
-	private FilterImpl copy()
+	private Filter copy()
 	{
-		return new FilterImpl(this.states, this.cities, this.startDate, this.endDate, this.segment, this.genres);	
+		return new Filter(this.states, this.cities, this.startDate, this.endDate, this.segment, this.genres);	
 	}
 	
 
@@ -266,7 +267,7 @@ public class FilterImpl implements Cloneable
 				
 				if(this.startDate.isAfter(endDate))
 				{
-					this.error = true;
+					//this.error = true;
 					throw new IncorrectOrderOfDatesException();
 				}
 			}
@@ -278,11 +279,7 @@ public class FilterImpl implements Cloneable
 			}
 			catch(DateTimeParseException e)
 			{
-				this.error = true; //Filtro periodo sbagliato
-			}
-			catch(Exception e)
-			{
-				this.error = true;
+				//this.error = true; //Filtro periodo sbagliato
 			}
 				
 		}

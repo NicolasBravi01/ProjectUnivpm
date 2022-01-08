@@ -10,7 +10,7 @@ import java.util.Arrays;
 @SuppressWarnings("serial")
 public class CityDoesntBelongToStateException extends Exception 
 {
-	private String msg = "ERROR: The city doesn't belong to the state";
+	//private String msg = "ERROR: The city doesn't belong to the state";
 
 	public CityDoesntBelongToStateException() {
 		super();
@@ -18,20 +18,8 @@ public class CityDoesntBelongToStateException extends Exception
 
 	public CityDoesntBelongToStateException(String msg) {
 		super(msg);
-		this.msg=msg;
 	}
 	
-	public String getMsg(){
-		return this.msg;
-	}
 	
-	public String getMsg(String msg){
-		this.msg = msg;
-		return this.msg;
-	}
-	
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
 }
 

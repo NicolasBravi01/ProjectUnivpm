@@ -14,13 +14,13 @@ import it.univpm.app.ticketmaster.TicketmasterApplication;
 import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.filter.FilterImpl;
+import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
 
 class TicketmasterTest 
 {
-	FilterImpl filter;
+	Filter filter;
 	
 	/*
 	@BeforeAll
@@ -48,7 +48,7 @@ class TicketmasterTest
 		String period = "2023-04-04,2022-01-01";
 		
 		IncorrectOrderOfDatesException exc = assertThrows(IncorrectOrderOfDatesException.class, () -> {
-			filter = new FilterImpl("", "", period, "", "");
+			filter = new Filter("", "", period, "", "");
 		});
 	
 		assertEquals("ERROR: dates in incorrect order", exc.getMsg());

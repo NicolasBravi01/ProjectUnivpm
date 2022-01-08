@@ -40,7 +40,7 @@ import it.univpm.app.ticketmaster.stats.Stats;
 
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.filter.FilterImpl;
+import it.univpm.app.ticketmaster.filter.Filter;
 
 public class Home extends JFrame
 {	
@@ -58,9 +58,9 @@ public class Home extends JFrame
 	JComboBox<String> genresBox = new JComboBox<String>();
 	
 		
-	JButton searchButton = new JButton("Search");
-	JButton resetButton = new JButton("Reset");
-	JButton exitButton = new JButton("Exit");
+	JButton searchButton = new JButton("SEARCH");
+	JButton resetButton = new JButton("RESET");
+	JButton exitButton = new JButton("EXIT");
 	
 	
 	JXLabel statesFilterLabel = new JXLabel();
@@ -95,7 +95,7 @@ public class Home extends JFrame
 	{
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1200, 780);
+		this.setSize(1200, 800);
 		this.setResizable(false);
 		//this.setLayout(new FlowLayout());//poi mettere null
 		this.setLayout(null);
@@ -122,28 +122,29 @@ public class Home extends JFrame
 		
 		loadLabels();
 
-		statesFilterLabel.setBounds(20, 300, 900, 83);
-		citiesFilterLabel.setBounds(20, 410, 900, 83);
-		segmentFilterLabel.setBounds(20, 520, 900, 40);
-		genresFilterLabel.setBounds(20, 610, 900, 83);
+		statesFilterLabel.setBounds(35, 310, 900, 83);
+		citiesFilterLabel.setBounds(35, 430, 900, 83);
+		segmentFilterLabel.setBounds(35, 550, 900, 40);
+		genresFilterLabel.setBounds(35, 650, 900, 83);
 		
-		statesFilterTitleLabel.setBounds(20, 278, 90, 21);
-		citiesFilterTitleLabel.setBounds(20, 388, 90, 21);
-		segmentFilterTitleLabel.setBounds(20, 498, 90, 21);
-		genresFilterTitleLabel.setBounds(20, 588, 90, 21);
+		statesFilterTitleLabel.setBounds(35, 288, 90, 21);
+		citiesFilterTitleLabel.setBounds(35, 408, 90, 21);
+		segmentFilterTitleLabel.setBounds(35, 518, 90, 21);
+		genresFilterTitleLabel.setBounds(35, 628, 90, 21);
 		
-		statesBoxLabel.setBounds(22, 20, 165, 22);
-		citiesBoxLabel.setBounds(212, 20, 165, 22);
-		segmentBoxLabel.setBounds(407, 20, 165, 22);
-		genresBoxLabel.setBounds(607, 20, 165, 22);
-		periodTitleLabel.setBounds(890, 20, 165, 22);
+		statesBoxLabel.setBounds(45, 25, 165, 22);
+		citiesBoxLabel.setBounds(246, 25, 165, 22);
+		segmentBoxLabel.setBounds(447, 25, 165, 22);
+		genresBoxLabel.setBounds(651, 25, 165, 22);
+		periodTitleLabel.setBounds(945, 25, 165, 22);
 		
-		fromDateLabel.setBounds(840, 55, 40, 30);
-		toDateLabel.setBounds(840, 135, 40, 30);
+		fromDateLabel.setBounds(870, 54, 55, 40);
+		toDateLabel.setBounds(880, 135, 40, 30);
 
 		
 		setFiltersLabelFont(new Font("Calibri", Font.PLAIN, 17));
-		setTitlesLabelsFont(new Font("Calibri", Font.BOLD, 19));		
+		setTitlesLabelsFont(new Font("Calibri", Font.BOLD, 20));
+		setDatesLabelFont(new Font("Calibri", Font.PLAIN, 19));
 		
 
 		this.statesFilterLabel.setLineWrap(true);
@@ -186,12 +187,12 @@ public class Home extends JFrame
 		 *	COMBOBOXES
 		 */
 				
-		statesBox.setBounds(20, 45, 165, 40);
-		citiesBox.setBounds(210, 45, 165, 40);
-		segmentsBox.setBounds(405, 45, 165, 40);
-		genresBox.setBounds(600, 45, 165, 40);
+		statesBox.setBounds(40, 50, 165, 40);
+		citiesBox.setBounds(240, 50, 165, 40);
+		segmentsBox.setBounds(445, 50, 165, 40);
+		genresBox.setBounds(650, 50, 165, 40);
 		
-		setComboBoxesFont(new Font("Calibri", Font.PLAIN, 16));		
+		setComboBoxesFont(new Font("Calibri", Font.PLAIN, 17));		
 		
 		loadBox();
 		
@@ -215,11 +216,11 @@ public class Home extends JFrame
 		 */
 		
 		
-		searchButton.setBounds(950,500,150,65);
-		resetButton.setBounds(950,580,150,65);
-		exitButton.setBounds(950,660,150,65);
+		searchButton.setBounds(968,455,150,65);
+		resetButton.setBounds(968,545,150,65);
+		exitButton.setBounds(968,635,150,65);
 		
-		setButtonsFont(new Font("Calibri", Font.BOLD, 18));
+		setButtonsFont(new Font("Calibri", Font.BOLD, 25));
 		
 		this.add(searchButton);
 		this.add(resetButton);
@@ -231,18 +232,21 @@ public class Home extends JFrame
 		
 		
 		
+		
+		
+		
 		/*
 		 * DATEPICKERS
 		 */
 		fromDatePicker.setDate(Calendar.getInstance().getTime());
 		fromDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
-		fromDatePicker.setBounds(880, 55, 200, 30);
-		
-		//FontDate
-		
+		fromDatePicker.setBounds(920, 55, 170, 30);
+				
 		toDatePicker.setDate(Calendar.getInstance().getTime());
 		toDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
-		toDatePicker.setBounds(880, 135, 200, 30);
+		toDatePicker.setBounds(920, 135, 170, 30);
+		
+		setDatePickersFont(new Font("Calibri", Font.PLAIN, 17));
 
 		resetPeriod();
 				
@@ -421,8 +425,8 @@ public class Home extends JFrame
 
 	public void resetPeriod()
 	{
-		fromDatePicker.setDate(convertToDate(Stats.getFirstDate()));
-		toDatePicker.setDate(convertToDate(Stats.getLastDate()));
+		fromDatePicker.setDate(convertToDate(EventsFilter.getFirstDate()));
+		toDatePicker.setDate(convertToDate(EventsFilter.getLastDate()));
 	}
 	
 	
@@ -639,7 +643,7 @@ public class Home extends JFrame
 				System.out.println("Vorrei cercare");
 				//Effettuare chiamata
 				
-				FilterImpl filter = readFilter();
+				Filter filter = readFilter();
 				
 				/*
 				 * 	Controlla filtri, se è tutto ok allora richiedi eventi
@@ -651,7 +655,7 @@ public class Home extends JFrame
 				
 				if(events.size() == 0)
 				{
-					JOptionPane.showMessageDialog(null, "There aren't events with your filters", "Warning", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "There are not events with your filters", "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 				else
 				{
@@ -719,9 +723,9 @@ public class Home extends JFrame
 	
 	
 	
-	public FilterImpl readFilter()
+	public Filter readFilter()
 	{
-		FilterImpl filter = new FilterImpl();
+		Filter filter = new Filter();
 
 		filter.setStates(this.states);
 		filter.setCities(this.cities);
@@ -789,8 +793,18 @@ public class Home extends JFrame
 		exitButton.setFont(font);
 	}
 	
+	public void setDatePickersFont(Font font)
+	{
+		fromDatePicker.setFont(font);
+		toDatePicker.setFont(font);
+	}
 	
 	
+	public void setDatesLabelFont(Font font)
+	{
+		fromDateLabel.setFont(font);
+		toDateLabel.setFont(font);
+	}
 	
 	
 	

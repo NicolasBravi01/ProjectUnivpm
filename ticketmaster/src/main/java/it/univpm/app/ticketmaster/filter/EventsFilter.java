@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.stats.Stats;
 
 public class EventsFilter 
 {
@@ -32,6 +31,20 @@ public class EventsFilter
 	 * vettore contenente tutti i generi presenti nel json
 	 */
 	static Vector<String> genres = new Vector<String>();
+	
+	/**
+	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
+	 */
+	static LocalDate firstDate;
+	
+	/**
+	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
+	 */
+	static LocalDate lastDate;
+	
+	
+	
+	
 	
 	
 	public static Vector<Event> getEvents() {
@@ -62,6 +75,18 @@ public class EventsFilter
 	}
 	public static Vector<String> getGenres() {
 		return genres;
+	}
+	public static LocalDate getFirstDate() {
+		return firstDate;
+	}
+	public static void setFirstDate(LocalDate date) {
+		firstDate = date;
+	}
+	public static LocalDate getLastDate() {
+		return lastDate;
+	}
+	public static void setLastDate(LocalDate date) {
+		lastDate = date;
 	}
 	
 	public static void addEvent(Event e) {
@@ -107,23 +132,28 @@ public class EventsFilter
 	 */
 	private static void updatePeriodStats(LocalDate date)
 	{		
-		if((Stats.getFirstDate() == null))
+		if((firstDate == null))
 		{
-			Stats.setFirstDate(date);
-			Stats.setLastDate(date);
+			firstDate = date;
+			lastDate = date;
 		}
 		else
 		{
-			if(date.isBefore(Stats.getFirstDate()))
+			if(date.isBefore(firstDate))
 			{
-				Stats.setFirstDate(date);
+				firstDate = date;
 			}
-			else if(date.isAfter(Stats.getLastDate()))
+			else if(date.isAfter(lastDate))
 			{
-				Stats.setLastDate(date);
+				lastDate = date;
 			}
 		}		
 	}
+	
+	
+	
+	
+	
 	
 	
 	/**
@@ -135,10 +165,10 @@ public class EventsFilter
 	 * 
 	 * @return filteredEvents Vettore di tutti gli eventi filtrati
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 */
-	public static Vector<Event> getFilteredEvents (FilterImpl filter, Vector<Event> eventsToFilter) 
+	public static Vector<Event> getFilteredEvents (Filter filter, Vector<Event> eventsToFilter) 
 	{
 		Vector<Event> filteredEvents = new Vector<Event>();
 	
@@ -155,5 +185,16 @@ public class EventsFilter
 		
 		return filteredEvents;
 	}
+	
+	
+	
+
+	
+	public static Vector<Event> getFilteredEvents (Filter filter) 
+	{
+		return getFilteredEvents(filter, events);
+	}
+	
+	
 	
 }

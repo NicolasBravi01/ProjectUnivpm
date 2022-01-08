@@ -5,7 +5,7 @@ import java.util.Vector;
 import org.json.simple.JSONObject;
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.filter.FilterImpl;
+import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
 
@@ -27,11 +27,11 @@ public class JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEvents(Vector<Event> listEvent)
+	public JSONObject getJSONObjectEvents(Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
-		obj.put("list events", listEvent);
-		obj.put("number events", listEvent.size());
+		obj.put("list events", events);
+		obj.put("number events", events.size());
 		return obj;
 	}
 	
@@ -41,18 +41,19 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerStates(FilterImpl filter)
+	public JSONObject getJSONObjectEventsPerStates(Vector<Event> events)
 	{		
 		JSONObject obj = new JSONObject();
-
-		Vector<Event> events;
+		Filter filter = new Filter();
+		Vector<Event> eventsApp;
+		
 		String state;
 		
 		for(int i=0; i<EventsFilter.getStates().size(); i++)
@@ -60,11 +61,11 @@ public class JSONBuilder
 			 state = EventsFilter.getStates().get(i);
 			
 			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 if(events.size()>0)
+			 if(eventsApp.size() > 0)
 			 {
-				 obj.put(state, this.getJSONObjectEvents(events));
+				 obj.put(state, this.getJSONObjectEvents(eventsApp));
 			 }
 		}
 		
@@ -77,18 +78,19 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerCities(FilterImpl filter)
+	public JSONObject getJSONObjectEventsPerCities(Vector<Event> events)
 	{		
-		JSONObject obj = new JSONObject();
-
-		Vector<Event> events;
+		JSONObject obj = new JSONObject();	
+		Filter filter = new Filter();
+		Vector<Event> eventsApp;
+		
 		String city;
 		
 		for(int i=0; i<EventsFilter.getCities().size(); i++)
@@ -96,11 +98,11 @@ public class JSONBuilder
 			 city = EventsFilter.getCities().get(i);
 			
 			 filter.setCities(city);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 if(events.size()>0)
+			 if(events.size() > 0)
 			 {
-				 obj.put(city, this.getJSONObjectEvents(events));
+				 obj.put(city, this.getJSONObjectEvents(eventsApp));
 			 }
 		}		
 		
@@ -113,18 +115,19 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerSegments(FilterImpl filter)
+	public JSONObject getJSONObjectEventsPerSegments(Vector<Event> events)
 	{		
-		JSONObject obj = new JSONObject();
-
-		Vector<Event> events;
+		JSONObject obj = new JSONObject();	
+		Filter filter = new Filter();
+		Vector<Event> eventsApp;
+		
 		String segment;
 		
 		for(int i=0; i<EventsFilter.getSegments().size(); i++)
@@ -132,11 +135,11 @@ public class JSONBuilder
 			 segment = EventsFilter.getSegments().get(i);
 			
 			 filter.setSegment(segment);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 if(events.size()>0)
+			 if(eventsApp.size() > 0)
 			 {
-				 obj.put(segment, this.getJSONObjectEvents(events));
+				 obj.put(segment, this.getJSONObjectEvents(eventsApp));
 			 }
 		}
 		
@@ -149,18 +152,19 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerGenres(FilterImpl filter)
+	public JSONObject getJSONObjectEventsPerGenres(Vector<Event> events)
 	{		
-		JSONObject obj = new JSONObject();
-
-		Vector<Event> events;
+		JSONObject obj = new JSONObject();	
+		Filter filter = new Filter();
+		Vector<Event> eventsApp;
+		
 		String genre;
 		
 		for(int i=0; i<EventsFilter.getGenres().size(); i++)
@@ -168,11 +172,11 @@ public class JSONBuilder
 			 genre = EventsFilter.getGenres().get(i);
 			
 			 filter.setGenres(genre);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 if(events.size()>0)
+			 if(eventsApp.size() > 0)
 			 {
-				 obj.put(genre, this.getJSONObjectEvents(events));
+				 obj.put(genre, this.getJSONObjectEvents(eventsApp));
 			 }
 		}		
 		
@@ -186,25 +190,25 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectAllStats(Vector<Event> events, FilterImpl filter)
+	public JSONObject getJSONObjectAllStats(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt1 = new JSONObject();
 		JSONObject objInt2 = new JSONObject();
 
-		objInt1 = this.getJSONObjectStats(events, filter);
+		objInt1 = this.getJSONObjectStats(filter, events);
 		
-		objInt2.put("states", this.getJSONObjectMaxMinPerStates(filter));
-		objInt2.put("cities", this.getJSONObjectMaxMinPerCities(filter));
-		objInt2.put("segments", this.getJSONObjectMaxMinPerSegments(filter));
-		objInt2.put("genres", this.getJSONObjectMaxMinPerGenres(filter));
+		objInt2.put("states", this.getJSONObjectMaxMinPerStates(filter, events));
+		objInt2.put("cities", this.getJSONObjectMaxMinPerCities(filter, events));
+		objInt2.put("segments", this.getJSONObjectMaxMinPerSegments(filter, events));
+		objInt2.put("genres", this.getJSONObjectMaxMinPerGenres(filter, events));
 		
 		obj.put("general", objInt1);
 		obj.put("perspectives", objInt2);
@@ -219,19 +223,19 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerStates(FilterImpl filter)
+	public JSONObject getJSONObjectStatsPerStates(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> events;
+		Vector<Event> eventsApp;
 		String state;
 		
 		for(int i=0; i<EventsFilter.getStates().size(); i++)
@@ -239,13 +243,13 @@ public class JSONBuilder
 			 state = EventsFilter.getStates().get(i);
 			
 			 filter.setStates(state);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 int size = events.size();
+			 int size = eventsApp.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(events, filter);	
+				 objInt = getJSONObjectStats(filter, eventsApp);	
 				 obj.put(state, objInt);	
 			 }
 		}
@@ -260,19 +264,19 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerCities(FilterImpl filter)
+	public JSONObject getJSONObjectStatsPerCities(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> events;
+		Vector<Event> eventsApp;
 		String city;
 		
 		for(int i=0; i<EventsFilter.getCities().size(); i++)
@@ -280,13 +284,13 @@ public class JSONBuilder
 			 city = EventsFilter.getCities().get(i);
 			
 			 filter.setCities(city);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 int size = events.size();
+			 int size = eventsApp.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(events, filter);
+				 objInt = getJSONObjectStats(filter, eventsApp);
 				 obj.put(city, objInt);
 			 }
 		}
@@ -301,19 +305,19 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerSegments(FilterImpl filter)
+	public JSONObject getJSONObjectStatsPerSegments(Filter filter, Vector<Event> events)
 	{		
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> events;
+		Vector<Event> eventsApp;
 		String segment;
 		
 		for(int i=0; i<EventsFilter.getSegments().size(); i++)
@@ -321,13 +325,13 @@ public class JSONBuilder
 			 segment = EventsFilter.getSegments().get(i);
 			
 			 filter.setSegment(segment);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 int size = events.size();
+			 int size = eventsApp.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(events, filter);
+				 objInt = getJSONObjectStats(filter, eventsApp);
 				 obj.put(segment, objInt);
 			 }
 		}
@@ -342,19 +346,19 @@ public class JSONBuilder
 	 * @param events Vettore di eventi
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerGenres(FilterImpl filter)
+	public JSONObject getJSONObjectStatsPerGenres(Filter filter, Vector<Event> events)
 	{			
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> events;
+		Vector<Event> eventsApp;
 		String genre;
 		
 		for(int i = 0; i < EventsFilter.getGenres().size(); i++)
@@ -363,13 +367,13 @@ public class JSONBuilder
 			 objInt = new JSONObject();
 			
 			 filter.setGenres(genre);
-			 events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 			 
-			 int size = events.size();
+			 int size = eventsApp.size();
 		
 			 if(size > 0)
 			 {			
-				 objInt = getJSONObjectStats(events, filter);
+				 objInt = getJSONObjectStats(filter, eventsApp);
 				 obj.put(genre, objInt);	
 			 }
 		}
@@ -386,7 +390,7 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
@@ -394,14 +398,14 @@ public class JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerStates(FilterImpl filter)
+	private JSONObject getJSONObjectMaxMinPerStates(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerStates(filter);
+		int [] counter = stats.getArrayStatsPerStates(filter, events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -424,21 +428,21 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerCities(FilterImpl filter)
+	private JSONObject getJSONObjectMaxMinPerCities(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerCities(filter);
+		int [] counter = stats.getArrayStatsPerCities(filter, events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -461,21 +465,21 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerSegments(FilterImpl filter)
+	private JSONObject getJSONObjectMaxMinPerSegments(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerSegments(filter);
+		int [] counter = stats.getArrayStatsPerSegments(filter, events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -498,21 +502,21 @@ public class JSONBuilder
 	 * 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerGenres(FilterImpl filter)
+	private JSONObject getJSONObjectMaxMinPerGenres(Filter filter, Vector<Event> events)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerGenres(filter);
+		int [] counter = stats.getArrayStatsPerGenres(filter, events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -526,16 +530,8 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	
-	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectError(Error err)
-	{
-		JSONObject obj = new JSONObject();
-		obj.put("cause", err.getCause());
-		obj.put("message", err.getMessage());
-		return obj;
-	}
-	
+
+
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject getJSONObjectError(String err)
@@ -545,10 +541,6 @@ public class JSONBuilder
 		return obj;
 	}
 	
-	public JSONObject getJSONObjectErrorNoEvents()
-	{
-		return this.getJSONObjectError("there aren't events, change filters");
-	}
 	
 	
 	/**
@@ -558,7 +550,7 @@ public class JSONBuilder
 	 * @param events Vettore di eventi 
 	 * @param filter Filtro inserito dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.FilterImpl
+	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.stats.Stats
 	 * @see it.univpm.app.ticketmaster.controller.EventsController
@@ -566,7 +558,7 @@ public class JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectStats(Vector<Event> events, FilterImpl filter)
+	private JSONObject getJSONObjectStats(Filter filter, Vector<Event> events)
 	{		
 		JSONObject obj = new JSONObject();
 		

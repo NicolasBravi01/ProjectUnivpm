@@ -17,9 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.filter.FilterImpl;
+import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.parser.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 
 public class Result extends JFrame
 {
