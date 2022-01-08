@@ -34,6 +34,7 @@ import javax.swing.*;
 
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
+import it.univpm.app.ticketmaster.exception.NoEventsException;
 
 //import org.jdesktop.swingx.JXDatePicker;
 
@@ -129,7 +130,7 @@ public class Home extends JFrame
 		
 		statesFilterTitleLabel.setBounds(35, 288, 90, 21);
 		citiesFilterTitleLabel.setBounds(35, 408, 90, 21);
-		segmentFilterTitleLabel.setBounds(35, 518, 90, 21);
+		segmentFilterTitleLabel.setBounds(35, 520, 90, 21);
 		genresFilterTitleLabel.setBounds(35, 628, 90, 21);
 		
 		statesBoxLabel.setBounds(45, 25, 165, 22);
@@ -640,30 +641,29 @@ public class Home extends JFrame
 		{
 			public void mouseClicked(MouseEvent me)
 			{
-				System.out.println("Vorrei cercare");
-				//Effettuare chiamata
+				Filter filter;
+				Vector<Event> events;
 				
-				Filter filter = readFilter();
-				
-				/*
-				 * 	Controlla filtri, se è tutto ok allora richiedi eventi
-				 */
-				
-				Vector<Event> events = new Vector<Event>();
-				events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());
-				
-				
-				if(events.size() == 0)
-				{
-					JOptionPane.showMessageDialog(null, "There are not events with your filters", "Warning", JOptionPane.WARNING_MESSAGE);
-				}
-				else
-				{
+				try
+				{				
+					filter = readFilter();
+	
+					events = EventsFilter.getFilteredEvents(filter);
+					
+					if(events.size() == 0)
+						throw new NoEventsException("There are not events with your filters");
+					
 					visible(false);
-					new Result(getThis(), events);
+					new Result(getThis(), filter, events);
 				}
-				
-				
+				catch(NoEventsException e)
+				{
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+				}		
 				
 			}
 		});

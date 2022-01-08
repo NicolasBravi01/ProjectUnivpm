@@ -11,13 +11,14 @@ import it.univpm.app.ticketmaster.view.Home;
 @SpringBootApplication
 public class TicketmasterApplication 
 {
+	
+	
 
 	public static void main(String[] args) 
 	{				
-		//SpringApplication.run(TicketmasterApplication.class, args);
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(TicketmasterApplication.class);
 		builder.headless(false);
-		ConfigurableApplicationContext context = builder.run(args);
+		builder.run(args);
 		
 		callEvents();
 		new Home();
