@@ -20,6 +20,9 @@ public class ApiKeyReader
 		{
 			Scanner reader = new Scanner(new BufferedReader(new FileReader(pathApiKey)));			
 			msg = reader.nextLine();
+			
+			if(msg.isEmpty())
+				throw new ApiConnectionException("ApiKey not found");
 		} 
 		catch (FileNotFoundException e) 
 		{
@@ -30,11 +33,6 @@ public class ApiKeyReader
 		{
 			System.out.println(e.toString());
 			throw new ApiConnectionException("Found error searching ApiKey");
-		}
-		finally
-		{
-			if(msg.isEmpty())
-				throw new ApiConnectionException("ApiKey not found");
 		}
 				
 		return msg;

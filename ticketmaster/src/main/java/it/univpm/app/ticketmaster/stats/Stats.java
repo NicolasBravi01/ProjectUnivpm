@@ -45,7 +45,7 @@ public class Stats
 			endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 		}
 
-		av = (30 * n) / (double) ChronoUnit.DAYS.between(startDate, endDate);
+		av = (30 * n) / (double) (ChronoUnit.DAYS.between(startDate, endDate) + 1);
 		av = Math.floor(av*100)/100;
 		
 		return av;		

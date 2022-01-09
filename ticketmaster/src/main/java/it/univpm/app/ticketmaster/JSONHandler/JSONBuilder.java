@@ -600,7 +600,7 @@ public class JSONBuilder
 		Stats stats = new Stats();
 
 		obj.put("name", elements.get(index));
-		obj.put("n events", counter[index]);
+		obj.put("number events", counter[index]);
 		obj.put("average", stats.average(counter[index], period));
 		
 		return obj;

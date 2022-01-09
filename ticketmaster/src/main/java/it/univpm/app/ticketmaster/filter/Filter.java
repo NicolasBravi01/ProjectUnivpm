@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
+import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.model.Event;
 
 public class Filter implements Cloneable
@@ -27,7 +28,7 @@ public class Filter implements Cloneable
 		this.genres = genres;
 	}
 	
-	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres)
+	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		this.states = states;
 		this.cities = cities;
@@ -36,7 +37,7 @@ public class Filter implements Cloneable
 		this.genres = genres;
 	}
 	
-	public Filter(String states, String cities, String period, String segment, String genres)
+	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		this.states = convertToVectorOfStrings(states);
 		this.cities = convertToVectorOfStrings(cities);
@@ -45,7 +46,7 @@ public class Filter implements Cloneable
 		this.genres = convertToVectorOfStrings(genres);
 	}
 	
-	public Filter(String period)
+	public Filter(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		reset();
 		loadPeriod(period);
@@ -179,12 +180,9 @@ public class Filter implements Cloneable
 	{
 		boolean isIncluded = true;
 		
-		if(this.startDate != null)
+		if(this.startDate != null && this.endDate != null)
 		{
-			if(this.endDate == null)
-				isIncluded = localDate.isAfter(this.startDate.minusDays(1));
-			else
-				isIncluded = localDate.isAfter(this.startDate.minusDays(1)) && localDate.isBefore(this.endDate.plusDays(1));
+			isIncluded = localDate.isAfter(this.startDate.minusDays(1)) && localDate.isBefore(this.endDate.plusDays(1));
 		}
 		
 		return isIncluded;
@@ -239,8 +237,9 @@ public class Filter implements Cloneable
 	 * 
 	 * 
 	 * @param period Periodo scelto dall'utente
+	 * @throws IncorrectOrderOfDatesException 
 	 */
-	private void loadPeriod(String period)
+	private void loadPeriod(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		if(period.isEmpty())
 		{
@@ -250,28 +249,19 @@ public class Filter implements Cloneable
 		
 		else
 		{
-			try
-			{
-				this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
-				this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
+			int indexComma = period.indexOf(',');
+			
+			if(indexComma < 0)
+				throw new NullDateException("Period not identifed");
+			
+			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
+			this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 				
-				if(this.startDate.isAfter(endDate))
-				{
-					//this.error = true;
-					throw new IncorrectOrderOfDatesException();
-				}
-			}
-			catch(IncorrectOrderOfDatesException e)
-			{
-				LocalDate temp = startDate;
-				startDate = endDate;
-				endDate = temp;
-			}
-			catch(DateTimeParseException e)
-			{
-				//this.error = true; //Filtro periodo sbagliato
-			}
+			if(this.startDate == null || this.endDate == null)
+				throw new NullDateException("Period not identifed");
 				
+			if(this.startDate.isAfter(endDate))
+				throw new IncorrectOrderOfDatesException("The first date can't be after the second one");		
 		}
 	}
 	

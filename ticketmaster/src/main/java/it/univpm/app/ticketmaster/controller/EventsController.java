@@ -1,5 +1,6 @@
 package it.univpm.app.ticketmaster.controller;
 
+import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import org.json.simple.JSONObject;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
+import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
@@ -59,10 +62,14 @@ public class EventsController
 			
 			response = jB.getJSONObjectEvents(events);
 		}
-		catch(NoEventsException e)
+		catch(NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
 		
 		return response;
 	}
@@ -92,16 +99,20 @@ public class EventsController
 		try
 		{
 			filter = new Filter(period);
-			events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());	
+			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
 				throw new NoEventsException("There are not events with your filters");
 			
 			response = jB.getJSONObjectEventsPerStates(events);
 		}
-		catch(NoEventsException e)
+		catch(NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
 		}	
 		
 		return response;
@@ -132,18 +143,21 @@ public class EventsController
 		try
 		{
 			filter = new Filter(states, "", period, "", "");
-			events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());	
+			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
 				throw new NoEventsException("There are not events with your filters");
 			
 			response = jB.getJSONObjectEventsPerCities(events);
 		}
-		catch(NoEventsException e)
+		catch(NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
 		}	
-		
 		
 		return response;
 	}
@@ -172,17 +186,21 @@ public class EventsController
 		try
 		{
 			filter = new Filter(period);
-			events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());	
+			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
 				throw new NoEventsException("There are not events with your filters");
 
 			response = jB.getJSONObjectEventsPerSegments(events);
 		}
-		catch(NoEventsException e)
+		catch(NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
 		
 		return response;
 	}
@@ -211,17 +229,21 @@ public class EventsController
 		try
 		{
 			filter = new Filter(period);
-			events = EventsFilter.getFilteredEvents(filter, EventsFilter.getEvents());	
+			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
 				throw new NoEventsException("There are not events with your filters");
 
 			response = jB.getJSONObjectEventsPerGenres(events);
 		}
-		catch(NoEventsException e)
+		catch(NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
 		
 		return response;
 	}
@@ -254,10 +276,15 @@ public class EventsController
 			
 			response = jB.getJSONObjectAllStats(filter, events);
 		}
-		catch(Exception e)//provvisorio
+		catch(DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		
 		
 		return response;
 	}
@@ -293,10 +320,14 @@ public class EventsController
 
 			response = jB.getJSONObjectStatsPerStates(filter, events);
 		}
-		catch(Exception e)//provvisorio
+		catch(DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
 		
 		return response;
 	}
@@ -332,10 +363,14 @@ public class EventsController
 
 			response = jB.getJSONObjectStatsPerCities(filter, events);
 		}
-		catch(Exception e)//provvisorio
+		catch(DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
-		}	
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
 				
 		return response;
 	}
@@ -369,9 +404,13 @@ public class EventsController
 
 			response = jB.getJSONObjectStatsPerSegments(filter, events);
 		}
-		catch(Exception e)//provvisorio
+		catch(DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -409,9 +448,13 @@ public class EventsController
 
 			response = jB.getJSONObjectStatsPerGenres(filter, events);
 		}
-		catch(Exception e)//provvisorio
+		catch(DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.toString()); 
+			response = jB.getJSONObjectError(e.getMessage()); 
+		}
+		catch(Exception e)
+		{
+			response = jB.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;

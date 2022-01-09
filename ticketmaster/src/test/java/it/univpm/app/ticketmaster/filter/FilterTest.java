@@ -1,26 +1,14 @@
-package it.univpm.app.ticketmaster.test;
+package it.univpm.app.ticketmaster.filter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-import java.util.Vector;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.univpm.app.ticketmaster.TicketmasterApplication;
-import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
-import it.univpm.app.ticketmaster.filter.Filter;
-import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.stats.Stats;
 
-class TicketmasterTest 
+public class FilterTest
 {
-	Filter filter;
+Filter filter;
 	
 	/*
 	@BeforeAll
@@ -67,8 +55,6 @@ class TicketmasterTest
 		assertEquals("ERROR: dates in incorrect order", exc.getMsg());
 		*/
 	}
-
-	
 	
 
 }

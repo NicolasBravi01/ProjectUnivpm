@@ -27,6 +27,8 @@ public class Event
 		this.state = state;
 		this.segment = segment;
 		this.genre = genre;
+		
+		checkValues();
 	}
 	
 	
@@ -102,6 +104,53 @@ public class Event
 				System.lineSeparator();
 		
 		return message;
+	}
+	
+	private void checkValues()
+	{
+		checkState();
+		checkCity();
+		checkSegment();
+		checkGenre();		
+	}
+	
+	
+	private void checkState()
+	{
+		while(this.state.startsWith(" "))
+			this.state = this.state.substring(1, this.state.length());
+		
+		while(this.state.endsWith(" "))
+			this.state = this.state.substring(0, this.state.length() - 1);		
+	}
+	
+	
+	public void checkCity()
+	{
+		while(this.city.startsWith(" "))
+			this.city = this.city.substring(1, this.city.length());
+		
+		while(this.city.endsWith(" "))
+			this.city = this.city.substring(0, this.city.length() - 1);		
+	}
+	
+
+	public void checkSegment()
+	{
+		while(this.segment.startsWith(" "))
+			this.segment = this.segment.substring(1, this.segment.length());
+		
+		while(this.segment.endsWith(" "))
+			this.segment = this.segment.substring(0, this.segment.length() - 1);		
+	}
+	
+	public void checkGenre()
+	{
+		while(this.genre.startsWith(" "))
+			this.genre = this.genre.substring(1, this.genre.length());
+		
+		while(this.genre.endsWith(" "))
+			this.genre = this.genre.substring(0, this.genre.length() - 1);		
 	}
 	
 }

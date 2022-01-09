@@ -1,5 +1,6 @@
 package it.univpm.app.ticketmaster.exception;
 
+@SuppressWarnings("serial")
 public class ApiConnectionException extends Exception 
 {
 	

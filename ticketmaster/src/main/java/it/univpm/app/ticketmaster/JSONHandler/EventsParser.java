@@ -36,6 +36,7 @@ public class EventsParser
 		 * a partire dal json e poi viene restituito alla classe TicketmasterConnection
 		 */
 		Vector<Event> listEvents = new Vector<Event>();
+		Event e;
 		
 		JSONParser parser = new  JSONParser();
 		JSONObject jO= (JSONObject) parser.parse(json);
@@ -51,7 +52,7 @@ public class EventsParser
 				JSONObject dates = (JSONObject) eventoTemp.get("dates");
 					JSONObject start = (JSONObject) dates.get("start");
 						String localDate = (String) start.get("localDate");
-						LocalDate locDt = LocalDate.parse((CharSequence) localDate);
+						LocalDate locDt = LocalDate.parse(localDate);
 						String localTime = (String) start.get("localTime");
 			
 				JSONArray classifications = (JSONArray) eventoTemp.get("classifications");
@@ -70,7 +71,7 @@ public class EventsParser
 							JSONObject state = (JSONObject) venuesTemp.get("state");
 								String stateName = (String) state.get("name");
 						
-			 Event e = new Event(name, url, localTime, locDt, venueName, cityName, stateName, nameSegment, nameGenre);
+			 e = new Event(name, url, localTime, locDt, venueName, cityName, stateName, nameSegment, nameGenre);
 			 
 			 listEvents.add(e);
 		}

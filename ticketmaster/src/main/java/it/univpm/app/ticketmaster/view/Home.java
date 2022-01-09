@@ -1,10 +1,9 @@
 package it.univpm.app.ticketmaster.view;
 
 import java.util.Vector;
-
+import java.util.Collections;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
@@ -33,9 +32,9 @@ import org.jdesktop.swingx.JXLabel;
 import javax.swing.*;
 
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.stats.Stats;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
+import it.univpm.app.ticketmaster.exception.NullDateException;
 
 //import org.jdesktop.swingx.JXDatePicker;
 
@@ -44,6 +43,7 @@ import it.univpm.app.ticketmaster.exception.NoEventsException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 
+@SuppressWarnings("serial")
 public class Home extends JFrame
 {	
 
@@ -97,22 +97,11 @@ public class Home extends JFrame
 	{
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1185, 800);
+		this.setSize(1200, 800);
 		this.setResizable(false);
-		//this.setLayout(new FlowLayout());//poi mettere null
-		this.setLayout(null);
-		
-		
-		this.getContentPane().setBackground(new Color(120, 120, 120));
-		
-		
-		//this.pack();
-		
-		//filtraggio.setSize(1280, 720);
-		//filtraggio.setLayout(null);
+		this.setLayout(null);		
+		this.getContentPane().setBackground(new Color(133,173,225));
 		this.setLocationRelativeTo(null);
-		//filtraggio.getContentPane().setBackground(new Color(30, 30, 30));
-		//filtraggio.setVisible(true);
 		
 		
 
@@ -124,30 +113,28 @@ public class Home extends JFrame
 		
 		loadLabels();
 
-		statesFilterLabel.setBounds(35, 310, 900, 83);
-		citiesFilterLabel.setBounds(35, 430, 900, 83);
-		segmentFilterLabel.setBounds(35, 550, 900, 40);
-		genresFilterLabel.setBounds(35, 650, 900, 83);
+		statesFilterLabel.setBounds(35, 310, 920, 83);
+		citiesFilterLabel.setBounds(35, 430, 920, 83);
+		segmentFilterLabel.setBounds(35, 550, 920, 40);
+		genresFilterLabel.setBounds(35, 650, 920, 83);
 		
 		statesFilterTitleLabel.setBounds(35, 288, 90, 21);
 		citiesFilterTitleLabel.setBounds(35, 408, 90, 21);
-		segmentFilterTitleLabel.setBounds(35, 520, 90, 21);
+		segmentFilterTitleLabel.setBounds(35, 523, 90, 21);
 		genresFilterTitleLabel.setBounds(35, 628, 90, 21);
 		
 		statesBoxLabel.setBounds(45, 25, 165, 22);
 		citiesBoxLabel.setBounds(246, 25, 165, 22);
 		segmentBoxLabel.setBounds(447, 25, 165, 22);
 		genresBoxLabel.setBounds(651, 25, 165, 22);
-		periodTitleLabel.setBounds(945, 25, 165, 22);
+		periodTitleLabel.setBounds(960, 25, 165, 22);
 		
-		fromDateLabel.setBounds(870, 54, 55, 40);
-		toDateLabel.setBounds(880, 135, 40, 30);
-
+		fromDateLabel.setBounds(881, 54, 55, 40);
+		toDateLabel.setBounds(902, 135, 30, 30);
 		
 		setFiltersLabelFont(new Font("Calibri", Font.PLAIN, 17));
 		setTitlesLabelsFont(new Font("Calibri", Font.BOLD, 20));
 		setDatesLabelFont(new Font("Calibri", Font.PLAIN, 19));
-		
 
 		this.statesFilterLabel.setLineWrap(true);
 		this.citiesFilterLabel.setLineWrap(true);
@@ -156,8 +143,7 @@ public class Home extends JFrame
 		
 		setAlignmentFilterLabels(JXLabel.LEFT, JXLabel.TOP);
 		setAlignmentFilterTitleLabels(JXLabel.LEFT, JXLabel.TOP);
-		
-		
+				
 		this.add(statesFilterLabel);
 		this.add(citiesFilterLabel);
 		this.add(segmentFilterLabel);
@@ -211,16 +197,14 @@ public class Home extends JFrame
 		
 		
 		
-		
 
 		/*
 		 * BUTTONS
-		 */
+		 */		
 		
-		
-		searchButton.setBounds(968,455,150,65);
-		resetButton.setBounds(968,545,150,65);
-		exitButton.setBounds(968,635,150,65);
+		searchButton.setBounds(983,455,150,65);
+		resetButton.setBounds(983,545,150,65);
+		exitButton.setBounds(983,635,150,65);
 		
 		setButtonsFont(new Font("Calibri", Font.BOLD, 25));
 		
@@ -240,13 +224,14 @@ public class Home extends JFrame
 		/*
 		 * DATEPICKERS
 		 */
+		
 		fromDatePicker.setDate(Calendar.getInstance().getTime());
 		fromDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
-		fromDatePicker.setBounds(920, 55, 170, 30);
+		fromDatePicker.setBounds(935, 57, 170, 30);
 				
 		toDatePicker.setDate(Calendar.getInstance().getTime());
 		toDatePicker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
-		toDatePicker.setBounds(920, 135, 170, 30);
+		toDatePicker.setBounds(935, 135, 170, 30);
 		
 		setDatePickersFont(new Font("Calibri", Font.PLAIN, 17));
 
@@ -255,45 +240,11 @@ public class Home extends JFrame
 		this.add(fromDatePicker);
 		this.add(toDatePicker);
 		
-		
-
-		/*
-		 * PANEL
-		 */
-		
-		/*JPanel pan1 = new JPanel();
-		JPanel pan2 = new JPanel();
-		JPanel pan3 = new JPanel();
-		JPanel pan4 = new JPanel();
-		JPanel pan5 = new JPanel();
-		
-		pan1.setBackground(Color.red);
-		pan1.setBounds(0, 0, 100, 100);	
-
-		pan2.setBackground(Color.green);
-		pan2.setBounds(100, 0, 50, 50);		
-
-		pan3.setBackground(Color.blue);
-		pan3.setBounds(100, 50, 50, 50);
-		
-		pan1.setVisible(true);
-		pan2.setVisible(true);
-		pan3.setVisible(true);
-		
-		pan1.add(statesFilterLabel);
-		//pan1.setLayout(null);
-		
-		this.add(pan1);
-		this.add(pan2);
-		this.add(pan3);
-		*/
+	
 		
 		
 		
-		
-		
-		
-		this.setVisible(true);
+		this.setVisible(true);		
 	}
 	
 	
@@ -311,6 +262,8 @@ public class Home extends JFrame
 	
 	public void loadBox(JComboBox<String> box, Vector<String> list)
 	{
+		Collections.sort(list);
+		
 		box.addItem("-ALL-");
 		
 		for(int i = 0; i<list.size(); i++)
@@ -331,8 +284,15 @@ public class Home extends JFrame
 	public void addStateFilter(String state)
 	{
 		//aggiungi
-		if(!this.states.contains(state))			
-			this.states.add(state);		
+		if(!this.states.contains(state))
+		{			
+			int i=0;
+			while(i<states.size() && state.compareTo(states.get(i))>0)
+				i++;
+			
+			this.states.add(i ,state);
+			//this.states.add(state);
+		}
 		//rimuovi
 		else
 			this.states.remove(state);			
@@ -341,7 +301,14 @@ public class Home extends JFrame
 	public void addCityFilter(String city)
 	{
 		if(!this.cities.contains(city))
-			this.cities.add(city);
+		{
+			int i=0;
+			while(i<cities.size() && city.compareTo(cities.get(i))>0)
+				i++;
+			
+			this.cities.add(i ,city);
+			//this.cities.add(city);
+		}
 		else
 			this.cities.remove(city);	
 	}
@@ -358,7 +325,14 @@ public class Home extends JFrame
 	public void addGenreFilter(String genre)
 	{
 		if(!this.genres.contains(genre))
-			this.genres.add(genre);
+		{
+			int i=0;
+			while(i<genres.size() && genre.compareTo(genres.get(i))>0)
+				i++;
+			
+			this.genres.add(i ,genre);
+			//this.genres.add(genre);
+		}
 		else
 			this.genres.remove(genre);
 	}

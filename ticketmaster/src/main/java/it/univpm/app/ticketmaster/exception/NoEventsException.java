@@ -13,8 +13,8 @@ public class NoEventsException extends Exception
 		super();
 	}
 
-	public NoEventsException(String msg) {
-		super(msg);
+	public NoEventsException(String message) {
+		super(message);
 	}
 
 

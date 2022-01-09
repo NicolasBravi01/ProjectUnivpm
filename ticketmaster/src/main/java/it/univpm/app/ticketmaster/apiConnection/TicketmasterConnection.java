@@ -56,19 +56,19 @@ public class TicketmasterConnection
 
 		catch (ApiConnectionException e) 
 		{
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 		catch (MalformedURLException e) 
 		{
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 		catch (IOException e) 
 		{
-			e.printStackTrace();//invalid url
+			System.out.println(e.toString());
 		} 
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}						
 				
 	}

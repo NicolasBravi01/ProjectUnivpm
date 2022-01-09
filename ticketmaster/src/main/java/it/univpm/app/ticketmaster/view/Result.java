@@ -21,14 +21,15 @@ import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 
+@SuppressWarnings("serial")
 public class Result extends JFrame
 {
-	JScrollPane scrollRisultato;
-	JTextArea risultato;
-	
-	JButton statsEventsButton;
-	JButton backButton;
-	JButton exitButton;
+	JTextArea result = new JTextArea();
+	JScrollPane scrollResult = new JScrollPane(result);
+		
+	JButton statsEventsButton = new JButton("SHOW STATS");
+	JButton backButton = new JButton("BACK");
+	JButton exitButton = new JButton("EXIT");
 
 	Home home;
 	
@@ -49,26 +50,23 @@ public class Result extends JFrame
 		this.setLayout(new FlowLayout());
 		
 		
-		risultato = new JTextArea(events.toString());		 
+		result = new JTextArea(events.toString());		 
 		 
-		scrollRisultato = new JScrollPane(risultato);
+		scrollResult = new JScrollPane(result);
 		
-		risultato.setCaretPosition(0);
-		//risultato.setMargin(new Insets(0, 50, 0, 0));
-		scrollRisultato.setBounds(60, 50, 800, 550);
-		scrollRisultato.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		result.setCaretPosition(0);
+		//result.setMargin(new Insets(0, 50, 0, 0));
+		scrollResult.setBounds(60, 50, 800, 550);
+		scrollResult.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		this.getContentPane().add(scrollRisultato);
+		this.getContentPane().add(scrollResult);
 		
 		
-		//this.add(scrollRisultato);
+		//this.add(scrollResult);
 		
 		this.setVisible(true);
 		*/
 		
-		risultato = new JTextArea();
-		scrollRisultato = new JScrollPane(risultato);
-				
 		
 		this.setSize(1280, 730);
 		this.setTitle("Result events");
@@ -77,7 +75,7 @@ public class Result extends JFrame
 		//this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		//this.setUndecorated(true);
-		this.getContentPane().setBackground(new Color(120, 120, 120));
+		this.getContentPane().setBackground(new Color(133,173,225));
 		//this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		this.setVisible(true);
 		
@@ -86,9 +84,6 @@ public class Result extends JFrame
 		/*
 		 * BUTTON
 		 */
-		statsEventsButton = new JButton("SHOW STATS");
-		backButton = new JButton("BACK");
-		exitButton = new JButton("EXIT");
 		
 		statsEventsButton.setBounds(50, 615, 220, 60);
 		backButton.setBounds(920, 615, 120, 60);
@@ -115,27 +110,23 @@ public class Result extends JFrame
 		this.statsText = readStatsText(filter, events);
 		
 		
-		risultato.setBackground(new Color(120, 120, 120));
-		risultato.setEditable(false);
+		result.setBackground(new Color(133,173,225));
+		result.setEditable(false);
 		
-		//risultato.setText(eventsText);
+		//result.setText(eventsText);
 		
-		risultato.setCaretPosition(0);
-		risultato.setForeground(Color.BLACK);
-		risultato.setFont(new Font("Calibri", Font.PLAIN, 18));
-		risultato.setMargin(new Insets(0, 50, 0, 0));
-		scrollRisultato.setBounds(0, 0, 1265, 600);
-		this.add(scrollRisultato);
+		result.setCaretPosition(0);
+		result.setForeground(Color.BLACK);
+		result.setFont(new Font("Calibri", Font.PLAIN, 18));
+		result.setMargin(new Insets(0, 50, 0, 0));
+		scrollResult.setBounds(0, 0, 1265, 600);
+		
 		
 		loadEvents();
-		
-		
-		
-		
-		
-		
-		
-		
+
+		this.add(scrollResult);
+
+
 		
 		
 		this.setVisible(true);
@@ -178,7 +169,7 @@ public class Result extends JFrame
 		text = text.replace("\"", "");
 		
 		String titlePerspectives = System.lineSeparator() + System.lineSeparator() + "-------- STATS PERSPECTIVES --------";
-		titlePerspectives += System.lineSeparator()+System.lineSeparator()+System.lineSeparator()+System.lineSeparator();
+		titlePerspectives += System.lineSeparator()+System.lineSeparator()+System.lineSeparator();
 		
 		text = text.replace("cities:", titlePerspectives + "--- CITIES ---" + System.lineSeparator());
 		text = text.replace("states:", System.lineSeparator()+System.lineSeparator() + "--- STATES ---" + System.lineSeparator());
@@ -228,16 +219,16 @@ public class Result extends JFrame
 	
 	private void loadStats()
 	{
-		this.risultato.setText(statsText);
+		this.result.setText(statsText);
 		statsEventsButton.setText("SHOW EVENTS");
-		risultato.setCaretPosition(0);
+		result.setCaretPosition(0);
 	}
 	
 	private void loadEvents()
 	{
-		this.risultato.setText(eventsText);
+		this.result.setText(eventsText);
 		statsEventsButton.setText("SHOW STATS");
-		this.risultato.setCaretPosition(0);
+		this.result.setCaretPosition(0);
 	}
 	
 	
