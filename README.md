@@ -1,24 +1,25 @@
 
-# Progetto Oriented Object Programming su Ticketmaster
+# Progetto OOP Ticketmaster USA 🗽
 
 ![Ticketmaster](https://ichef.bbci.co.uk/news/976/cpsprodpb/136AB/production/_116313597_ticketmaster.jpg "Ticketmaster")
 
-## Indice
+## Indice :bookmark:
 
 * [Introduzione](#introduzione)
 * [Installazione ed utilizzo](#installazione-ed-utilizzo)
 * [Rotte](#rotte)
+* [Interfaccia grafica](#interfaccia-grafica)
 * [Autori](#autori)
 
 <div id='introduzione'/>
 
-## Introduzione
+## INTRODUZIONE
 
 L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le Application Programming Interface, comunemente note come `api`, derivate dalla pagina TM Developer e accessibili mediante l’indirizzo [Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
 
 <div id='installazione-ed-utilizzo'/>
 
-## Installazione ed utilizzo
+## INSTALLAZIONE ED UTILIZZO 📖
 
 Per poter accedere al programma è necessario clonare la repository in locale utilizzando Github Desktop oppure da terminale con il comando
 `git clone https://github.com/NicolasBravi01/ProjectUnivpm.git`.
@@ -26,11 +27,11 @@ Successivamente sarà possibile mandare in esecuzione il programma con un IDE (a
 
 In seguito l'utente deve accedere alla cartella resources, reperibile attraverso il percorso `ProjectUnivpm\ticketmaster\src\main\resources`, e creare il file **apiKey.txt**,  dentro il quale è necessario inserire la propria `apiKey`, ottenuta in seguito all'autenticazione sul portale TM Developer ([Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)).
 
-Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che verranno elencate e spiegate nel paragrafo successivo) sul client [Postman](https://www.postman.com/), che permettono di visualizzare anche le statistiche ed altre informazioni relative agli eventi, oppure tramite la Graphic User Interface implementata all'interno del progetto (che verrà spiegata nel paragrafo successivo alle rotte), che consente unicamente di ottenere la lista degli eventi filtrata dall'utente.
+Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che verranno elencate e spiegate nel paragrafo successivo) sul client [Postman](https://www.postman.com/) oppure tramite la Graphic User Interface implementata all'interno del progetto (che verrà spiegata nel paragrafo successivo alle rotte).
 
 <div id='rotte'/>
 
-## Rotte
+## ROTTE 🌐
 
 Le rotte si dividono in 3 categorie in base a ciò che restituiscono, ma prima di analizzarle è importante comprendere il significato dei parametri:
 - `states` è una stringa contenente i nomi di uno o più stati
@@ -40,7 +41,7 @@ Le rotte si dividono in 3 categorie in base a ciò che restituiscono, ma prima d
 - `genres` è una stringa contenente i nomi di uno o più generi
 
 
-### Rotte /events
+### Rotte /events 🎉
 
 Le rotte **/events** permettono di ottenere la lista di tutti gli eventi, che possono essere raggruppati per stati, città, segmenti o generi, in base alla scelta della rotta da parte dell'utente. 
 
@@ -56,7 +57,7 @@ I parametri inseriti dall'utente servono per filtrare la lista di tutti gli even
 
 <div id='/events'/>
 
-#### /events
+#### /events 
 
 La rotta `/events` restituisce un JSON strutturato nel seguente modo:
 
@@ -444,7 +445,7 @@ La rotta `/events/genres` restituisce un JSON strutturato nel seguente modo:
  }    
 ```
 
-### Rotte /stats
+### Rotte /stats 📈
 
 Le rotte **/stats** permettono di visualizzare le statistiche relative agli eventi, ad esempio il numero massimo, il numero minimo e la media di eventi di determinati stati, città, segmenti o generi, in base alla rotta scelta dall'utente; in alternativa, se si vuole avere una visione ancora più ampia, si potranno anche visionare le statistiche ancora più generali, che indicano gli stati, le città, i segmenti e i generi con il maggiore e minore numero di eventi.
 
@@ -657,7 +658,7 @@ Le rotte **/list** permettono semplicemente di visualizzare la lista di tutti gl
 |---------|-----------------------------------------|------------------------------------------|
 | ` GET ` | [`/list/states`](#/list/states)         | Restituisce la lista di tutti gli stati  |               
 | ` GET ` | [`/list/cities`](#/list/cities)         | Restituisce la lista di tutte le città   |                
-| ` GET ` | [`/list/ssegments`](#/list/segments)    | Restituisce la lista di tutti i segmenti |                 
+| ` GET ` | [`/list/segments`](#/list/segments)    | Restituisce la lista di tutti i segmenti |                 
 | ` GET ` | [`/list/genres`](#/list/genres)         | Restituisce la lista di tutti i generi   |                
 
 <div id='/list/states'/> 
@@ -734,6 +735,14 @@ La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
     ]
 }
 ```
+
+<div id='/interfaccia-grafica'/>
+
+## INTERFACCIA 💻
+
+<div id='/autori'/>
+
+## AUTORI 👦
 
 
 
