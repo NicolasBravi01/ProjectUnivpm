@@ -9,15 +9,8 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 
 public class ApiKeyReader 
 {
-	//private static String apiKey = "";
+	
 	private final static String pathApiKey = "src/main/resources/apiKey.txt";
-
-	/*public static String getApiKey() 
-	{
-		if(apiKey.isEmpty())
-			apiKey = readApiKey();;
-		return apiKey;
-	}*/
 
 	
 	public static String readApiKey() throws ApiConnectionException
@@ -30,7 +23,7 @@ public class ApiKeyReader
 		} 
 		catch (FileNotFoundException e) 
 		{
-			System.out.println("File not found");
+			System.out.println("ApiKey not found");
 			throw new ApiConnectionException("ApiKey not found");
 		}
 		catch (Exception e)

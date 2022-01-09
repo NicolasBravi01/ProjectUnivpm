@@ -26,11 +26,17 @@ public class Result extends JFrame
 	JScrollPane scrollRisultato;
 	JTextArea risultato;
 	
+	JButton statsEventsButton;
 	JButton backButton;
 	JButton exitButton;
 
 	Home home;
 	
+	
+	String eventsText;
+	String statsText;
+	
+	boolean areEventsShown = true;
 	
 	public Result(Home home, Filter filter, Vector<Event> events)
 	{
@@ -60,8 +66,8 @@ public class Result extends JFrame
 		this.setVisible(true);
 		*/
 		
-		JTextArea risultato = new JTextArea();
-		JScrollPane scrollRisultato = new JScrollPane(risultato);
+		risultato = new JTextArea();
+		scrollRisultato = new JScrollPane(risultato);
 				
 		
 		this.setSize(1280, 730);
@@ -76,12 +82,44 @@ public class Result extends JFrame
 		this.setVisible(true);
 		
 		
-		String text = eventsToString(filter, events);
-		//String text = jB.getJSONObjectEvents(events).toJSONString();
+		
+		/*
+		 * BUTTON
+		 */
+		statsEventsButton = new JButton("SHOW STATS");
+		backButton = new JButton("BACK");
+		exitButton = new JButton("EXIT");
+		
+		statsEventsButton.setBounds(50, 615, 220, 60);
+		backButton.setBounds(920, 615, 120, 60);
+		exitButton.setBounds(1090, 615, 120, 60);
+		
+		setButtonsFont(new Font("Calibri", Font.BOLD, 25));
+		
+
+		this.add(statsEventsButton);
+		this.add(backButton);
+		this.add(exitButton);
+			
+		
+		//aggiunge ActionListener dei bottoni
+		addButtonsMouseListener();
+		
+		
+		
+		
+		
+		
+		
+		this.eventsText = readEventsText(events);
+		this.statsText = readStatsText(filter, events);
+		
 		
 		risultato.setBackground(new Color(120, 120, 120));
 		risultato.setEditable(false);
-		risultato.setText(text);
+		
+		//risultato.setText(eventsText);
+		
 		risultato.setCaretPosition(0);
 		risultato.setForeground(Color.BLACK);
 		risultato.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -89,30 +127,15 @@ public class Result extends JFrame
 		scrollRisultato.setBounds(0, 0, 1265, 600);
 		this.add(scrollRisultato);
 		
+		loadEvents();
 		
 		
 		
 		
 		
 		
-		/*
-		 * BUTTON
-		 */
-		backButton = new JButton("BACK");
-		exitButton = new JButton("EXIT");
-		
-		backButton.setBounds(920, 615, 120, 60);
-		exitButton.setBounds(1090, 615, 120, 60);
-		
-		setButtonsFont(new Font("Calibri", Font.BOLD, 25));
-		
-		this.add(backButton);
-		this.add(exitButton);
 		
 		
-		
-		//aggiunge ActionListener dei bottoni
-		addButtonsMouseListener();
 		
 		
 		this.setVisible(true);
@@ -122,16 +145,100 @@ public class Result extends JFrame
 	
 	
 	
+	private String readEventsText(Vector<Event> events)
+	{
+		String text = System.lineSeparator() + "-------- LIST EVENTS --------" + System.lineSeparator() + System.lineSeparator();
+		
+		for(int i = 0; i < events.size(); i++)
+		{
+			text += (i+1) + ":\n" + events.get(i).toString();
+			text += System.lineSeparator() + System.lineSeparator();
+		}
+		
+		text += "number events: " + events.size();
+		text += System.lineSeparator() + System.lineSeparator();		
+		
+		return text;		
+	}
+	
+	
+	private String readStatsText(Filter filter, Vector<Event> events)
+	{
+		JSONBuilder jB = new JSONBuilder();
+		
+		String titleGeneral = System.lineSeparator() + "-------- GENERAL STATS --------" + System.lineSeparator();
+		
+		String text = jB.getJSONObjectAllStats(filter, events).toJSONString();
+		text = text.substring(11);
+		text = text.replace('{', '\n');
+		text = text.replace('}', '\n');
+		text = text.replace(",\"", "\n\"");
+		text = text.replace("perspectives\":", System.lineSeparator()+System.lineSeparator());
+		text = text.replace("\":", ": ");
+		text = text.replace("\"", "");
+		
+		String titlePerspectives = System.lineSeparator() + System.lineSeparator() + "-------- STATS PERSPECTIVES --------";
+		titlePerspectives += System.lineSeparator()+System.lineSeparator()+System.lineSeparator()+System.lineSeparator();
+		
+		text = text.replace("cities:", titlePerspectives + "--- CITIES ---" + System.lineSeparator());
+		text = text.replace("states:", System.lineSeparator()+System.lineSeparator() + "--- STATES ---" + System.lineSeparator());
+		text = text.replace("segments:", System.lineSeparator()+System.lineSeparator() + "--- SEGMENTS ---" + System.lineSeparator());
+		text = text.replace("genres:", System.lineSeparator()+System.lineSeparator() + "--- GENRES ---" + System.lineSeparator());
+		text = text.replace("max", "Max");
+		text = text.replace("min", "Min");	
+				
+		text = titleGeneral + text;
+		
+		return text;		
+	}
+	
+	
 	
 	
 	
 	
 	public void addButtonsMouseListener()
 	{
+		addStatsEventsButtonMouseListener();
 		addExitButtonMouseListener();
 		addBackButtonMouseListener();
 	}
 	
+	
+	
+	public void addStatsEventsButtonMouseListener()
+	{
+		statsEventsButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent me)
+			{
+				if(areEventsShown)
+				{
+					loadStats();
+				}
+				else
+				{
+					loadEvents();
+				}
+				
+				areEventsShown = !areEventsShown;
+			}
+		});
+	}
+	
+	private void loadStats()
+	{
+		this.risultato.setText(statsText);
+		statsEventsButton.setText("SHOW EVENTS");
+		risultato.setCaretPosition(0);
+	}
+	
+	private void loadEvents()
+	{
+		this.risultato.setText(eventsText);
+		statsEventsButton.setText("SHOW STATS");
+		this.risultato.setCaretPosition(0);
+	}
 	
 	
 	
@@ -161,25 +268,6 @@ public class Result extends JFrame
 	
 	
 	
-	
-	private String eventsToString(Vector<Event> events)
-	{
-		String text = events.toString();
-		
-		text = text.substring(1, text.length()-1);		
-		text = text.replaceAll(", Name:", "Name:");
-		
-		/*
-		for(int i = 0; i > events.size(); i++)
-		{
-			text += (i+1) + ":\n" + events.get(i).toString();
-			text += System.lineSeparator() + System.lineSeparator();
-		}
-		
-		text += "number events: " + events.size();*/		
-		
-		return text;
-	}
 	
 	private String eventsToString(Filter filter, Vector<Event> events)
 	{
@@ -229,6 +317,7 @@ public class Result extends JFrame
 	
 	public void setButtonsFont(Font font)
 	{
+		statsEventsButton.setFont(font);
 		backButton.setFont(font);
 		exitButton.setFont(font);
 	}

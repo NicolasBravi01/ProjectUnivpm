@@ -162,10 +162,11 @@ public class EventsFilter
 	public static Vector<Event> getFilteredEvents (Filter filter, Vector<Event> eventsToFilter) 
 	{
 		Vector<Event> filteredEvents = new Vector<Event>();
+		Event e;
 	
 		for(int i=0; i<eventsToFilter.size(); i++)
 		{			
-			Event e = eventsToFilter.get(i);
+			e = eventsToFilter.get(i);
 			
 			if(filter.isIncludedEvent(e))
 			{

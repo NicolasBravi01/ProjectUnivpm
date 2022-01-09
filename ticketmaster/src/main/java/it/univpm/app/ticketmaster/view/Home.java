@@ -34,6 +34,7 @@ import javax.swing.*;
 
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
+import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
 
 //import org.jdesktop.swingx.JXDatePicker;
@@ -96,7 +97,7 @@ public class Home extends JFrame
 	{
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1200, 800);
+		this.setSize(1185, 800);
 		this.setResizable(false);
 		//this.setLayout(new FlowLayout());//poi mettere null
 		this.setLayout(null);
@@ -643,6 +644,7 @@ public class Home extends JFrame
 			{
 				Filter filter;
 				Vector<Event> events;
+				Result result = null;
 				
 				try
 				{				
@@ -654,7 +656,11 @@ public class Home extends JFrame
 						throw new NoEventsException("There are not events with your filters");
 					
 					visible(false);
-					new Result(getThis(), filter, events);
+					result = new Result(getThis(), filter, events);
+				}
+				catch(IncorrectOrderOfDatesException e)
+				{
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 				catch(NoEventsException e)
 				{
@@ -662,7 +668,11 @@ public class Home extends JFrame
 				}
 				catch(Exception e)
 				{
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+					if(result != null)
+						result.close();					
+					visible(true);
+					
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);					
 				}		
 				
 			}
@@ -723,7 +733,7 @@ public class Home extends JFrame
 	
 	
 	
-	public Filter readFilter()
+	public Filter readFilter() throws IncorrectOrderOfDatesException
 	{
 		Filter filter = new Filter();
 
@@ -731,8 +741,12 @@ public class Home extends JFrame
 		filter.setCities(this.cities);
 		filter.setSegment(this.segment);
 		filter.setGenres(this.genres);
+		
 		filter.setStartDate(convertToLocalDate(this.fromDatePicker.getDate()));
 		filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
+		
+		if(filter.getStartDate().isAfter(filter.getEndDate()))
+			throw new IncorrectOrderOfDatesException("Incorrect period");
 		
 		return filter;
 	}
