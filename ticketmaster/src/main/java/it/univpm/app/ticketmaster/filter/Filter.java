@@ -5,6 +5,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
+import it.univpm.app.ticketmaster.exception.InvalidFilterException;
+import it.univpm.app.ticketmaster.exception.InvalidNameException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.model.Event;
 
@@ -23,7 +25,7 @@ public class Filter implements Cloneable
 	Vector<String> genres;
 
 	
-	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres)
+	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) //throws InvalidNameException
 	{
 		this.states = states;
 		this.cities = cities;
@@ -31,24 +33,30 @@ public class Filter implements Cloneable
 		this.endDate = endDate;
 		this.segment = segment;
 		this.genres = genres;
+		
+		//check();
 	}
 	
-	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
+	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = states;
 		this.cities = cities;
 		loadPeriod(period);
 		this.segment = segment;
 		this.genres = genres;
+		
+		check();
 	}
 	
-	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
+	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = convertToVectorOfStrings(states);
 		this.cities = convertToVectorOfStrings(cities);
 		loadPeriod(period);
 		this.segment = segment;
 		this.genres = convertToVectorOfStrings(genres);
+		
+		check();
 	}
 	
 	public Filter(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
@@ -171,13 +179,13 @@ public class Filter implements Cloneable
 
 	public boolean isIncludedState(String state)
 	{
-		boolean isIncluded = ((state == null) || (this.states.size() == 0) || this.states.contains(state));
+		boolean isIncluded = ((state == null) || (this.states.isEmpty()) || this.states.contains(state));
 		return isIncluded;
 	}	
 	
 	public boolean isIncludedCity(String city)
 	{
-		boolean isIncluded =  ((city == null) ||(this.cities.size() == 0) || this.cities.contains(city));
+		boolean isIncluded =  ((city == null) ||(this.cities.isEmpty()) || this.cities.contains(city));
 		return isIncluded;
 	}	
 	
@@ -201,7 +209,7 @@ public class Filter implements Cloneable
 	
 	public boolean isIncludedGenre(String genre)
 	{
-		boolean isIncluded = ((genre == null) || (this.genres.size() == 0) || this.genres.contains(genre));
+		boolean isIncluded = ((genre == null) || (this.genres.isEmpty()) || this.genres.contains(genre));
 		return isIncluded;
 	}
 	
@@ -245,6 +253,7 @@ public class Filter implements Cloneable
 	 * @throws DateTimeParseException 
 	 * @throws NullDateException 
 	 * @throws IncorrectOrderOfDatesException 
+	 * @throws InvalidFilterException 
 	 */
 	private void loadPeriod(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
@@ -259,19 +268,118 @@ public class Filter implements Cloneable
 			int indexComma = period.indexOf(',');
 			
 			if(indexComma < 0)
-				throw new NullDateException();
+				throw new NullDateException("Period not identifed");
 			
 			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
 			this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 				
 			if(this.startDate == null || this.endDate == null)
-				throw new NullDateException();
+				throw new NullDateException("Period not identifed");
 				
 			if(this.startDate.isAfter(endDate))
-				throw new IncorrectOrderOfDatesException();		
+				throw new IncorrectOrderOfDatesException("The first date can't be after the second one");		
 		}
 	}
 	
 	
+	
+	public void check() throws InvalidNameException
+	{
+		checkStates();
+		checkCities();
+		checkSegment();
+		checkGenres();		
+	}
+	
+	
+	
+	private void checkStates() throws InvalidNameException
+	{
+		if(this.states != null && !this.states.isEmpty())
+		{							
+			removeSpaces(this.states);
+			
+			int i = 0;		
+			
+			while((i < this.states.size()) && (EventsFilter.getStates().contains(this.states.get(i))))			
+				i++;
+			
+			if(i != this.states.size())
+				throw new InvalidNameException("Invalid states'name");
+		}		
+	}
+	
+	private void checkCities() throws InvalidNameException
+	{
+		if(this.cities != null && !this.cities.isEmpty())
+		{
+			removeSpaces(this.cities);
+			
+			int i = 0;
+			
+			while((i < this.cities.size()) && (EventsFilter.getCities().contains(this.cities.get(i))))
+				i++;
+			
+			if(i != this.cities.size())
+				throw new InvalidNameException("Invalid cities'name");
+		}		
+	}
+	
+	private void checkSegment() throws InvalidNameException
+	{
+		if(this.segment != null && !this.segment.isEmpty())
+		{
+			removeSpaces(this.segment);
+			
+			if(EventsFilter.getSegments().contains(this.segment))
+				throw new InvalidNameException("Invalid segment's name");
+		}		
+	}
+	
+	private void checkGenres() throws InvalidNameException
+	{
+		if(this.genres != null && !this.genres.isEmpty())
+		{
+			removeSpaces(this.genres);
+			
+			int i = 0;
+			
+			while((i < this.genres.size()) && (EventsFilter.getGenres().contains(this.genres.get(i))))
+				i++;
+			
+			if(i != this.genres.size())
+				throw new InvalidNameException("Invalid genres'name");
+		}		
+	}
+	
+	
+	
+	/**
+	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse per ogni elemento in lista
+	 */
+	private void removeSpaces(Vector<String> list)
+	{
+		for(int i = 0; i < list.size(); i ++)
+		{
+			while(list.get(i).startsWith(" "))
+				list.set(i, list.get(i).substring(1, list.get(i).length()));
+			
+			while(this.states.get(i).endsWith(" "))
+				list.set(i, list.get(i).substring(0, list.get(i).length() - 1));
+		}		
+	}
+	
+	
+	/**
+	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
+	 */
+	private void removeSpaces(String str)
+	{
+		while(str.startsWith(" "))
+			str = str.substring(1, str.length());
+		
+		while(str.endsWith(" "))
+			str = str.substring(0, str.length() - 1);		
+	}
 	
 }

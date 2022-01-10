@@ -33,17 +33,17 @@ public class ApiKeyReader
 			msg = reader.nextLine();
 			
 			if(msg.isEmpty())
-				throw new ApiConnectionException();
+				throw new ApiConnectionException("ApiKey not found");
 		} 
 		catch (FileNotFoundException e) 
 		{
 			System.out.println("ApiKey not found");
-			throw new ApiConnectionException();
+			throw new ApiConnectionException("ApiKey not found");
 		}
 		catch (Exception e)
 		{
 			System.out.println(e.toString());
-			throw new ApiConnectionException();
+			throw new ApiConnectionException("Found error while searching for ApiKey");
 		}
 				
 		return msg;

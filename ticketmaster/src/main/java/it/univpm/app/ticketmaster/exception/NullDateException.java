@@ -6,16 +6,16 @@ package it.univpm.app.ticketmaster.exception;
  * @author sup3r
  */
 @SuppressWarnings("serial")
-public class NullDateException extends InvalidPeriodException
+public class NullDateException extends InvalidFilterException
 {
-	private String message = "Period not identifed";
-	
+
 	public NullDateException()
 	{
 		super();
 	}
+	
+	public NullDateException(String message)
+	{
+		super(message);	}
 
-	public String getMessage() {
-		return message;
-	}
 }

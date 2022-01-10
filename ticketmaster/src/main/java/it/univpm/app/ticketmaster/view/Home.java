@@ -111,8 +111,8 @@ public class Home extends JFrame
 		 * 	LABELS
 		 */		
 		
-		loadLabels();
-
+		loadLabels();		
+				
 		statesFilterLabel.setBounds(35, 310, 920, 83);
 		citiesFilterLabel.setBounds(35, 430, 920, 83);
 		segmentFilterLabel.setBounds(35, 550, 920, 40);
@@ -283,7 +283,6 @@ public class Home extends JFrame
 	
 	public void addStateFilter(String state)
 	{
-		//aggiungi
 		if(!this.states.contains(state))
 		{			
 			int i=0;
@@ -291,9 +290,7 @@ public class Home extends JFrame
 				i++;
 			
 			this.states.add(i ,state);
-			//this.states.add(state);
 		}
-		//rimuovi
 		else
 			this.states.remove(state);			
 	}
@@ -307,7 +304,6 @@ public class Home extends JFrame
 				i++;
 			
 			this.cities.add(i ,city);
-			//this.cities.add(city);
 		}
 		else
 			this.cities.remove(city);	
@@ -331,7 +327,6 @@ public class Home extends JFrame
 				i++;
 			
 			this.genres.add(i ,genre);
-			//this.genres.add(genre);
 		}
 		else
 			this.genres.remove(genre);
@@ -627,7 +622,7 @@ public class Home extends JFrame
 					events = EventsFilter.getFilteredEvents(filter);
 					
 					if(events.size() == 0)
-						throw new NoEventsException();
+						throw new NoEventsException("There are not events with your filters");
 					
 					visible(false);
 					result = new Result(getThis(), filter, events);
@@ -720,7 +715,7 @@ public class Home extends JFrame
 		filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
 		
 		if(filter.getStartDate().isAfter(filter.getEndDate()))
-			throw new IncorrectOrderOfDatesException();
+			throw new IncorrectOrderOfDatesException("Incorrect period");
 		
 		return filter;
 	}

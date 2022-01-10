@@ -11,8 +11,6 @@ import it.univpm.app.ticketmaster.view.Home;
 @SpringBootApplication
 public class TicketmasterApplication 
 {
-	
-	
 
 	public static void main(String[] args) 
 	{				

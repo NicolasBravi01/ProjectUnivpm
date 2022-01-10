@@ -106,51 +106,26 @@ public class Event
 		return message;
 	}
 	
-	/**
-	 * Metodo che elimina tutti gli spazi inutili
-	 */
+	
 	private void checkValues()
 	{
-		checkState();
-		checkCity();
-		checkSegment();
-		checkGenre();		
+		removeSpaces(this.state);
+		removeSpaces(this.city);
+		removeSpaces(this.segment);
+		removeSpaces(this.genre);
 	}
 	
-	private void checkState()
-	{
-		while(this.state.startsWith(" "))
-			this.state = this.state.substring(1, this.state.length());
-		
-		while(this.state.endsWith(" "))
-			this.state = this.state.substring(0, this.state.length() - 1);		
-	}
 	
-	public void checkCity()
+	/**
+	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
+	 */
+	private void removeSpaces(String str)
 	{
-		while(this.city.startsWith(" "))
-			this.city = this.city.substring(1, this.city.length());
+		while(str.startsWith(" "))
+			str = str.substring(1, str.length());
 		
-		while(this.city.endsWith(" "))
-			this.city = this.city.substring(0, this.city.length() - 1);		
-	}
-	
-	public void checkSegment()
-	{
-		while(this.segment.startsWith(" "))
-			this.segment = this.segment.substring(1, this.segment.length());
-		
-		while(this.segment.endsWith(" "))
-			this.segment = this.segment.substring(0, this.segment.length() - 1);		
-	}
-	
-	public void checkGenre()
-	{
-		while(this.genre.startsWith(" "))
-			this.genre = this.genre.substring(1, this.genre.length());
-		
-		while(this.genre.endsWith(" "))
-			this.genre = this.genre.substring(0, this.genre.length() - 1);		
+		while(str.endsWith(" "))
+			str = str.substring(0, str.length() - 1);		
 	}
 	
 }

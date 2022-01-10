@@ -31,58 +31,31 @@ public class Result extends JFrame
 	JButton backButton = new JButton("BACK");
 	JButton exitButton = new JButton("EXIT");
 
-	Home home;
-	
+	Home home;	
 	
 	String eventsText;
 	String statsText;
 	
 	boolean areEventsShown = true;
 	
+	
 	public Result(Home home, Filter filter, Vector<Event> events)
 	{
-		this.home = home;
-		
-		/*this.setTitle("Filtraggio Eventi");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1280, 720);
-		this.setResizable(true);
-		this.setLayout(new FlowLayout());
-		
-		
-		result = new JTextArea(events.toString());		 
-		 
-		scrollResult = new JScrollPane(result);
-		
-		result.setCaretPosition(0);
-		//result.setMargin(new Insets(0, 50, 0, 0));
-		scrollResult.setBounds(60, 50, 800, 550);
-		scrollResult.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		this.getContentPane().add(scrollResult);
-		
-		
-		//this.add(scrollResult);
-		
-		this.setVisible(true);
-		*/
-		
+		this.home = home;				
 		
 		this.setSize(1280, 730);
 		this.setTitle("Result events");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
-		//this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		//this.setUndecorated(true);
 		this.getContentPane().setBackground(new Color(133,173,225));
-		//this.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		this.setVisible(true);
 		
 		
 		
 		/*
-		 * BUTTON
+		 * BUTTONS
 		 */
 		
 		statsEventsButton.setBounds(50, 615, 220, 60);
@@ -94,8 +67,7 @@ public class Result extends JFrame
 
 		this.add(statsEventsButton);
 		this.add(backButton);
-		this.add(exitButton);
-			
+		this.add(exitButton);			
 		
 		//aggiunge ActionListener dei bottoni
 		addButtonsMouseListener();
@@ -103,31 +75,23 @@ public class Result extends JFrame
 		
 		
 		
-		
-		
-		
 		this.eventsText = readEventsText(events);
-		this.statsText = readStatsText(filter, events);
-		
+		this.statsText = readStatsText(filter, events);		
 		
 		result.setBackground(new Color(133,173,225));
+		
 		result.setEditable(false);
-		
-		//result.setText(eventsText);
-		
+				
 		result.setCaretPosition(0);
 		result.setForeground(Color.BLACK);
 		result.setFont(new Font("Calibri", Font.PLAIN, 18));
 		result.setMargin(new Insets(0, 50, 0, 0));
-		scrollResult.setBounds(0, 0, 1265, 600);
-		
+		scrollResult.setBounds(0, 0, 1265, 600);		
 		
 		loadEvents();
 
 		this.add(scrollResult);
 
-
-		
 		
 		this.setVisible(true);
 	}
@@ -151,6 +115,7 @@ public class Result extends JFrame
 		
 		return text;		
 	}
+	
 	
 	
 	private String readStatsText(Filter filter, Vector<Event> events)
@@ -187,7 +152,6 @@ public class Result extends JFrame
 	
 	
 	
-	
 	public void addButtonsMouseListener()
 	{
 		addStatsEventsButtonMouseListener();
@@ -204,13 +168,9 @@ public class Result extends JFrame
 			public void mouseClicked(MouseEvent me)
 			{
 				if(areEventsShown)
-				{
 					loadStats();
-				}
 				else
-				{
 					loadEvents();
-				}
 				
 				areEventsShown = !areEventsShown;
 			}
@@ -259,40 +219,6 @@ public class Result extends JFrame
 	
 	
 	
-	
-	private String eventsToString(Filter filter, Vector<Event> events)
-	{
-		JSONBuilder jB = new JSONBuilder();
-		
-		String text = jB.getJSONObjectAllStats(filter, events).toJSONString();
-		text = text.substring(11);
-		text = text.replace('{', '\n');
-		text = text.replace('}', '\n');
-		text = text.replace(",\"", "\n\"");
-		text = text.replace("perspectives\":", System.lineSeparator());
-		text = text.replace("\":", ": ");
-		text = text.replace("\"", "");
-		
-		text = text.replace("cities", "CITIES");
-		text = text.replace("states", "STATES");
-		text = text.replace("segments", "SEGMENTS");
-		text = text.replace("genres", "GENRES");
-		text = text.replace("max", "Max");
-		text = text.replace("min", "Min");
-		
-		text += System.lineSeparator() + System.lineSeparator() + System.lineSeparator() + System.lineSeparator() + System.lineSeparator();		
-		
-		for(int i = 0; i < events.size(); i++)
-		{
-			text += (i+1) + ":\n" + events.get(i).toString();
-			text += System.lineSeparator() + System.lineSeparator();
-		}
-		
-		text += "number events: " + events.size();
-		text += System.lineSeparator() + System.lineSeparator();		
-		
-		return text;
-	}
 	
 	
 	/*

@@ -8,14 +8,14 @@ package it.univpm.app.ticketmaster.exception;
 @SuppressWarnings("serial")
 public class ApiConnectionException extends Exception 
 {
-	private String message = "ApiKey not found";
 	
 	public ApiConnectionException()
 	{
 		super();
 	}
 
-	public String getMessage() {
-		return message;
+	public ApiConnectionException(String message)
+	{
+		super(message);
 	}
 }
