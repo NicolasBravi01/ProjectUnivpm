@@ -3,9 +3,9 @@ it.univpm.app.ticketmaster.apiConnection
 it.univpm.app.ticketmaster.controller
 it.univpm.app.ticketmaster.exception
 it.univpm.app.ticketmaster.filter
+it.univpm.app.ticketmaster.filterTest
 it.univpm.app.ticketmaster.JSONHandler
 it.univpm.app.ticketmaster.model
 it.univpm.app.ticketmaster.scanner
 it.univpm.app.ticketmaster.stats
-it.univpm.app.ticketmaster.test
 it.univpm.app.ticketmaster.view

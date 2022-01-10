@@ -1,10 +1,11 @@
-package it.univpm.app.ticketmaster.filter;
+package it.univpm.app.ticketmaster.filterTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
+import it.univpm.app.ticketmaster.filter.Filter;
 
 public class FilterTest
 {

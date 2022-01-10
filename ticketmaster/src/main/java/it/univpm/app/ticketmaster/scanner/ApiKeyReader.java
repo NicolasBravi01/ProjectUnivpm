@@ -7,12 +7,23 @@ import java.util.Scanner;
 
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 
+/**
+ * Classe che si occupa della lettura del file ApiKey.txt
+ * 
+ * @author sup3r
+ */
 public class ApiKeyReader 
 {
 	
 	private final static String pathApiKey = "src/main/resources/apiKey.txt";
 
-	
+	/**
+	 * Metodo che legge e restituisce l'apiKey che l'utente ha scritto nel file apiKey.txt
+	 * 
+	 * @return msg Apikey dell'utente
+	 * 
+	 * @throws ApiConnectionException
+	 */
 	public static String readApiKey() throws ApiConnectionException
 	{
 		String msg="";

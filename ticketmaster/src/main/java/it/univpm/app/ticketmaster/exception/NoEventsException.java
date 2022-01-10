@@ -1,6 +1,5 @@
 package it.univpm.app.ticketmaster.exception;
 
-
 /**
  * Eccezione generata se il JSONObject contenente gli eventi è vuoto
  * 

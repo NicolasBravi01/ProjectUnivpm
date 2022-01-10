@@ -106,6 +106,9 @@ public class Event
 		return message;
 	}
 	
+	/**
+	 * Metodo che elimina tutti gli spazi inutili
+	 */
 	private void checkValues()
 	{
 		checkState();
@@ -113,7 +116,6 @@ public class Event
 		checkSegment();
 		checkGenre();		
 	}
-	
 	
 	private void checkState()
 	{
@@ -124,7 +126,6 @@ public class Event
 			this.state = this.state.substring(0, this.state.length() - 1);		
 	}
 	
-	
 	public void checkCity()
 	{
 		while(this.city.startsWith(" "))
@@ -134,7 +135,6 @@ public class Event
 			this.city = this.city.substring(0, this.city.length() - 1);		
 	}
 	
-
 	public void checkSegment()
 	{
 		while(this.segment.startsWith(" "))

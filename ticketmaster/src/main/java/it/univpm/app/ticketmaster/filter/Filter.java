@@ -8,6 +8,11 @@ import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+* Classe che si occupa dell'inserimento del filtro immesso dall'utente
+* 
+* @author sup3r
+*/
 public class Filter implements Cloneable
 {
 	Vector<String> states;
@@ -235,8 +240,10 @@ public class Filter implements Cloneable
 	 * Metodo (invocato dal costruttore) che leggendo una stringa contenente due date (di tipo LocalDate) separate da una virgola
 	 * assegna la prima data al valore startDate e la seconda data al valore endDate 
 	 * 
-	 * 
 	 * @param period Periodo scelto dall'utente
+	 * 
+	 * @throws DateTimeParseException 
+	 * @throws NullDateException 
 	 * @throws IncorrectOrderOfDatesException 
 	 */
 	private void loadPeriod(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException

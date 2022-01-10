@@ -7,7 +7,7 @@ package it.univpm.app.ticketmaster.exception;
  * @author sup3r
  */
 @SuppressWarnings("serial")
-public class IncorrectOrderOfDatesException extends Exception 
+public class IncorrectOrderOfDatesException extends InvalidPeriodException 
 {
 	//private String msg = "ERROR: dates in incorrect order";
 

@@ -53,7 +53,6 @@ public class TicketmasterConnection
 			EventsParser eP = new EventsParser();	
 			EventsFilter.setEvents(eP.parse(data));
 		}
-
 		catch (ApiConnectionException e) 
 		{
 			System.out.println(e.toString());

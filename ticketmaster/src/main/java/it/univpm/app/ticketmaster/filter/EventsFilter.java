@@ -5,6 +5,11 @@ import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+ * Classe che si occupa del filtraggio degli eventi
+ * 
+ * @author sup3r
+ */
 public class EventsFilter 
 {
 	/**

@@ -465,18 +465,11 @@ public class EventsController
 	 * Metodo associato alla rotta get /list/states, 
 	 * che restituisce la lista degli stati
 	 */
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/states")
 	public JSONObject getStates()
 	{	
-		JSONObject obj = new JSONObject();
-		Vector<String> states = EventsFilter.getStates();
-		int size = states.size();
-		
-		obj.put("list states", states);
-		obj.put("number states", size);
-		
-		return obj;
+		JSONBuilder jB = new JSONBuilder();	
+		return jB.getJSONObjectStates();
 	}
 	
 	
@@ -484,18 +477,11 @@ public class EventsController
 	 * Metodo associato alla rotta get /list/cities, 
 	 * che restituisce la lista delle città
 	 */
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/cities")
 	public JSONObject getCities()
 	{			
-		JSONObject obj = new JSONObject();
-		Vector<String> cities = EventsFilter.getCities();
-		int size = cities.size();
-		
-		obj.put("list cities", cities);
-		obj.put("number cities", size);
-		
-		return obj;
+		JSONBuilder jB = new JSONBuilder();	
+		return jB.getJSONObjectCities();
 	}
 
 	
@@ -503,18 +489,11 @@ public class EventsController
 	 * Metodo associato alla rotta get /list/segments, 
 	 * che restituisce la lista dei segmenti
 	 */
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/segments")
 	public JSONObject getSegments()
 	{	
-		JSONObject obj = new JSONObject();
-		Vector<String> segments = EventsFilter.getSegments();
-		int size = segments.size();
-		
-		obj.put("list segments", segments);
-		obj.put("number segments", size);
-		
-		return obj;
+		JSONBuilder jB = new JSONBuilder();	
+		return jB.getJSONObjectSegments();
 	}
 	
 	
@@ -522,18 +501,11 @@ public class EventsController
 	 * Metodo associato alla rotta get /list/genres, 
 	 * che restituisce la lista dei generi
 	 */
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/list/genres")
 	public JSONObject getGenres()
 	{	
-		JSONObject obj = new JSONObject();
-		Vector<String> genres = EventsFilter.getGenres();
-		int size = genres.size();
-		
-		obj.put("list genres", genres);
-		obj.put("number genres", size);
-		
-		return obj;
+		JSONBuilder jB = new JSONBuilder();	
+		return jB.getJSONObjectGenres();
 	}
 	
 	
