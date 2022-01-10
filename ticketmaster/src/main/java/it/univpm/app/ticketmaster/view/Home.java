@@ -627,7 +627,7 @@ public class Home extends JFrame
 					events = EventsFilter.getFilteredEvents(filter);
 					
 					if(events.size() == 0)
-						throw new NoEventsException("There are not events with your filters");
+						throw new NoEventsException();
 					
 					visible(false);
 					result = new Result(getThis(), filter, events);
@@ -720,7 +720,7 @@ public class Home extends JFrame
 		filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
 		
 		if(filter.getStartDate().isAfter(filter.getEndDate()))
-			throw new IncorrectOrderOfDatesException("Incorrect period");
+			throw new IncorrectOrderOfDatesException();
 		
 		return filter;
 	}

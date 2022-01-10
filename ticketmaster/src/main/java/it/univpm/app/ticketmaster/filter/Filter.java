@@ -259,16 +259,16 @@ public class Filter implements Cloneable
 			int indexComma = period.indexOf(',');
 			
 			if(indexComma < 0)
-				throw new NullDateException("Period not identifed");
+				throw new NullDateException();
 			
 			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
 			this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
 				
 			if(this.startDate == null || this.endDate == null)
-				throw new NullDateException("Period not identifed");
+				throw new NullDateException();
 				
 			if(this.startDate.isAfter(endDate))
-				throw new IncorrectOrderOfDatesException("The first date can't be after the second one");		
+				throw new IncorrectOrderOfDatesException();		
 		}
 	}
 	

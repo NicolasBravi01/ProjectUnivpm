@@ -1,15 +1,17 @@
 package it.univpm.app.ticketmaster.filterTest;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
+import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.filter.Filter;
 
 public class FilterTest
 {
-Filter filter;
+
+	Filter filter;
 	
 	/*
 	@BeforeAll
@@ -40,21 +42,19 @@ Filter filter;
 			filter = new Filter("", "", period, "", "");
 		});
 	
-		//assertEquals("ERROR: dates in incorrect order", exc.getMsg());
+		assertEquals("The first date can't be after the second one", exc.getMessage());
 	}
 	
 	@Test
-	void testCityBelongsToState() 
+	void testCorrectdates() 
 	{
-		/*
-		String period = "2023-04-04,2022-01-01";
+		String period = "2023-03-02";
 		
-		IncorrectOrderOfDatesException exc = assertThrows(IncorrectOrderOfDatesException.class, () -> {
-			filter = new FilterImpl("", "", period, "", "");
+		NullDateException exc = assertThrows(NullDateException.class, () -> {
+			filter = new Filter("", "", period, "", "");
 		});
 	
-		assertEquals("ERROR: dates in incorrect order", exc.getMsg());
-		*/
+		assertEquals("Period not identifed", exc.getMessage());
 	}
 	
 

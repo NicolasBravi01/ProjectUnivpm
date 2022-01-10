@@ -8,13 +8,14 @@ package it.univpm.app.ticketmaster.exception;
 @SuppressWarnings("serial")
 public class NoEventsException extends Exception 
 {
-	public NoEventsException() {
+	private String message = "There are not events with your filters";
+	
+	public NoEventsException()
+	{
 		super();
 	}
 
-	public NoEventsException(String message) {
-		super(message);
+	public String getMessage() {
+		return message;
 	}
-
-
 }

@@ -9,15 +9,18 @@ package it.univpm.app.ticketmaster.exception;
 @SuppressWarnings("serial")
 public class IncorrectOrderOfDatesException extends InvalidPeriodException 
 {
-	//private String msg = "ERROR: dates in incorrect order";
+	private String message = "The first date can't be after the second one";
 
-	public IncorrectOrderOfDatesException() {
+	public IncorrectOrderOfDatesException() 
+	{
 		super();
 	}
-
-	public IncorrectOrderOfDatesException(String msg) {
-		super(msg);
+	
+	public String getMessage() {
+		return message;
 	}
+
+	
 
 }
 

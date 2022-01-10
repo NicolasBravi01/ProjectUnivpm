@@ -58,7 +58,7 @@ public class EventsController
 			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
-				throw new NoEventsException("There are not events with your filters");
+				throw new NoEventsException();
 			
 			response = jB.getJSONObjectEvents(events);
 		}
@@ -102,7 +102,7 @@ public class EventsController
 			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
-				throw new NoEventsException("There are not events with your filters");
+				throw new NoEventsException();
 			
 			response = jB.getJSONObjectEventsPerStates(events);
 		}
@@ -146,7 +146,7 @@ public class EventsController
 			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
-				throw new NoEventsException("There are not events with your filters");
+				throw new NoEventsException();
 			
 			response = jB.getJSONObjectEventsPerCities(events);
 		}
@@ -189,7 +189,7 @@ public class EventsController
 			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
-				throw new NoEventsException("There are not events with your filters");
+				throw new NoEventsException();
 
 			response = jB.getJSONObjectEventsPerSegments(events);
 		}
@@ -232,7 +232,7 @@ public class EventsController
 			events = EventsFilter.getFilteredEvents(filter);	
 			
 			if(events.size() == 0)
-				throw new NoEventsException("There are not events with your filters");
+				throw new NoEventsException();
 
 			response = jB.getJSONObjectEventsPerGenres(events);
 		}
