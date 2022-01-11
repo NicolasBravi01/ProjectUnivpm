@@ -162,7 +162,7 @@ public class EventsFilter
 	 * @return filteredEvents Lista di tutti gli eventi filtrati
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 */
 	public static Vector<Event> getFilteredEvents (Filter filter, Vector<Event> eventsToFilter) 
 	{
@@ -191,7 +191,7 @@ public class EventsFilter
 	 * @return filteredEvents Lista di tutti gli eventi filtrati
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 */
 	public static Vector<Event> getFilteredEvents (Filter filter) 
 	{

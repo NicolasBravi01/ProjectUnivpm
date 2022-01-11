@@ -11,7 +11,6 @@ import it.univpm.app.ticketmaster.view.Home;
 @SpringBootApplication
 public class TicketmasterApplication 
 {
-
 	public static void main(String[] args) 
 	{				
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(TicketmasterApplication.class);
@@ -22,10 +21,7 @@ public class TicketmasterApplication
 		new Home();
 	}
 	
-	
-
-	
-	/*
+	/**
 	 * Metodo che effettua la chiamata all'api di ticketmaster per ricevere la lista degli eventi
 	 */
 	static void callEvents()

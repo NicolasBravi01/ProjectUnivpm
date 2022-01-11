@@ -106,26 +106,29 @@ public class Event
 		return message;
 	}
 	
-	
+	/**
+	 * Metodo che controlla che i parametri inseriti non contengano spazi superflui
+	 */
 	private void checkValues()
 	{
-		removeSpaces(this.state);
-		removeSpaces(this.city);
-		removeSpaces(this.segment);
-		removeSpaces(this.genre);
+		this.state = removeSpaces(this.state);
+		this.city = removeSpaces(this.city);
+		this.segment = removeSpaces(this.segment);
+		this.genre = removeSpaces(this.genre);
 	}
-	
 	
 	/**
 	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
 	 */
-	private void removeSpaces(String str)
+	private String removeSpaces(String str)
 	{
 		while(str.startsWith(" "))
 			str = str.substring(1, str.length());
 		
 		while(str.endsWith(" "))
-			str = str.substring(0, str.length() - 1);		
+			str = str.substring(0, str.length() - 1);	
+		
+		return str;
 	}
 	
 }

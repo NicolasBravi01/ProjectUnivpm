@@ -22,7 +22,7 @@ public class JSONBuilder
 	 * 
 	 * @param listEvent Lista di eventi 
 	 * 
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -43,7 +43,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -80,7 +80,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -117,7 +117,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -154,7 +154,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -192,7 +192,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -225,7 +225,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -266,7 +266,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -307,7 +307,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -348,7 +348,7 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -481,7 +481,7 @@ public class JSONBuilder
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerStates(filter, events);
+		int [] counter = stats.getArrayStatsPerStates(events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -518,7 +518,7 @@ public class JSONBuilder
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerCities(filter, events);
+		int [] counter = stats.getArrayStatsPerCities(events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -543,7 +543,6 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -555,7 +554,7 @@ public class JSONBuilder
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerSegments(filter, events);
+		int [] counter = stats.getArrayStatsPerSegments(events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -580,7 +579,6 @@ public class JSONBuilder
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -592,7 +590,7 @@ public class JSONBuilder
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerGenres(filter, events);
+		int [] counter = stats.getArrayStatsPerGenres(events);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
@@ -633,7 +631,6 @@ public class JSONBuilder
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 * @see it.univpm.app.ticketmaster.stats.Stats
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -664,7 +661,6 @@ public class JSONBuilder
 	 * @param period Periodo scelto dall'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.stats.Stats
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
 	 * 
 	 * @return obj JSONObject
 	 */

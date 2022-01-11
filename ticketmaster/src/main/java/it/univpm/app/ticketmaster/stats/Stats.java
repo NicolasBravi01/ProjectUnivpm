@@ -231,18 +231,17 @@ public class Stats
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni stato,
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONBuilder
 	 * 
-	 * @param filter Filtro scelto dall'utente
 	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerStates(Filter filter, Vector<Event> events)
+	public int [] getArrayStatsPerStates(Vector<Event> events)
 	{
 		Vector<Event> eventsApp;
 		String state;
-		Filter filterApp = filter.clone();
+		Filter filter = new Filter();
 		
 		int [] counter = new int[EventsFilter.getStates().size()];
 		
@@ -250,8 +249,8 @@ public class Stats
 		{
 			 state = EventsFilter.getStates().get(i);
 			
-			 filterApp.setStates(state);
-			 eventsApp = EventsFilter.getFilteredEvents(filterApp, events);
+			 filter.setStates(state);
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
 			 counter[i] = eventsApp.size();			
 		}
@@ -264,27 +263,26 @@ public class Stats
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni città,
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerCities della classe JSONBuilder
 	 * 
-	 * @param filter Filtro scelto dall'utente
 	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerCities(Filter filter, Vector<Event> events)
+	public int [] getArrayStatsPerCities(Vector<Event> events)
 	{
 		Vector<Event> eventsApp;
 		String city;
-		Filter filterApp = filter.clone();
-				
+		Filter filter = new Filter();
+		
 		int [] counter = new int[EventsFilter.getCities().size()];
 		
 		for(int i = 0; i < counter.length; i++)
 		{
 			 city = EventsFilter.getCities().get(i);
 			
-			 filterApp.setCities(city);
-			 eventsApp = EventsFilter.getFilteredEvents(filterApp, events);
+			 filter.setCities(city);
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
 			 counter[i] = eventsApp.size();			
 		}
@@ -297,18 +295,17 @@ public class Stats
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni segmento,
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerSegment della classe JSONBuilder
 	 * 
-	 * @param filter Filtro scelto dall'utente
 	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerSegments(Filter filter, Vector<Event> events)
+	public int [] getArrayStatsPerSegments(Vector<Event> events)
 	{
 		Vector<Event> eventsApp;
 		String segment;
-		Filter filterApp = filter.clone();
+		Filter filter = new Filter();
 				
 		int [] counter = new int[EventsFilter.getSegments().size()];
 		
@@ -316,8 +313,8 @@ public class Stats
 		{
 			 segment = EventsFilter.getSegments().get(i);
 			
-			 filterApp.setSegment(segment);
-			 eventsApp = EventsFilter.getFilteredEvents(filterApp, events);
+			 filter.setSegment(segment);
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
 			 counter[i] = eventsApp.size();			
 		}
@@ -330,18 +327,17 @@ public class Stats
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni genere,
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONBuilder
 	 * 
-	 * @param filter Filtro scelto dall'utente
 	 * @param events Lista di eventi
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerGenres(Filter filter, Vector<Event> events)
+	public int [] getArrayStatsPerGenres(Vector<Event> events)
 	{
 		Vector<Event> eventsApp;
 		String genre;
-		Filter filterApp = (Filter) filter.clone();
+		Filter filter = new Filter();
 				
 		int [] counter = new int[EventsFilter.getGenres().size()];
 		
@@ -349,8 +345,8 @@ public class Stats
 		{
 			 genre = EventsFilter.getGenres().get(i);
 			
-			 filterApp.setGenres(genre);
-			 eventsApp = EventsFilter.getFilteredEvents(filterApp, events);
+			 filter.setGenres(genre);
+			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
 			 counter[i] = eventsApp.size();			
 		}

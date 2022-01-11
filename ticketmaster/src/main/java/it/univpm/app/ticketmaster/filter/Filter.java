@@ -15,7 +15,7 @@ import it.univpm.app.ticketmaster.model.Event;
 * 
 * @author sup3r
 */
-public class Filter implements Cloneable
+public class Filter
 {
 	Vector<String> states;
 	Vector<String> cities;
@@ -24,8 +24,7 @@ public class Filter implements Cloneable
 	String segment;
 	Vector<String> genres;
 
-	
-	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) //throws InvalidNameException
+	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = states;
 		this.cities = cities;
@@ -34,7 +33,7 @@ public class Filter implements Cloneable
 		this.segment = segment;
 		this.genres = genres;
 		
-		//check();
+		check();
 	}
 	
 	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
@@ -142,40 +141,6 @@ public class Filter implements Cloneable
 		this.genres = new Vector<String>();
 	}
 	
-	
-	/**
-	 * Metodo che restituisce una copia dell'oggetto stesso
-	 * 
-	 * @see it.univpm.app.ticketmaster.filter.stats.Stats
-	 * 
-	 * @return clone FilterImpl
-	 */
-	public Filter clone()
-	{
-		Filter clone;
-		try
-		{
-			clone = (Filter) super.clone();
-		}
-		catch (CloneNotSupportedException e) 
-		{
-			clone = this.copy();
-		}
-		
-		return clone;
-	}
-	
-	
-	/*
-	 * Nel caso in cui il metodo FilterImpl.clone() generi l'eccezione CloneNotSupportedException,
-	 * viene restituita l'istanza di un nuovo oggetto con i valori di quello che chiama questo metodo
-	 * 
-	 */
-	private Filter copy()
-	{
-		return new Filter(this.states, this.cities, this.startDate, this.endDate, this.segment, this.genres);	
-	}
-	
 
 	public boolean isIncludedState(String state)
 	{
@@ -253,7 +218,6 @@ public class Filter implements Cloneable
 	 * @throws DateTimeParseException 
 	 * @throws NullDateException 
 	 * @throws IncorrectOrderOfDatesException 
-	 * @throws InvalidFilterException 
 	 */
 	private void loadPeriod(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
@@ -270,8 +234,14 @@ public class Filter implements Cloneable
 			if(indexComma < 0)
 				throw new NullDateException("Period not identifed");
 			
-			this.startDate = LocalDate.parse(period.substring(0, period.indexOf(',')));
-			this.endDate = LocalDate.parse(period.substring(period.indexOf(',') + 1, period.length()));
+			String strStartDate = period.substring(0, indexComma);
+			String strEndDate = period.substring(indexComma + 1, period.length());
+			
+			strStartDate = removeSpaces(strStartDate);
+			strEndDate = removeSpaces(strEndDate);
+			
+			this.startDate = LocalDate.parse(strStartDate);
+			this.endDate = LocalDate.parse(strEndDate);
 				
 			if(this.startDate == null || this.endDate == null)
 				throw new NullDateException("Period not identifed");
@@ -282,7 +252,12 @@ public class Filter implements Cloneable
 	}
 	
 	
-	
+	/**
+	 * Metodo che controlla se i parametri inseriti, dopo l'eliminazione di spazi superflui,
+	 * corrispondono a quelli presenti
+	 * 
+	 * @throws InvalidNameException
+	 */
 	public void check() throws InvalidNameException
 	{
 		checkStates();
@@ -291,13 +266,17 @@ public class Filter implements Cloneable
 		checkGenres();		
 	}
 	
-	
-	
+	/**
+	 * Metodo che controlla se lo stato inserito, dopo l'eliminazione di spazi superflui,
+	 * è presente nella lista degli stati
+	 * 
+	 * @throws InvalidNameException
+	 */
 	private void checkStates() throws InvalidNameException
 	{
 		if(this.states != null && !this.states.isEmpty())
 		{							
-			removeSpaces(this.states);
+			this.states = removeSpaces(this.states);
 			
 			int i = 0;		
 			
@@ -309,11 +288,17 @@ public class Filter implements Cloneable
 		}		
 	}
 	
+	/**
+	 * Metodo che controlla se la città inserita, dopo l'eliminazione di spazi superflui,
+	 * è presente nella lista delle città
+	 * 
+	 * @throws InvalidNameException
+	 */
 	private void checkCities() throws InvalidNameException
 	{
 		if(this.cities != null && !this.cities.isEmpty())
 		{
-			removeSpaces(this.cities);
+			this.cities = removeSpaces(this.cities);
 			
 			int i = 0;
 			
@@ -325,22 +310,34 @@ public class Filter implements Cloneable
 		}		
 	}
 	
+	/**
+	 * Metodo che controlla se il segmento inserito, dopo l'eliminazione di spazi superflui,
+	 * è presente nella lista dei segmenti
+	 * 
+	 * @throws InvalidNameException
+	 */
 	private void checkSegment() throws InvalidNameException
 	{
 		if(this.segment != null && !this.segment.isEmpty())
 		{
-			removeSpaces(this.segment);
+			this.segment = removeSpaces(this.segment);
 			
-			if(EventsFilter.getSegments().contains(this.segment))
+			if(!EventsFilter.getSegments().contains(this.segment))
 				throw new InvalidNameException("Invalid segment's name");
 		}		
 	}
 	
+	/**
+	 * Metodo che controlla se il genere inserito, dopo l'eliminazione di spazi superflui,
+	 * è presente nella lista dei generi
+	 * 
+	 * @throws InvalidNameException
+	 */
 	private void checkGenres() throws InvalidNameException
 	{
 		if(this.genres != null && !this.genres.isEmpty())
 		{
-			removeSpaces(this.genres);
+			this.genres = removeSpaces(this.genres);
 			
 			int i = 0;
 			
@@ -352,34 +349,43 @@ public class Filter implements Cloneable
 		}		
 	}
 	
-	
-	
 	/**
 	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse per ogni elemento in lista
+	 * 
+	 * @param list Lista di stringhe
+	 * 
+	 * @return list Lista di stringhe
 	 */
-	private void removeSpaces(Vector<String> list)
+	private Vector<String> removeSpaces(Vector<String> list)
 	{
 		for(int i = 0; i < list.size(); i ++)
 		{
 			while(list.get(i).startsWith(" "))
 				list.set(i, list.get(i).substring(1, list.get(i).length()));
 			
-			while(this.states.get(i).endsWith(" "))
+			while(list.get(i).endsWith(" "))
 				list.set(i, list.get(i).substring(0, list.get(i).length() - 1));
-		}		
+		}	
+		
+		return list;
 	}
-	
 	
 	/**
 	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
+	 * 
+	 * @param str Stringa
+	 * 
+	 * @return str Stringa
 	 */
-	private void removeSpaces(String str)
+	private String removeSpaces(String str)
 	{
 		while(str.startsWith(" "))
 			str = str.substring(1, str.length());
 		
 		while(str.endsWith(" "))
-			str = str.substring(0, str.length() - 1);		
+			str = str.substring(0, str.length() - 1);
+		
+		return str;
 	}
 	
 }

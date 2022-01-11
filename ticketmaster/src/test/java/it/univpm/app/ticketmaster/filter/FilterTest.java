@@ -5,13 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
-import it.univpm.app.ticketmaster.exception.InvalidFilterException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
-import it.univpm.app.ticketmaster.filter.Filter;
 
 public class FilterTest
 {
-
 	Filter filter;
 	
 	/*
@@ -57,7 +54,4 @@ public class FilterTest
 	
 		assertEquals("Period not identifed", exc.getMessage());
 	}
-	
-	
-
 }
