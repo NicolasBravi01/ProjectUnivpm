@@ -49,11 +49,11 @@ I parametri inseriti dall'utente servono per filtrare la lista di tutti gli even
 
 | Tipo    | Rotta /events                            | Descrizione                                                         | Parametri                                    |
 |---------|------------------------------------------|---------------------------------------------------------------------|----------------------------------------------|
-| ` GET ` | [`/events`](#/events)                    | Restituisce l'elenco di tutti gli eventi                            | `states`,`cities`,`period`,`segment`,`genres`|
-| ` GET ` | [`/events/states`](#/events/states)      | Restituisce l'elenco di tutti gli eventi raggruppati per stati      | `period`                                     |
-| ` GET ` | [`/events/cities`](#/events/cities)      | Restituisce l'elenco di tutti gli eventi raggruppati per città      | `states`,`period`                            |  
-| ` GET ` | [`/events/segments`](#/events/segments)  | Restituisce l'elenco di tutti gli eventi raggruppati per segmenti   | `period`                                     |
-| ` GET ` | [`/events/genres`](#/events/genres)      | Restituisce l'elenco di tutti gli eventi raggruppati per generi     | `period`,`segment`                           |              
+| ` GET ` | [`/events`](#/events)                    | Restituisce l'elenco di tutti gli eventi                            | `states`,`cities`,`segment`,`genres`,`period`|
+| ` GET ` | [`/events/states`](#/events/states)      | Restituisce l'elenco di tutti gli eventi raggruppati per stati      | `states`,`segment`,`genres`,`period`         |
+| ` GET ` | [`/events/cities`](#/events/cities)      | Restituisce l'elenco di tutti gli eventi raggruppati per città      | `states`,`cities`,`segment`,`genres`,`period`|  
+| ` GET ` | [`/events/segments`](#/events/segments)  | Restituisce l'elenco di tutti gli eventi raggruppati per segmenti   | `states`,`cities`,`segment`,`period`         |
+| ` GET ` | [`/events/genres`](#/events/genres)      | Restituisce l'elenco di tutti gli eventi raggruppati per generi     | `states`,`cities`,`segment`,`genres`,`period`|              
 
 <div id='/events'/>
 
@@ -451,13 +451,13 @@ Le rotte **/stats** permettono di visualizzare le statistiche relative agli even
 
 I parametri che l'utente può immettere gli permettono di visualizzare le statistiche relative agli stati, alle città e ai generi selezionati, nonché di filtrare gli eventi e considerare solo quelli che si verificano solo in un determinato arco temporale. Se l'utente non seleziona alcun periodo, veranno calcolate le statistiche su tutti gli eventi e come periodo di riferimento si prenderà quello che va dalla prima data all'ultima data nella lista di tutti gli eventi presenti; altrimenti se l'utente inserisce un periodo, verranno scelti solamente gli eventi che si verificano in quell'arco temporale e questo periodo verrà anche utilizzato per effettuare le statistiche.
 
-| Tipo    | Rotta /stats                              | Descrizione                                       | Parametri         |
-|---------|-------------------------------------------|---------------------------------------------------|-------------------|
-| ` GET ` | [`/stats`](#/stats)                       | Restituisce il quadro generale delle statistiche  | `period`          |
-| ` GET ` | [`/stats/states`](#/stats/states)         | Restituisce le statistiche per ogni stato         | `states`,`period` |
-| ` GET ` | [`/stats/cities`](#/stats/cities)         | Restituisce le statistiche per ogni città         | `cities`,`period` |         
-| ` GET ` | [`/stats/segments`](#/stats/segments)     | Restituisce le statistiche per ogni segmento      | `period`          |
-| ` GET ` | [`/stats/genres`](#/stats/genres)         | Restituisce le statistiche per ogni genere        | `period`,`genres` |      
+| Tipo    | Rotta /stats                              | Descrizione                                       | Parametri                                     |
+|---------|-------------------------------------------|---------------------------------------------------|-----------------------------------------------|
+| ` GET ` | [`/stats`](#/stats)                       | Restituisce il quadro generale delle statistiche  | `period`                                      |
+| ` GET ` | [`/stats/states`](#/stats/states)         | Restituisce le statistiche per ogni stato         | `states`,`segment`,`genres`,`period`          |
+| ` GET ` | [`/stats/cities`](#/stats/cities)         | Restituisce le statistiche per ogni città         | `states`,`cities`,`segment`,`genres`,`period` |         
+| ` GET ` | [`/stats/segments`](#/stats/segments)     | Restituisce le statistiche per ogni segmento      | `states`,`cities`,`segment`,`period`          |
+| ` GET ` | [`/stats/genres`](#/stats/genres)         | Restituisce le statistiche per ogni genere        | `states`,`cities`,`segment`,`genres`,`period` |      
 
 <div id='/stats'/>
 
