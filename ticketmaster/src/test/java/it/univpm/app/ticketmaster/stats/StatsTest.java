@@ -6,27 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class StatsTest 
 {
-	Stats stats = new Stats();;
-	
-	/*
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception 
-	{
-		
-	}
-
-	@BeforeEach
-	void setUp() throws Exception 
-	{
-		
-	}
-
-	@AfterEach
-	void tearDown() throws Exception 
-	{
-	
-	}
-	*/
+	Stats stats = new Stats();
 
 	@Test
 	void testCorrectAverage() 
@@ -37,5 +17,4 @@ class StatsTest
 	
 		assertEquals(av, 30);
 	}
-
 }

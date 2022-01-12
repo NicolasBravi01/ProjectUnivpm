@@ -100,7 +100,7 @@ public class JSONBuilder
 			 filter.setCities(city);
 			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
 		
-			 if(events.size() > 0)
+			 if(eventsApp.size() > 0)
 			 {
 				 obj.put(city, this.getJSONObjectEvents(eventsApp));
 			 }
