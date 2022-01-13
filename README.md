@@ -779,15 +779,28 @@ Nell'utilizzo delle rotte l'utente potrebbe commettere diversi errori o compiere
 
 L'utilizzo dell'interfaccia non è affatto complesso: l'utente deve semplicemente inserire i parametri di interesse selezionandoli nei menu a tendina situati nel lato superiore, (tenendo conto che se si seleziona nuovamente un parametro già immesso questo verrà cancellato); per quanto riguarda il periodo l'utente può scegliere se inserire da tastiera la data in formato dd-mm-yyyy, oppure da calendario, premendo sul pulsante.
 
+Il Filtraggio avviene come segue:
+
+![Home](ticketmaster/img/Home.gif)
+
 Nel lato sinistro l'utente può vedere le liste dei parametri inseriti, mentre nel lato destro si trovano i pulsanti:
 - `search`, per visualizzare la lista di tutti gli eventi filtrati (equivalente della rotta /events);
 - `reset`, per resettare il filtro;
 - `exit`, per uscire dal programma.
 
+Premendo il pulsante `search`, si ottiene la lista degli eventi filtrati
+
+![Events](ticketmaster/img/Events.gif)
+
+
 In fondo alla finestra che permette di visualizzare la lista di tutti gli eventi filtrati, l'utente trova i seguenti pulsanti:
 - `show stats`, per visualizzare tutte le statistiche relative alla lista di tutti gli eventi filtrati (equivalente della rotta /stats);
 - `back`, per tornare alla schermata iniziale;
 - `exit`, per uscire dal programma.
+
+Premendo il pulsante `show stats`, si ottengono le statistiche relative agli eventi visualizzati precedentemente, ovvero gli stessi già filtrati
+
+![Stats](ticketmaster/img/Stats.gif)
 
 Gli errori che l'utente può commettere sono gli stessi già descritti nel paragrafo delle rotte, ma grazie all'interfaccia molti di questi vengono evitati facilmente: si raccomanda di fare comunque attenzione che i filtri immessi non siano in conflitto tra loro, e inoltre, per evitare i problemi legati all'inserimento delle date si consiglia l'utilizzo del pulsante del calendario.
 
