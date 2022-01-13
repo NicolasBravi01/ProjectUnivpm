@@ -164,7 +164,7 @@ public class Filter
 		this.states = states;
 	}
 	public void setStates(String state) {
-		this.states = new Vector<String>();
+		this.states.removeAllElements();
 		this.states.add(state);
 	}
 	public Vector<String> getCities() {
@@ -174,7 +174,7 @@ public class Filter
 		this.cities = cities;
 	}
 	public void setCities(String city) {
-		this.cities = new Vector<String>();
+		this.cities.removeAllElements();
 		this.cities.add(city);
 	}
 	public LocalDate getStartDate() {
@@ -213,11 +213,11 @@ public class Filter
 		this.genres = genres;
 	}
 	public void setGenres(String genre) {
-		this.genres = new Vector<String>();
+		this.genres.removeAllElements();
 		this.genres.add(genre);
 	}
 	
-	
+
 	/**
 	 * Metodo che resetta tutti filtri
 	 */
@@ -482,7 +482,7 @@ public class Filter
 	 * 
 	 * @throws IncorrectOrderOfDatesException
 	 */
-	private void checkPeriod() throws IncorrectOrderOfDatesException
+	public void checkPeriod() throws IncorrectOrderOfDatesException
 	{		
 		if(this.startDate.isAfter(endDate))
 			throw new IncorrectOrderOfDatesException("The first date can't be after the second one");

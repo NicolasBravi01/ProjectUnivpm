@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.json.simple.JSONObject;
+
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
@@ -24,25 +26,57 @@ import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 @SuppressWarnings("serial")
 public class Result extends JFrame
 {
+	/*
+	 * Area per la visualizzazione di un testo
+	 */
 	JTextArea result = new JTextArea();
+	
+	/*
+	 * Scroll per scorrere un testo
+	 */
 	JScrollPane scrollResult = new JScrollPane(result);
 		
+	
+	/*
+	 * Bottoni Show Stats/Events, Back e Exit
+	 */
 	JButton statsEventsButton = new JButton("SHOW STATS");
 	JButton backButton = new JButton("BACK");
 	JButton exitButton = new JButton("EXIT");
 
+	/*
+	 * Oggetto Home, per poter tornare indietro senza perdere le informazioni
+	 */
 	Home home;	
 	
 	String eventsText;
 	String statsText;
 	
+	/*
+	 * Variabile settata a true se si stanno visualizzando gli eventi, false se si stanno visualizzando le statistiche
+	 */
 	boolean areEventsShown = true;
 	
 	
+	/**
+	 *  Costruttore della finestra dei risultati con cui è possibile visualizzare gli eventi e le statistiche relative
+	 *  ai filtri settati dall'utente nella finestra precedente
+	 * 
+	 * @param home
+	 * @param filter
+	 * @param events
+	 */
 	public Result(Home home, Filter filter, Vector<Event> events)
 	{
+		/*
+		 * L'oggetto Home viene memorizzato all'interno di questa classe per avere la possibilità di tornare alla
+		 * finestra precedente senza perdere i filtri che l'utente ha settato
+		 */
 		this.home = home;				
 		
+		/*
+		 * Impostazioni di settaggio della finestra
+		 */
 		this.setSize(1280, 730);
 		this.setTitle("Result events");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -64,24 +98,23 @@ public class Result extends JFrame
 		
 		setButtonsFont(new Font("Calibri", Font.BOLD, 25));
 		
-
 		this.add(statsEventsButton);
 		this.add(backButton);
 		this.add(exitButton);			
 		
-		//aggiunge ActionListener dei bottoni
 		addButtonsMouseListener();
 		
 		
-		
+		/*
+ 		 * TEXTAREA e SCROLL
+		 */
+		JSONBuilder jB = new JSONBuilder();
 		
 		this.eventsText = readEventsText(events);
-		this.statsText = readStatsText(filter, events);		
+		this.statsText = readStatsText(jB.getJSONObjectAllStats(filter, events));		
 		
-		result.setBackground(new Color(133,173,225));
-		
+		result.setBackground(new Color(133,173,225));		
 		result.setEditable(false);
-				
 		result.setCaretPosition(0);
 		result.setForeground(Color.BLACK);
 		result.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -100,6 +133,14 @@ public class Result extends JFrame
 	
 	
 	
+	/**
+	 * Metodo che converte una lista di eventi in una stringa che viene leggermente modificata per essere resa
+	 * esteticamente più gradevole da leggere.
+	 * 
+	 * @param events
+	 * 
+	 * @return text String
+	 */
 	private String readEventsText(Vector<Event> events)
 	{
 		String text = System.lineSeparator() + "-------- LIST EVENTS --------" + System.lineSeparator() + System.lineSeparator();
@@ -117,14 +158,20 @@ public class Result extends JFrame
 	}
 	
 	
-	
-	private String readStatsText(Filter filter, Vector<Event> events)
+	/**
+	 * Metodo che converte il JSON contenente le statistiche relative ad un gruppo di eventi in una stringa
+	 * che viene leggermente modificata per essere resa esteticamente più gradevole da leggere.
+	 * 
+	 * @param JSONStats
+	 * 
+	 * @return text String
+	 */
+	private String readStatsText(JSONObject JSONStats)
 	{
-		JSONBuilder jB = new JSONBuilder();
-		
 		String titleGeneral = System.lineSeparator() + "-------- GENERAL STATS --------" + System.lineSeparator();
 		
-		String text = jB.getJSONObjectAllStats(filter, events).toJSONString();
+		String text = JSONStats.toJSONString();
+		
 		text = text.substring(11);
 		text = text.replace('{', '\n');
 		text = text.replace('}', '\n');
@@ -151,7 +198,9 @@ public class Result extends JFrame
 	
 	
 	
-	
+	/**
+	 * Metodo che aggiunge i MouseLister dei bottoni Show Stats/Events, Back e Exit
+	 */
 	public void addButtonsMouseListener()
 	{
 		addStatsEventsButtonMouseListener();
@@ -161,6 +210,11 @@ public class Result extends JFrame
 	
 	
 	
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Show Stats/Events.
+	 * Se il bottone viene premuto viene alternata la visualizzazioni degli eventi con quella delle
+	 * statistiche o viceversa
+	 */
 	public void addStatsEventsButtonMouseListener()
 	{
 		statsEventsButton.addMouseListener(new MouseAdapter()
@@ -177,6 +231,9 @@ public class Result extends JFrame
 		});
 	}
 	
+	/**
+	 * Metodo che fa visualizzare nell'area di testo le statistiche
+	 */
 	private void loadStats()
 	{
 		this.result.setText(statsText);
@@ -184,6 +241,10 @@ public class Result extends JFrame
 		result.setCaretPosition(0);
 	}
 	
+
+	/**
+	 * Metodo che fa visualizzare nell'area di testo gli eventi
+	 */
 	private void loadEvents()
 	{
 		this.result.setText(eventsText);
@@ -192,7 +253,10 @@ public class Result extends JFrame
 	}
 	
 	
-	
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Exit.
+	 * Se il bottone viene premuto, termina il debug
+	 */
 	public void addExitButtonMouseListener()
 	{
 		exitButton.addMouseListener(new MouseAdapter()
@@ -204,7 +268,10 @@ public class Result extends JFrame
 		});
 	}
 	
-	
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Back.
+	 * Se il bottone viene premuto, viene chiusa la finestra Result e viene rimostrata la finestra precedente 
+	 */
 	public void addBackButtonMouseListener()
 	{
 		backButton.addMouseListener(new MouseAdapter()
@@ -221,9 +288,8 @@ public class Result extends JFrame
 	
 	
 	
-	/*
-	 * Metodo che permette di modificare la visibilità della finestra, fatto
-	 * perchè all'interno dell'actionListener, l'oggetto this non è accessibile
+	/**
+	 * Metodo che chiude la finestra Result 
 	 */
 	public void close()
 	{
@@ -232,6 +298,11 @@ public class Result extends JFrame
 	
 	
 	
+	/**
+	 * Metodo che setta il font passato come parametro per i bottoni Show Stats/Events, Back e Exit
+	 * 
+	 * @param font Font
+	 */
 	public void setButtonsFont(Font font)
 	{
 		statsEventsButton.setFont(font);

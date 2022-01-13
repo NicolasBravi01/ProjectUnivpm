@@ -3,12 +3,8 @@ package it.univpm.app.ticketmaster.view;
 import java.util.Vector;
 import java.util.Collections;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Insets;
-import java.awt.Toolkit;
-import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,27 +12,18 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Calendar;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXLabel;
 
-import javax.swing.*;
 
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
-import it.univpm.app.ticketmaster.exception.NullDateException;
-
-//import org.jdesktop.swingx.JXDatePicker;
 
 
 
@@ -46,22 +33,33 @@ import it.univpm.app.ticketmaster.filter.Filter;
 @SuppressWarnings("serial")
 public class Home extends JFrame
 {	
+	/**
+	 * Oggetto Filter nel quale vengono memorizzati i filtri inseriti dall'utente
+	 * tramite l'interfaccia grafica 
+	 */
+	Filter filter = new Filter();
 	
-	Vector<String> states = new Vector<String>();
-	Vector<String> cities = new Vector<String>();
-	String segment = "";
-	Vector<String> genres = new Vector<String>();
-
 	
+	/*
+	 * ComboBoxes per stati, città, segmento e generi 
+	 */
 	JComboBox<String> statesBox = new JComboBox<String>();
 	JComboBox<String> citiesBox = new JComboBox<String>();
 	JComboBox<String> segmentsBox = new JComboBox<String>();
 	JComboBox<String> genresBox = new JComboBox<String>();
 		
+	
+	/*
+	 * Bottoni Search, reset, exit. Guardare i rispettivi eventi MouseListener per capire cosa fanno
+	 */
 	JButton searchButton = new JButton("SEARCH");
 	JButton resetButton = new JButton("RESET");
 	JButton exitButton = new JButton("EXIT");
 	
+	
+	/*
+	 * Label di tutta la finestra
+	 */
 	JXLabel statesFilterLabel = new JXLabel();
 	JXLabel citiesFilterLabel = new JXLabel();
 	JXLabel segmentFilterLabel = new JXLabel();
@@ -81,17 +79,22 @@ public class Home extends JFrame
 	JXLabel fromDateLabel = new JXLabel("From:");
 	JXLabel toDateLabel = new JXLabel("To:");
 	
+	/*
+	 * Calendari
+	 */
 	JXDatePicker fromDatePicker = new JXDatePicker();
 	JXDatePicker toDatePicker = new JXDatePicker();
 
 
 	
 	
-	
+	/**
+	 *  Costruttore della finestra principale con cui è possibile settare i filtri per la visualizzazione degli eventi
+	 */
 	public Home()
 	{
 		/*
-		 * 
+		 * Impostazioni di settaggio della finestra
 		 */
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -180,7 +183,7 @@ public class Home extends JFrame
 		
 		setComboBoxesFont(new Font("Calibri", Font.PLAIN, 17));		
 		
-		loadBox();
+		loadBoxes();
 		
 		//aggiunge ActionListener delle comboBox per filtrare
 		addComboBoxesActionListener();
@@ -257,7 +260,12 @@ public class Home extends JFrame
 	
 	
 	
-	
+	/**
+	 *  Metodo che inserisce gli elementi di una lista di stringhe all'interno di una data comboBox
+	 *  
+	 *  @param box ComboBox di stringhe
+	 *  @param list Lista di stringhe
+	 */
 	public void loadBox(JComboBox<String> box, Vector<String> list)
 	{
 		Collections.sort(list);
@@ -270,7 +278,14 @@ public class Home extends JFrame
 		}
 	}
 	
-	public void loadBox()
+	
+	/**
+	 * Metodo che inserisce stati, città, segmenti e generi disponibili, attraverso il quale l'utente
+	 * può decidere di filtrare gli eventi, all'interno delle rispettive comboBoxes
+	 * 
+	 * @see loadBox
+	 */
+	public void loadBoxes()
 	{
 		loadBox(statesBox, EventsFilter.getStates());
 		loadBox(citiesBox, EventsFilter.getCities());
@@ -279,139 +294,176 @@ public class Home extends JFrame
 	}
 
 	
+	
+	/**
+	 * Metodo che aggiunge alla lista di stati, presente all'interno dell'oggetto filter, un certo stato
+	 * passato come parametro. Se esso è già presente nella lista allora viene rimosso
+	 * 
+	 * @param state Stringa contenente uno stato
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void addStateFilter(String state)
 	{
-		if(!this.states.contains(state))
+		if(!this.filter.getStates().contains(state))
 		{			
 			int i=0;
-			while(i<states.size() && state.compareTo(states.get(i))>0)
+			while(i < this.filter.getStates().size() && state.compareTo(this.filter.getStates().get(i)) > 0)
 				i++;
 			
-			this.states.add(i ,state);
+			this.filter.getStates().add(i ,state);
 		}
 		else
-			this.states.remove(state);			
+			this.filter.getStates().remove(state);		
 	}
 	
+	
+	/**
+	 * Metodo che aggiunge alla lista di città, presente all'interno dell'oggetto filter, una certa città
+	 * passata come parametro. Se essa è già presente nella lista allora viene rimossa
+	 * 
+	 * @param city Stringa contenente una città
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void addCityFilter(String city)
 	{
-		if(!this.cities.contains(city))
+		if(!this.filter.getCities().contains(city))
 		{
 			int i=0;
-			while(i<cities.size() && city.compareTo(cities.get(i))>0)
+			while(i < this.filter.getCities().size() && city.compareTo(this.filter.getCities().get(i))>0)
 				i++;
 			
-			this.cities.add(i ,city);
+			this.filter.getCities().add(i ,city);
 		}
 		else
-			this.cities.remove(city);	
+			this.filter.getCities().remove(city);	
 	}
 	
 	
+	/**
+	 * Metodo setta la variabile rappresentante un segmento, presente all'interno dell'oggetto filter, un certo
+	 * segmento passato come parametro. Se esso è lo stesso del precedente, allora il filtro per segmento viene rimosso
+	 * 
+	 * @param segment Stringa contenente un segmento
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void setSegmentFilter(String segment)
 	{
-		if(!this.segment.equals(segment))
-			this.segment = segment;
+		if(!this.filter.getSegment().equals(segment))
+			this.filter.setSegment(segment);
 		else
-			this.segment = "";
+			this.filter.setSegment("");
 	}
 	
+	
+	/**
+	 * Metodo che aggiunge alla lista di generi, presente all'interno dell'oggetto filter, un certo genere
+	 * passato come parametro. Se esso è già presente nella lista allora viene rimosso
+	 * 
+	 * @param genre Stringa contenente un genere
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void addGenreFilter(String genre)
 	{
-		if(!this.genres.contains(genre))
+		if(!this.filter.getGenres().contains(genre))
 		{
 			int i=0;
-			while(i<genres.size() && genre.compareTo(genres.get(i))>0)
+			while(i < this.filter.getGenres().size() && genre.compareTo(this.filter.getGenres().get(i))>0)
 				i++;
 			
-			this.genres.add(i ,genre);
+			this.filter.getGenres().add(i ,genre);
 		}
 		else
-			this.genres.remove(genre);
+			this.filter.getGenres().remove(genre);
 	}
 	
 	
 	
 	
 	
-	/*
-	 * Per filtrare gli eventi per tutti gli stati, invece di scriverli tutti è sufficiente
-	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per stati
+	/**
+	 * Metodo che resetta il filtro per stati
 	 * 
-	 * @see FilterImpl.isIncludedState(String) 
+	 * @see it.univpm.app.ticketmaster.filter.Filter.isIncludedState(String) 
 	 */
-	public void addAllStatesFilter()
+	public void removeAllStatesFilter()
 	{
-		this.states.removeAllElements();
-		this.statesFilterLabel.setText("All States");
+		this.filter.getStates().removeAllElements();
 	}
 	
 	
 	
-	/*
-	 * Per filtrare gli eventi per tutte le città, invece di scriverli tutti è sufficiente
-	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per città
+	/**
+	 * Metodo che resetta il filtro per città
 	 * 
-	 * @see FilterImpl.isIncludedCity(String) 
+	 * @see it.univpm.app.ticketmaster.filter.Filter.isIncludedCity(String) 
 	 */
-	public void addAllCitiesFilter()
+	public void removeAllCitiesFilter()
 	{
-		this.cities.removeAllElements();
+		this.filter.getCities().removeAllElements();
 	}
 	
 	
 	
 	
-	
-	/*
-	 * Per filtrare gli eventi per tutti gli stati, invece di scriverli tutti è sufficiente
-	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per stati
+	/**
+	 * Metodo che resetta il filtro per segmento
 	 * 
-	 * @see FilterImpl.isIncludedSegment(String) 
+	 * @see it.univpm.app.ticketmaster.filter.Filter.isIncludedSegment(String) 
 	 */
-	public void addAllSegmentsFilter()
+	public void removeAllSegmentsFilter()
 	{
-		this.segment = "";
+		this.filter.setSegment("");
 	}
 	
 	
 	
-	/*
-	 * Per filtrare gli eventi per tutti i generi, invece di scriverli tutti è sufficiente
-	 * non metterne nessuno, sottointendendo che non bisogna filtrare gli eventi per generi
+	
+	/**
+	 * Metodo che resetta il filtro per generi
 	 * 
-	 * @see FilterImpl.isIncludedGenre(String) 
+	 * @see it.univpm.app.ticketmaster.filter.Filter.isIncludedGenres(String) 
 	 */
-	public void addAllGenresFilter()
+	public void removeAllGenresFilter()
 	{
-		this.genres.removeAllElements();
+		this.filter.getGenres().removeAllElements();
 	}
 	
 	
 	
 	
 	
-
+	/**
+	 * Metodo che resetta il filtro per periodo, facendo visualizzare nel primo calendario la data del
+	 * primo evento e nel secondo calendario la data dell'ultimo evento in ordine cronologico
+	 */
 	public void resetPeriod()
 	{
-		fromDatePicker.setDate(convertToDate(EventsFilter.getFirstDate()));
-		toDatePicker.setDate(convertToDate(EventsFilter.getLastDate()));
+		this.fromDatePicker.setDate(convertToDate(EventsFilter.getFirstDate()));
+		this.toDatePicker.setDate(convertToDate(EventsFilter.getLastDate()));
 	}
 	
 	
 	
-	
+	/**
+	 * Metodo che fa visualizzare a schermo la lista degli stati attraverso i quali filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void loadStatesFilterLabel()
 	{		
 		String text;
 				
-		if(this.states.isEmpty())
+		if(this.filter.getStates().isEmpty())
 		{
 			text = "All states";
 		}
 		else
 		{
-			text = this.states.toString();
+			text = this.filter.getStates().toString();
 			text = text.substring(1, text.length() - 1);
 		}
 		
@@ -420,18 +472,22 @@ public class Home extends JFrame
 	
 	
 	
-	
+	/**
+	 * Metodo che fa visualizzare a schermo la lista delle città attraverso le quali filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void loadCitiesFilterLabel()
 	{
 		String text;
 		
-		if(this.cities.isEmpty())
+		if(this.filter.getCities().isEmpty())
 		{
 			text = "All cities";
 		}
 		else
 		{
-			text = this.cities.toString();
+			text = this.filter.getCities().toString();
 			text = text.substring(1, text.length() - 1);
 		}		
 		
@@ -439,36 +495,44 @@ public class Home extends JFrame
 	}
 	
 	
-	
+	/**
+	 * Metodo che fa visualizzare a schermo il segmento attraverso il quale filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void loadSegmentFilterLabel()
 	{
 		String text;
 		
-		if(this.segment.isEmpty())
+		if(this.filter.getSegment().isEmpty())
 		{
 			text = "All segments";
 		}
 		else
 		{
-			text = this.segment;
+			text = this.filter.getSegment();
 		}		
 		
 		this.segmentFilterLabel.setText(text);
 	}
 	
 	
-
+	/**
+	 * Metodo che fa visualizzare a schermo la lista dei generi attraverso i quali filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void loadGenresFilterLabel()
 	{
 		String text;
 		
-		if(this.genres.isEmpty())
+		if(this.filter.getGenres().isEmpty())
 		{
 			text = "All genres";
 		}
 		else
 		{
-			text = this.genres.toString();
+			text = this.filter.getGenres().toString();
 			text = text.substring(1, text.length() - 1);
 		}		
 		
@@ -477,7 +541,11 @@ public class Home extends JFrame
 	
 	
 	
-	
+	/**
+	 * Metodo che fa visualizzare a schermo tutti i filtri con cui filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void loadLabels()
 	{
 		loadStatesFilterLabel();
@@ -488,7 +556,9 @@ public class Home extends JFrame
 	
 	
 	
-	
+	/**
+	 * Metodo che aggiunge le ActionListener per le comboBoxes di stati, città, generi e segmenti
+	 */
 	public void addComboBoxesActionListener()
 	{
 		addStatesBoxActionListener();
@@ -498,7 +568,9 @@ public class Home extends JFrame
 	}
 	
 	
-	
+	/**
+	 * Metodo che aggiunge l'ActionListener per la comboBox relativa agli stati
+	 */
 	public void addStatesBoxActionListener()
 	{
 		this.statesBox.addActionListener (new ActionListener () 
@@ -507,7 +579,7 @@ public class Home extends JFrame
 		    public void actionPerformed(ActionEvent e) 
 		    {
 		    	if(statesBox.getSelectedIndex() == 0)
-		    		addAllStatesFilter();
+		    		removeAllStatesFilter();
 		    	else
 		    		addStateFilter(statesBox.getSelectedItem().toString());
 		    	
@@ -517,7 +589,10 @@ public class Home extends JFrame
 	}
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge l'ActionListener per la comboBox relativa alle città
+	 */
 	public void addCitiesBoxActionListener()
 	{
 		this.citiesBox.addActionListener(new ActionListener()
@@ -526,7 +601,7 @@ public class Home extends JFrame
 		    public void actionPerformed(ActionEvent e) 
 		    {
 		    	if(citiesBox.getSelectedIndex() == 0)
-		    		addAllCitiesFilter();
+		    		removeAllCitiesFilter();
 		    	else
 		    		addCityFilter(citiesBox.getSelectedItem().toString());
 		    	
@@ -536,7 +611,10 @@ public class Home extends JFrame
 	}
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge l'ActionListener per la comboBox relativa ai segmenti
+	 */
 	public void addSegmentsBoxActionListener()
 	{		
 		this.segmentsBox.addActionListener(new ActionListener() 
@@ -545,7 +623,7 @@ public class Home extends JFrame
 		    public void actionPerformed(ActionEvent e) 
 		    {
 		    	if(segmentsBox.getSelectedIndex() == 0)
-		    		addAllSegmentsFilter();
+		    		removeAllSegmentsFilter();
 		    	else
 		    		setSegmentFilter(segmentsBox.getSelectedItem().toString());
 		    	
@@ -556,7 +634,10 @@ public class Home extends JFrame
 
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge l'ActionListener per la comboBox relativa ai generi
+	 */
 	public void addGenresBoxActionListener()
 	{
 		this.genresBox.addActionListener(new ActionListener() 
@@ -565,7 +646,7 @@ public class Home extends JFrame
 		    public void actionPerformed(ActionEvent e) 
 		    {
 		    	if(genresBox.getSelectedIndex() == 0)
-		    		addAllGenresFilter();
+		    		removeAllGenresFilter();
 		    	else
 		    		addGenreFilter(genresBox.getSelectedItem().toString());
 		    	
@@ -578,7 +659,10 @@ public class Home extends JFrame
 	
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge i MouseListener dei bottoni Search, Reset e Exit
+	 */
 	public void addButtonsMouseListener()
 	{
 		addExitButtonMouseListener();
@@ -588,10 +672,13 @@ public class Home extends JFrame
 	
 	
 	
-	
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Exit.
+	 * Se il bottone viene premuto, termina il debug
+	 */
 	public void addExitButtonMouseListener()
 	{
-		exitButton.addMouseListener(new MouseAdapter()
+		this.exitButton.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent me)
 			{
@@ -602,20 +689,28 @@ public class Home extends JFrame
 	
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Search.
+	 * Se il bottone viene premuto, viene mostrata la finestra contenente gli eventi filtrare
+	 * mentre questa finestra viene nascosta.
+	 * In caso di errori la finestra non si apre
+	 * 
+	 * @see it.univpm.app.ticketmaster.view.Result
+	 * 
+	 */
 	public void addSearchButtonMouseListener()
 	{
-		searchButton.addMouseListener(new MouseAdapter()
+		this.searchButton.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent me)
 			{
-				Filter filter;
 				Vector<Event> events;
 				Result result = null;
 				
 				try
 				{				
-					filter = readFilter();
+					readPeriod();
 	
 					events = EventsFilter.getFilteredEvents(filter);
 					
@@ -648,14 +743,20 @@ public class Home extends JFrame
 	
 	
 	
-	
+
+	/**
+	 * Metodo che aggiunge il MouseListener del bottone Reset.
+	 * Se il bottone viene premuto, Tutti i filtri vengono resettati
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 */
 	public void addResetButtonMouseListener()
 	{
-		resetButton.addMouseListener(new MouseAdapter()
+		this.resetButton.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent me)
 			{
-				resetFilters();
+				filter.reset();
 				loadLabels();
 			}
 		});
@@ -665,22 +766,9 @@ public class Home extends JFrame
 	
 	
 	
-	public void resetFilters()
-	{
-		addAllStatesFilter();
-		addAllCitiesFilter();
-		addAllSegmentsFilter();
-		addAllGenresFilter();
-		resetPeriod();		
-	}
-	
-	
-	
-	
-	
-	/*
-	 * Metodo che permette di modificare la visibilità della finestra, fatto
-	 * perchè all'interno dell'actionListener, l'oggetto this non è accessibile
+	/**
+	 * Metodo che permette di modificare la visibilità della finestra.
+	 * Utilizzato per la programmazione ad eventi poichè, nei Listener, l'oggetto this non è accessibile
 	 */
 	public void visible(boolean visible)
 	{
@@ -688,9 +776,9 @@ public class Home extends JFrame
 	}
 	
 	
-	/*
-	 * Metodo che ritorna l'oggetto stesso, fatto perchè all'interno
-	 * dell'actionListener, l'oggetto this non è accessibile
+	/**
+	 * Metodo che ritorna l'oggetto stesso.
+	 * Utilizzato per la programmazione ad eventi poichè, nei Listener, l'oggetto this non è accessibile
 	 */
 	public Home getThis()
 	{
@@ -699,31 +787,43 @@ public class Home extends JFrame
 	
 	
 	
-	
-	public Filter readFilter() throws IncorrectOrderOfDatesException
+	/**
+	 * Metodo che legge dai JXDatePicker le date e le inserisce negli appositi spazi all'interno
+	 * dell'oggetto Filter
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * 
+	 * @throws IncorrectOrderOfDatesException
+	 */
+	public void readPeriod() throws IncorrectOrderOfDatesException
 	{
-		Filter filter = new Filter();
-
-		filter.setStates(this.states);
-		filter.setCities(this.cities);
-		filter.setSegment(this.segment);
-		filter.setGenres(this.genres);
+		this.filter.setStartDate(convertToLocalDate(this.fromDatePicker.getDate()));
+		this.filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
 		
-		filter.setStartDate(convertToLocalDate(this.fromDatePicker.getDate()));
-		filter.setEndDate(convertToLocalDate(this.toDatePicker.getDate()));
-		
-		if(filter.getStartDate().isAfter(filter.getEndDate()))
-			throw new IncorrectOrderOfDatesException("Incorrect period");
-		
-		return filter;
+		this.filter.checkPeriod();
 	}
 	
 	
+	/**
+	 * Metodo che converte una data di tipo Date in LocalDate
+	 * 
+	 * @param date Date
+	 * 
+	 * @return date LocalDate
+	 */
 	public LocalDate convertToLocalDate(Date date)
 	{
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	
+	
+	/**
+	 * Metodo che converte una data di tipo LocalDate in Date
+	 * 
+	 * @param date Date
+	 * 
+	 * @return date LocalDate
+	 */
 	public Date convertToDate(LocalDate date)
 	{
 	    return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
@@ -731,64 +831,103 @@ public class Home extends JFrame
 	
 	
 	
-	
-	
-	
+	/**
+	 * Metodo che setta il font passato come parametro per le Label in cui vengono scritti i filtri
+	 * per stati, città, segmento e generi
+	 * 
+	 * @param font Font
+	 */
 	public void setFiltersLabelFont(Font font)
 	{
-		statesFilterLabel.setFont(font);
-		citiesFilterLabel.setFont(font);
-		segmentFilterLabel.setFont(font);
-		genresFilterLabel.setFont(font);
+		this.statesFilterLabel.setFont(font);
+		this.citiesFilterLabel.setFont(font);
+		this.segmentFilterLabel.setFont(font);
+		this.genresFilterLabel.setFont(font);
 	}
 	
 	
+	
+	/**
+	 * Metodo che setta il font passato come parametro per le Label in cui vengono scritti i titoli
+	 * dei filtri stati, città, segmento e generi
+	 * 
+	 * @param font Font
+	 */
 	public void setTitlesLabelsFont(Font font)
 	{		
-		statesFilterTitleLabel.setFont(font);
-		citiesFilterTitleLabel.setFont(font);
-		segmentFilterTitleLabel.setFont(font);
-		genresFilterTitleLabel.setFont(font);
+		this.statesFilterTitleLabel.setFont(font);
+		this.citiesFilterTitleLabel.setFont(font);
+		this.segmentFilterTitleLabel.setFont(font);
+		this.genresFilterTitleLabel.setFont(font);
 		
-		statesBoxLabel.setFont(font);
-		citiesBoxLabel.setFont(font);
-		segmentBoxLabel.setFont(font);
-		genresBoxLabel.setFont(font);;
-		periodTitleLabel.setFont(font);
+		this.statesBoxLabel.setFont(font);
+		this.citiesBoxLabel.setFont(font);
+		this.segmentBoxLabel.setFont(font);
+		this.genresBoxLabel.setFont(font);;
+		this.periodTitleLabel.setFont(font);
 	}
 	
 	
+	
+	/**
+	 * Metodo che setta il font passato come parametro per le comboBoxes utilizzate per la selezione
+	 * dei filtri stati, città, segmento e generi
+	 * 
+	 * @param font Font
+	 */
 	public void setComboBoxesFont(Font font)
 	{
-		statesBox.setFont(font);
-		citiesBox.setFont(font);
-		segmentsBox.setFont(font);
-		genresBox.setFont(font);
+		this.statesBox.setFont(font);
+		this.citiesBox.setFont(font);
+		this.segmentsBox.setFont(font);
+		this.genresBox.setFont(font);
 	}
 	
 	
+	/**
+	 * Metodo che setta il font passato come parametro per i bottoni Search, Reset e Exit
+	 * 
+	 * @param font Font
+	 */
 	public void setButtonsFont(Font font)
 	{
-		searchButton.setFont(font);
-		resetButton.setFont(font);
-		exitButton.setFont(font);
+		this.searchButton.setFont(font);
+		this.resetButton.setFont(font);
+		this.exitButton.setFont(font);
 	}
 	
+	
+	/**
+	 * Metodo che setta il font passato come parametro per i calendari in cui vengono inserite
+	 * la data iniziale e finale di un periodo
+	 * 
+	 * @param font Font
+	 */
 	public void setDatePickersFont(Font font)
 	{
-		fromDatePicker.setFont(font);
-		toDatePicker.setFont(font);
+		this.fromDatePicker.setFont(font);
+		this.toDatePicker.setFont(font);
 	}
 	
 	
+	/**
+	 * Metodo che setta il font passato come parametro per le Label vicine ai calendari
+	 * 
+	 * @param font Font
+	 */
 	public void setDatesLabelFont(Font font)
 	{
-		fromDateLabel.setFont(font);
-		toDateLabel.setFont(font);
+		this.fromDateLabel.setFont(font);
+		this.toDateLabel.setFont(font);
 	}
 	
 	
-	
+	/**
+	 * Metodo che setta l'allineamento orizzontale e verticale delle label in cui vengono visualizzati i filtri
+	 * 
+	 * @param horizontal
+	 * @param vertical
+	 */
 	public void setAlignmentFilterLabels(int horizontal, int vertical)
 	{
 		this.statesFilterLabel.setHorizontalAlignment(horizontal);
@@ -805,6 +944,13 @@ public class Home extends JFrame
 	}
 	
 	
+	
+	/**
+	 * Metodo che setta l'allineamento orizzontale e verticale delle label con i titoli dei filtri
+	 * 
+	 * @param horizontal
+	 * @param vertical
+	 */
 	public void setAlignmentFilterTitleLabels(int horizontal, int vertical)
 	{
 		this.statesFilterTitleLabel.setHorizontalAlignment(horizontal);
