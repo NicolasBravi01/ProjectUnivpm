@@ -13,37 +13,37 @@ import it.univpm.app.ticketmaster.model.Event;
 public class EventsFilter 
 {
 	/**
-	 * vettore contenente tutti gli eventi presenti nel json
+	 * lista contenente tutti gli eventi
 	 */
 	static Vector<Event> events = new Vector<Event>();
 	
 	/**
-	 * vettore contenente tutti gli stati presenti nel json
+	 * lista contenente tutti gli stati
 	 */
 	static Vector<String> states = new Vector<String>();
 	
 	/**
-	 * vettore contenente tutte le città presenti nel json
+	 * lista contenente tutte le città
 	 */
 	static Vector<String> cities = new Vector<String>();
 	
 	/**
-	 * vettore contenente tutti i segmenti presenti nel json
+	 * lista contenente tutti i segmenti
 	 */
 	static Vector<String> segments = new Vector<String>();
 	
 	/**
-	 * vettore contenente tutti i generi presenti nel json
+	 * lista contenente tutti i generi
 	 */
 	static Vector<String> genres = new Vector<String>();
 	
 	/**
-	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
+	 * Data del primo evento in ordine cronologico (da usare nella classe Stats)
 	 */
 	static LocalDate firstDate;
 	
 	/**
-	 * Prima data nel vettore di tutti gli eventi (da usare nel metodo average)
+	 * Data dell'ultimo evento in ordine cronologico (da usare nella classe Stats)
 	 */
 	static LocalDate lastDate;
 	

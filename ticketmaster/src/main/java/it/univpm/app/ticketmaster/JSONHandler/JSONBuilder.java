@@ -13,6 +13,7 @@ import it.univpm.app.ticketmaster.stats.Stats;
  * Classe che si occupa di costruire i JSONObject restituiti dal controller
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 public class JSONBuilder 
 {

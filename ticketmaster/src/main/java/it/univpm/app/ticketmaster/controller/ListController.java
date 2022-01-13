@@ -12,14 +12,15 @@ import it.univpm.app.ticketmaster.filter.EventsFilter;
  * Controller delle rotte /list
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 @RestController
 public class ListController 
 {	
 	
 	/**
-	 * Metodo associato alla rotta get /list/states, 
-	 * che restituisce la lista degli stati
+	 * Metodo associato alla rotta get /list/states.
+	 * Restituisce la lista degli stati
 	 */
 	@GetMapping(value = "/list/states")
 	public JSONObject getStates()
@@ -43,8 +44,8 @@ public class ListController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /list/cities, 
-	 * che restituisce la lista delle città
+	 * Metodo associato alla rotta get /list/cities.
+	 * Restituisce la lista delle città
 	 */
 	@GetMapping(value = "/list/cities")
 	public JSONObject getCities()
@@ -68,8 +69,8 @@ public class ListController
 
 	
 	/**
-	 * Metodo associato alla rotta get /list/segments, 
-	 * che restituisce la lista dei segmenti
+	 * Metodo associato alla rotta get /list/segments.
+	 * Restituisce la lista dei segmenti
 	 */
 	@GetMapping(value = "/list/segments")
 	public JSONObject getSegments()
@@ -94,8 +95,8 @@ public class ListController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /list/genres, 
-	 * che restituisce la lista dei generi
+	 * Metodo associato alla rotta get /list/genres.
+	 * Restituisce la lista dei generi
 	 */
 	@GetMapping(value = "/list/genres")
 	public JSONObject getGenres()

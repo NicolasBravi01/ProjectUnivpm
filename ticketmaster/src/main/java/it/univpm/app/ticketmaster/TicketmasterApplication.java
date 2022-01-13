@@ -1,16 +1,17 @@
 package it.univpm.app.ticketmaster;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
 import it.univpm.app.ticketmaster.view.Home;
 
+
 @SpringBootApplication
 public class TicketmasterApplication 
 {
+	
+		
 	public static void main(String[] args) 
 	{				
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(TicketmasterApplication.class);
@@ -21,8 +22,9 @@ public class TicketmasterApplication
 		new Home();
 	}
 	
+	
 	/**
-	 * Metodo che effettua la chiamata all'api di ticketmaster per ricevere la lista degli eventi
+	 * Metodo che effettua la chiamata all'Api di ticketmaster per ricevere la lista degli eventi
 	 */
 	static void callEvents()
 	{

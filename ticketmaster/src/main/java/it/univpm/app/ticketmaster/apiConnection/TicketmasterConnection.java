@@ -15,9 +15,10 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 
 
 /**
- * Classe contenente la chiamata alla rotta events
+ * Classe che effettua la chiamata all'Api di ticketmaster per ricevere la lista degli eventi su cui lavorare
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 public class TicketmasterConnection 
 {
@@ -25,9 +26,8 @@ public class TicketmasterConnection
 	final static int size = 200;		
 	
 	/**
-	 * Metodo static che effettua la chiamata alla rotta events e passa il json al metodo parse della classe EventsParser,
-	 * che restituirà un vettore di eventi, il quale a sua volta verrà passato al metodo setEvents della classe EventsFilter, 
-	 * che si occuperà di creare le liste contenenti tutti gli stati, le città, i segmenti e i generi che sono comparsi nel json.
+	 * Metodo static che effettua la chiamata all'Api di ticketmaster, ottenendo un json da cui la classe EventsParser estrae
+	 * una lista di eventi che vengono inseriti nella classe EventsFilter.
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.EventsParser
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter

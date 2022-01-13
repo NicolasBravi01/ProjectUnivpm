@@ -13,7 +13,7 @@ import it.univpm.app.ticketmaster.model.Event;
  * per poter produrre i vari jsonobject corrispondenti alle rotte del controller
  * 
  * @author sup3r
- * @author nicol
+ * @author NicolasBravi01
  */
 public class Stats 
 {	

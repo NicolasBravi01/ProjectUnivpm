@@ -21,14 +21,15 @@ import it.univpm.app.ticketmaster.model.Event;
  * Controller delle rotte /events
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 @RestController
 public class EventsController 
 {	
 	
 	/**
-	 * Metodo associato alla rotta get /events, 
-	 * che restituisce il JSONObject contenente la lista di eventi filtrati secondo i parametri forniti dall'utente
+	 * Metodo associato alla rotta get /events. 
+	 * Restituisce il JSONObject contenente la lista di eventi filtrati secondo i parametri forniti dall'utente
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
@@ -81,8 +82,9 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /events/states, 
-	 * che restituisce il JSONObject contenente la lista di eventi raggruppati per stati in un certo periodo
+	 * Metodo associato alla rotta get /events/states.
+	 * Restituisce il JSONObject contenente la lista di eventi raggruppati per stati filtrati secondo
+	 * i parametri forniti dall'utente
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
@@ -133,8 +135,9 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /events/cities, 
-	 * che restituisce il JSONObject contenente la lista di eventi raggruppati per città in un certo periodo
+	 * Metodo associato alla rotta get /events/cities.
+	 * Restituisce il JSONObject contenente la lista di eventi raggruppati per città filtrati secondo
+	 * i parametri forniti dall'utente
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
@@ -187,8 +190,9 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /events/segments, 
-	 * che restituisce la lista di eventi raggruppati per segmenti in un certo periodo
+	 * Metodo associato alla rotta get /events/segments.
+	 * Restituisce il JSONObject contenente la lista di eventi raggruppati per segmenti filtrati secondo
+	 * i parametri forniti dall'utente
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
@@ -239,9 +243,14 @@ public class EventsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /events/genres, 
-	 * che restituisce la lista di eventi raggruppati per generi in un certo periodo
+	 * Metodo associato alla rotta get /events/genres.
+	 * Restituisce il JSONObject contenente la lista di eventi raggruppati per generi filtrati secondo
+	 * i parametri forniti dall'utente
 	 * 
+	 * @param states Stringa contenente gli stati di interesse per l'utente
+	 * @param cities Stringa contenente le città di interesse per l'utente
+	 * @param segment Stringa contenente il segmento di interesse per l'utente
+	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter

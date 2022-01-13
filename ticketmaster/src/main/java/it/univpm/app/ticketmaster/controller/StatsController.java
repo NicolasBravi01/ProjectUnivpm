@@ -20,14 +20,15 @@ import it.univpm.app.ticketmaster.model.Event;
  * Controller delle rotte /stats
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 @RestController
 public class StatsController 
 {	
 		
 	/**
-	 * Metodo associato alla rotta get /stats 
-	 * che è in grado di generare le statistiche per tutti gli eventi in un certo periodo
+	 * Metodo associato alla rotta get /stats.
+	 * Restituisce il JSONObject contenente le statistiche generali in un certo periodo
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
@@ -70,8 +71,8 @@ public class StatsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /stats/states, 
-	 * che è in grado di generare le statistiche per gli stati scelti dall'utente in un certo periodo
+	 * Metodo associato alla rotta get /stats/states.
+	 * Restituisce il JSONObject contenente le statistiche relative agli stati scelti dall'utente in un certo periodo
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
@@ -120,9 +121,9 @@ public class StatsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /stats/cities, 
-	 * che è in grado di generare le statistiche per le città scelte dall'utente in un certo periodo
-	 * 
+	 * Metodo associato alla rotta get /stats/cities.
+	 * Restituisce il JSONObject contenente le statistiche relative agli stati scelti dall'utente in un certo periodo
+	 *  
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
@@ -172,8 +173,8 @@ public class StatsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /stats/segment, 
-	 * che è in grado di generare le statistiche per tutti i segmenti in un certo periodo
+	 * Metodo associato alla rotta get /stats/segment.
+	 * Restituisce il JSONObject contenente le statistiche relative ai segmenti scelti dall'utente in un certo periodo
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente
@@ -223,8 +224,8 @@ public class StatsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /stats/genres, 
-	 * che è in grado di generare le statistiche per i generi scelti dall'utente in un certo periodo
+	 * Metodo associato alla rotta get /stats/genres.
+	 * Restituisce il JSONObject contenente le statistiche relative ai generi scelti dall'utente in un certo periodo
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente
 	 * @param cities Stringa contenente le città di interesse per l'utente

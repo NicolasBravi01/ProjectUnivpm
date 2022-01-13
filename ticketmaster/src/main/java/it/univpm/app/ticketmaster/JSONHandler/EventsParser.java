@@ -14,6 +14,7 @@ import it.univpm.app.ticketmaster.model.Event;
  * Classe che analizza il codice JSON della chiamata alla rotta events dell'api di ticketmaster
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 public class EventsParser 
 {

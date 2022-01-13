@@ -11,6 +11,7 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
  * Classe che si occupa della lettura del file ApiKey.txt
  * 
  * @author sup3r
+ * @author NicolasBravi01
  */
 public class ApiKeyReader 
 {

@@ -5,25 +5,51 @@ import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
-import it.univpm.app.ticketmaster.exception.InvalidFilterException;
 import it.univpm.app.ticketmaster.exception.InvalidNameException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.model.Event;
 
 /**
-* Classe che si occupa dell'inserimento del filtro immesso dall'utente
+* Classe contenente i filtri per poter selezionare un gruppo di eventi
 * 
 * @author sup3r
 */
 public class Filter
 {
+	/*
+	 * Lista di stati per cui si vuole filtrare
+	 */
 	Vector<String> states;
+	
+	/*
+	 * Lista di città per cui si vuole filtrare
+	 */
 	Vector<String> cities;
+	
+	/*
+	 * Data che rappresenta l'inizio di un periodo
+	 */
 	LocalDate startDate;
+	
+	/*
+	 * Data che rappresenta la fine di un periodo
+	 */
 	LocalDate endDate;
+	
+	/*
+	 * Segmento per cui si vuole filtrare
+	 */
 	String segment;
+	
+	/*
+	 * Lista di generi per cui si vuole filtrare
+	 */
 	Vector<String> genres;
 
+	
+	/*
+	 * Costruttore con cui è possibile inizializzare tutti gli attributi
+	 */
 	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = states;
@@ -36,6 +62,11 @@ public class Filter
 		check();
 	}
 	
+	
+	/*
+	 * Costruttore con cui è possibile inizializzare tutti gli attributi, inserendo una stringa contenente il periodo
+	 * al posto di startDate e endDate
+	 */
 	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = states;
@@ -47,6 +78,11 @@ public class Filter
 		check();
 	}
 	
+	
+	/*
+	 * Costruttore con cui è possibile inizializzare tutti gli attributi, inserendo una stringa contenente il periodo
+	 * al posto di startDate e endDate ed inoltre delle stringhe che vengono convertite in liste
+	 */
 	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
 	{
 		this.states = convertToVectorOfStrings(states);
@@ -58,18 +94,29 @@ public class Filter
 		check();
 	}
 	
+	/*
+	 * Costruttore con cui è possibile inizializzare solo il periodo, gli altri filtri per il momento non vengono considerati
+	 */
 	public Filter(String period) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		reset();
 		loadPeriod(period);
 	}
 	
+	
+	/*
+	 * Costruttore con cui i filtri per il momento non vengono considerati
+	 */
 	public Filter()
 	{
 		reset();
 	}
 	
 	
+	
+	/*
+	 * @return
+	 */
 	public Vector<String> getStates() {
 		return states;
 	}
@@ -131,6 +178,9 @@ public class Filter
 	}
 	
 	
+	/*
+	 * Metodo che resetta tutti filtri
+	 */
 	public void reset()
 	{
 		this.states = new Vector<String>();
@@ -142,19 +192,31 @@ public class Filter
 	}
 	
 
-	public boolean isIncludedState(String state)
+	
+	/*
+	 * Metodo che ritorna true se lo stato passato per parametro appartiene alla lista di stati per cui filtrare
+	 */
+	private boolean isIncludedState(String state)
 	{
 		boolean isIncluded = ((state == null) || (this.states.isEmpty()) || this.states.contains(state));
 		return isIncluded;
 	}	
 	
-	public boolean isIncludedCity(String city)
+	/*
+	 * Metodo che ritorna true se la città passata per parametro appartiene alla lista di città per cui filtrare
+	 */
+	private boolean isIncludedCity(String city)
 	{
 		boolean isIncluded =  ((city == null) ||(this.cities.isEmpty()) || this.cities.contains(city));
 		return isIncluded;
 	}	
 	
-	public boolean isIncludedDate(LocalDate localDate) 
+	
+	/*
+	 * Metodo che ritorna true se la data passata come parametro è compresa nel periodo per cui filtrare.
+	 * Nel caso in cui il filtro per il periodo non è stato inserito, ritorna true
+	 */
+	private boolean isIncludedDate(LocalDate localDate) 
 	{
 		boolean isIncluded = true;
 		
@@ -166,18 +228,32 @@ public class Filter
 		return isIncluded;
 	}
 	
-	public boolean isIncludedSegment(String segment)
+	
+	/*
+	 * Metodo che ritorna true se il segmento passato come parametro coincide con il segmento per cui filtrare
+	 * oppure se il filtro per segmento è vuoto, ovvero non va preso in considerazione
+	 */
+	private boolean isIncludedSegment(String segment)
 	{
 		boolean isIncluded = ((segment == null) || (this.segment.isEmpty()) || this.segment.equals(segment));
 		return isIncluded;
 	}
 	
-	public boolean isIncludedGenre(String genre)
+	
+	/*
+	 * Metodo che ritorna true se il genere passato come parametro appartiene alla lista di generi per cui filtrare
+	 * oppure se il filtro per generi è vuoto, ovvero non va preso in considerazione
+	 */
+	private boolean isIncludedGenre(String genre)
 	{
 		boolean isIncluded = ((genre == null) || (this.genres.isEmpty()) || this.genres.contains(genre));
 		return isIncluded;
 	}
 	
+	
+	/*
+	 * Metodo che ritorna true se l'evento passato come parametro è coerente con tutti i filtri
+	 */
 	public boolean isIncludedEvent(Event e)
 	{
 		boolean isIncluded = isIncludedState(e.getState()) && isIncludedCity(e.getCity()) && isIncludedDate(e.getLocalDate())
@@ -312,7 +388,7 @@ public class Filter
 	
 	/**
 	 * Metodo che controlla se il segmento inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista dei segmenti
+	 * è presente nella variabile che rappresenta il segmento
 	 * 
 	 * @throws InvalidNameException
 	 */
