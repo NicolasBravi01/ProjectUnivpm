@@ -58,6 +58,10 @@ public class Result extends JFrame
 	boolean areEventsShown = true;
 	
 	
+
+	
+	
+	
 	/**
 	 *  Costruttore della finestra dei risultati con cui è possibile visualizzare gli eventi e le statistiche relative
 	 *  ai filtri settati dall'utente nella finestra precedente
@@ -84,7 +88,9 @@ public class Result extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.getContentPane().setBackground(new Color(133,173,225));
-		this.setVisible(true);
+		
+		ImageIcon icon = new ImageIcon("Ticketmaster-Emblem.png");
+		this.setIconImage(icon.getImage());
 		
 		
 		

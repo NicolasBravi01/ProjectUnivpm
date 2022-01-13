@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,8 +86,6 @@ public class Home extends JFrame
 	JXDatePicker fromDatePicker = new JXDatePicker();
 	JXDatePicker toDatePicker = new JXDatePicker();
 
-
-	
 	
 	/**
 	 *  Costruttore della finestra principale con cui è possibile settare i filtri per la visualizzazione degli eventi
@@ -104,7 +103,8 @@ public class Home extends JFrame
 		this.getContentPane().setBackground(new Color(133,173,225));
 		this.setLocationRelativeTo(null);
 		
-		
+		ImageIcon icon = new ImageIcon("img\\Ticketmaster-Emblem.png");
+		this.setIconImage(icon.getImage());
 
 		
 		
