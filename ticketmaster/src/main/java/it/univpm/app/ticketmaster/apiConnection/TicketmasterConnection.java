@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Vector;
 
+import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 import it.univpm.app.ticketmaster.JSONHandler.EventsParser;
@@ -32,8 +34,10 @@ public class TicketmasterConnection
 	 * @see it.univpm.app.ticketmaster.JSONHandler.EventsParser
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 */
-	public static void callEvents() 
+	public static Vector<Event> callEvents() 
 	{
+		Vector<Event> events = new Vector<Event>();
+		
 		try
 		{
 			String queryString = "?countryCode=" + countryCode + "&size=" + size + "&apikey=" + ApiKeyReader.readApiKey();
@@ -51,13 +55,9 @@ public class TicketmasterConnection
 				data += line;
 			
 			EventsParser eP = new EventsParser();	
-			EventsFilter.setEvents(eP.parse(data));
+			events = eP.parse(data);			
 		}
-		catch (ApiConnectionException e) 
-		{
-			System.out.println(e.toString());
-		}
-		catch (MalformedURLException e) 
+		catch (ApiConnectionException | MalformedURLException e) 
 		{
 			System.out.println(e.toString());
 		}
@@ -69,6 +69,7 @@ public class TicketmasterConnection
 		{
 			System.out.println(e.toString());
 		}						
-				
+			
+		return events;
 	}
 }

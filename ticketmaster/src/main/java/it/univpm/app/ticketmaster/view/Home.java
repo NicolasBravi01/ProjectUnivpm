@@ -46,24 +46,21 @@ import it.univpm.app.ticketmaster.filter.Filter;
 @SuppressWarnings("serial")
 public class Home extends JFrame
 {	
-
+	
 	Vector<String> states = new Vector<String>();
 	Vector<String> cities = new Vector<String>();
 	String segment = "";
 	Vector<String> genres = new Vector<String>();
+
 	
-
-
 	JComboBox<String> statesBox = new JComboBox<String>();
 	JComboBox<String> citiesBox = new JComboBox<String>();
 	JComboBox<String> segmentsBox = new JComboBox<String>();
 	JComboBox<String> genresBox = new JComboBox<String>();
-	
 		
 	JButton searchButton = new JButton("SEARCH");
 	JButton resetButton = new JButton("RESET");
 	JButton exitButton = new JButton("EXIT");
-	
 	
 	JXLabel statesFilterLabel = new JXLabel();
 	JXLabel citiesFilterLabel = new JXLabel();
@@ -73,18 +70,16 @@ public class Home extends JFrame
 	JXLabel statesBoxLabel = new JXLabel("STATES");
 	JXLabel citiesBoxLabel = new JXLabel("CITIES");
 	JXLabel segmentBoxLabel = new JXLabel("SEGMENT");
-	JXLabel genresBoxLabel = new JXLabel("GENRES");
+	JXLabel genresBoxLabel = new JXLabel("GENRES");	
+	JXLabel periodTitleLabel = new JXLabel("PERIOD");
 	
 	JXLabel statesFilterTitleLabel = new JXLabel("STATES");
 	JXLabel citiesFilterTitleLabel = new JXLabel("CITIES");
 	JXLabel segmentFilterTitleLabel = new JXLabel("SEGMENT");
 	JXLabel genresFilterTitleLabel = new JXLabel("GENRES");
-	JXLabel periodTitleLabel = new JXLabel("PERIOD");
 	
 	JXLabel fromDateLabel = new JXLabel("From:");
 	JXLabel toDateLabel = new JXLabel("To:");
-	
-	
 	
 	JXDatePicker fromDatePicker = new JXDatePicker();
 	JXDatePicker toDatePicker = new JXDatePicker();
@@ -95,6 +90,9 @@ public class Home extends JFrame
 	
 	public Home()
 	{
+		/*
+		 * 
+		 */
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(1200, 800);
@@ -403,11 +401,11 @@ public class Home extends JFrame
 	
 	
 	
-	public void loadstatesFilterLabel()
+	public void loadStatesFilterLabel()
 	{		
 		String text;
 				
-		if(this.states.size() == 0)
+		if(this.states.isEmpty())
 		{
 			text = "All states";
 		}
@@ -423,11 +421,11 @@ public class Home extends JFrame
 	
 	
 	
-	public void loadcitiesFilterLabel()
+	public void loadCitiesFilterLabel()
 	{
 		String text;
 		
-		if(this.cities.size() == 0)
+		if(this.cities.isEmpty())
 		{
 			text = "All cities";
 		}
@@ -442,7 +440,7 @@ public class Home extends JFrame
 	
 	
 	
-	public void loadsegmentFilterLabel()
+	public void loadSegmentFilterLabel()
 	{
 		String text;
 		
@@ -460,11 +458,11 @@ public class Home extends JFrame
 	
 	
 
-	public void loadgenresFilterLabel()
+	public void loadGenresFilterLabel()
 	{
 		String text;
 		
-		if(this.genres.size() == 0)
+		if(this.genres.isEmpty())
 		{
 			text = "All genres";
 		}
@@ -482,10 +480,10 @@ public class Home extends JFrame
 	
 	public void loadLabels()
 	{
-		loadstatesFilterLabel();
-		loadcitiesFilterLabel();
-		loadsegmentFilterLabel();
-		loadgenresFilterLabel();
+		loadStatesFilterLabel();
+		loadCitiesFilterLabel();
+		loadSegmentFilterLabel();
+		loadGenresFilterLabel();
 	}
 	
 	
@@ -513,7 +511,7 @@ public class Home extends JFrame
 		    	else
 		    		addStateFilter(statesBox.getSelectedItem().toString());
 		    	
-		    	loadstatesFilterLabel();
+		    	loadStatesFilterLabel();
 		    }
 		});
 	}
@@ -532,7 +530,7 @@ public class Home extends JFrame
 		    	else
 		    		addCityFilter(citiesBox.getSelectedItem().toString());
 		    	
-		    	loadcitiesFilterLabel();
+		    	loadCitiesFilterLabel();
 		    }
 		});
 	}
@@ -551,7 +549,7 @@ public class Home extends JFrame
 		    	else
 		    		setSegmentFilter(segmentsBox.getSelectedItem().toString());
 		    	
-		    	loadsegmentFilterLabel();
+		    	loadSegmentFilterLabel();
 		    }
 		});
 	}
@@ -571,7 +569,7 @@ public class Home extends JFrame
 		    	else
 		    		addGenreFilter(genresBox.getSelectedItem().toString());
 		    	
-		    	loadgenresFilterLabel();
+		    	loadGenresFilterLabel();
 		    }
 		});  
 		
@@ -621,7 +619,7 @@ public class Home extends JFrame
 	
 					events = EventsFilter.getFilteredEvents(filter);
 					
-					if(events.size() == 0)
+					if(events.isEmpty())
 						throw new NoEventsException("There are not events with your filters");
 					
 					visible(false);
