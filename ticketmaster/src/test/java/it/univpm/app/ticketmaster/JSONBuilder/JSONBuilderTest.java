@@ -31,8 +31,6 @@ class JSONBuilderTest
 	Event event1;
 	Event event2;
 	Event event3;
-	String localDate1, localDate2, localDate3;
-	LocalDate locDt1, locDt2, locDt3;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -42,14 +40,9 @@ class JSONBuilderTest
 	@BeforeEach
 	void setUp() throws Exception 
 	{
-		localDate1 = "2022-01-25";
-		locDt1 = LocalDate.parse(localDate1);
-		
-		localDate2 = "2022-03-24";
-		locDt2 = LocalDate.parse(localDate2);
-		
-		localDate3 = "2022-05-18";
-		locDt3 = LocalDate.parse(localDate3);
+		LocalDate locDt1 = LocalDate.parse("2022-01-25");
+		LocalDate locDt2 = LocalDate.parse("2022-03-24");
+		LocalDate locDt3 = LocalDate.parse("2022-05-18");
 		
 		event1 = new Event("Brooklyn Nets vs. Los Angeles Lakers",
 				   "https://www.ticketmaster.com/event/Z7r9jZ1AdFUj9",

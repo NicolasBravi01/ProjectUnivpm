@@ -173,7 +173,7 @@ public class StatsController
 	
 	
 	/**
-	 * Metodo associato alla rotta get /stats/segment.
+	 * Metodo associato alla rotta get /stats/segments.
 	 * Restituisce il JSONObject contenente le statistiche relative ai segmenti scelti dall'utente in un certo periodo
 	 * 
 	 * @param states Stringa contenente gli stati di interesse per l'utente

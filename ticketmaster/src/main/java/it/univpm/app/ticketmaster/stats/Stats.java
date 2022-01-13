@@ -51,15 +51,14 @@ public class Stats
 		return av;		
 	}
 	
-	
 	/**
-	 * Metodo che restituisce il minimo
+	 * Metodo che stampa un messaggio che rivela il numero minimo di eventi e il mese in cui questo viene raggiunto
 	 * 
 	 * @param events Lista di eventi tra i quali si cerca di calcolare il minimo
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return msg Stringa che rivela il minimo e il mese in cui questo viene raggiunto
+	 * @return msg Stringa contenente il messaggio
 	 */
 	public String min(Vector<Event> events) 
 	{		
@@ -74,13 +73,13 @@ public class Stats
 	
 	
 	/**
-	 * Metodo che restituisce il massimo
+	 * Metodo che stampa un messaggio che rivela il numero massimo di eventi e il mese in cui questo viene raggiunto
 	 * 
 	 * @param events Lista di eventi tra i quali si cerca di calcolare il massimo
 	 * 
 	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
-	 * @return msg Stringa che rivela il massimo e il mese in cui questo viene raggiunto
+	 * @return msg Stringa contenente il messaggio
 	 */
 	public String max(Vector<Event> events) 
 	{	
@@ -95,7 +94,7 @@ public class Stats
 	
 	
 	/**
-	 * Metodo che converte un numero compreso tra 1 e 12 nella stringa del mese
+	 * Metodo che converte un numero compreso tra 1 e 12 nella corrispettiva stringa del mese
 	 * 
 	 * @param month Numero del mese corrispondente 
 	 * 

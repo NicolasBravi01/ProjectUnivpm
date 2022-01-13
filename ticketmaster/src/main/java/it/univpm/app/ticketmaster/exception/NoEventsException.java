@@ -3,6 +3,8 @@ package it.univpm.app.ticketmaster.exception;
 /**
  * Eccezione generata se il JSONObject contenente gli eventi è vuoto
  * 
+ * @see it.univpm.app.ticketmaster.controller.EventsController
+ * 
  * @author sup3r
  */
 @SuppressWarnings("serial")

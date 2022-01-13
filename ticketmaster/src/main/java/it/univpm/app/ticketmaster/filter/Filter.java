@@ -104,7 +104,7 @@ public class Filter
 	
 	/**
 	 * Costruttore con cui è possibile inizializzare tutti gli attributi, inserendo una stringa contenente il periodo
-	 * al posto di startDate e endDate ed inoltre delle stringhe che vengono convertite in liste
+	 * al posto di startDate e endDate ed inoltre delle stringhe che vengono convertite in liste di stringhe
 	 * 
 	 * @param states Stringa contenente una lista di stati attraverso i quali si vuole filtrare, separati da una virgola
 	 * @param cities Stringa contenente una lista di città attraverso le quali si vuole filtrare, separati da una virgola
@@ -129,7 +129,7 @@ public class Filter
 	}
 	
 	/*
-	 * Costruttore con cui è possibile inizializzare solo il periodo, gli altri filtri per il momento non vengono considerati
+	 * Costruttore con cui è possibile inizializzare solo il periodo (gli altri parametri non vengono considerati)
 	 * 
 	 * @param period Stringa nella quale è inserito il periodo, la prima data è separata dalla seconda da una virgola
 	 *
@@ -146,7 +146,7 @@ public class Filter
 	
 	
 	/**
-	 * Costruttore con cui i filtri per il momento non vengono considerati
+	 * Costruttore nel quale i filtri per il momento non vengono considerati
 	 */
 	public Filter()
 	{
@@ -155,44 +155,111 @@ public class Filter
 	
 	
 	/**
-	 * GETTER e SETTER	//TODO
+	 * Getter della variabile states
+	 * 
+	 * @return states Lista di stati attraverso i quali si vuole filtrare
 	 */
 	public Vector<String> getStates() {
 		return states;
 	}
+	/**
+	 * Setter della variabile states
+	 * 
+	 * @param states Lista di stati attraverso i quali si vuole filtrare
+	 */
 	public void setStates(Vector<String> states) {
 		this.states = states;
 	}
+	/**
+	 * Setter della variabile states
+	 * 
+	 * @param state Stringa contenente una lista di stati attraverso i quali si vuole filtrare, separati da una virgola
+	 */
 	public void setStates(String state) {
 		this.states.removeAllElements();
 		this.states.add(state);
 	}
+	
+	
+	/**
+	 * Getter della variabile cities
+	 * 
+	 * @return cities Lista di città attraverso i quali si vuole filtrare
+	 */
 	public Vector<String> getCities() {
 		return cities;
 	}
+	/**
+	 * Setter della variabile cities
+	 * 
+	 * @param cities Lista di città attraverso le quali si vuole filtrare
+	 */
 	public void setCities(Vector<String> cities) {
 		this.cities = cities;
 	}
+	/**
+	 * Setter della variabile cities
+	 * 
+	 * @param cities Stringa contenente una lista di città attraverso le quali si vuole filtrare, separate da una virgola
+	 */
 	public void setCities(String city) {
 		this.cities.removeAllElements();
 		this.cities.add(city);
 	}
+	
+	
+	/**
+	 * Getter della variabile startDate
+	 * 
+	 * @return startDate Data dell'inizio di un periodo
+	 */
 	public LocalDate getStartDate() {
 		return startDate;
 	}
+	/**
+	 * Setter della variabile startDate
+	 * 
+	 * @param startDate Data dell'inizio di un periodo
+	 */
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
+	
+	/**
+	 * Getter della variabile endDate
+	 * 
+	 * @return endDate Data della fine di un periodo
+	 */
 	public LocalDate getEndDate() {
 		return endDate;
 	}
+	/**
+	 * Setter della variabile endDate
+	 * 
+	 * @param endDate Data dell'inizio di un periodo
+	 */
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+	
+	
+	/**
+	 * Setter che inizializza sia startDate sia endDate
+	 * 
+	 * @param startDate Data dell'inizio di un periodo
+	 * @param endDate Data dell'inizio di un periodo
+	 * 
+	 */
 	public void setPeriod(LocalDate startDate, LocalDate endDate){
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	/**
+	 * Getter della stringa period
+	 * 
+	 * @return period Stringa contenente startDate e endDate separate da una virgola
+	 */
 	public String getPeriod(){
 		String period = "";
 		if((this.startDate != null) && (this.endDate != null))
@@ -200,18 +267,48 @@ public class Filter
 		
 		return period;
 	}
+	
+	
+	/**
+	 * Getter della variabile segment
+	 * 
+	 * @return segment Stringa che rappresenta il segmento attraverso il quale si vuole filtrare
+	 */
 	public String getSegment() {
 		return segment;
 	}
+	/**
+	 * Setter della variabile segment
+	 * 
+	 * @param segment Stringa che rappresenta il segmento attraverso il quale si vuole filtrare
+	 * 
+	 */
 	public void setSegment(String segment) {
 		this.segment = segment;
 	}
+	
+	
+	/**
+	 * Getter della variabile genres
+	 * 
+	 * @return genres
+	 */
 	public Vector<String> getGenres() {
 		return genres;
 	}
+	/**
+	 * Setter della variabile genres
+	 * 
+	 * @param genres Lista di generi attraverso i quali si vuole filtrare
+	 */
 	public void setGenres(Vector<String> genres) {
 		this.genres = genres;
 	}
+	/**
+	 * Setter della variabile genre
+	 * 
+	 * @param genre Stringa contenente una lista di generi attraverso i quali si vuole filtrare, separati da una virgola
+	 */
 	public void setGenres(String genre) {
 		this.genres.removeAllElements();
 		this.genres.add(genre);
@@ -232,9 +329,9 @@ public class Filter
 	}
 	
 
-	
 	/**
-	 * Metodo che ritorna true se lo stato passato per parametro appartiene alla lista di stati attraverso i quali filtrare
+	 * Metodo che ritorna true se lo stato passato per parametro appartiene alla lista di stati attraverso i quali filtrare,
+	 * oppure se il filtro per gli stati non è stato inserito, ovvero non va preso in considerazione
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -245,7 +342,8 @@ public class Filter
 	}	
 	
 	/**
-	 * Metodo che ritorna true se la città passata per parametro appartiene alla lista di città attraverso le quali filtrare
+	 * Metodo che ritorna true se la città passata per parametro appartiene alla lista di città attraverso le quali filtrare,
+	 * oppure se il filtro per le città non è stato inserito, ovvero non va preso in considerazione
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -255,10 +353,9 @@ public class Filter
 		return isIncluded;
 	}	
 	
-	
 	/**
-	 * Metodo che ritorna true se la data passata come parametro è compresa nel periodo d'interesse.
-	 * Nel caso in cui il filtro per il periodo non è stato inserito, ritorna true
+	 * Metodo che ritorna true se la data passata come parametro è compresa nel periodo d'interesse;
+	 * oppure se il filtro per il periodo non è stato inserito, ovvero non va preso in considerazione
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -274,10 +371,9 @@ public class Filter
 		return isIncluded;
 	}
 	
-	
 	/**
-	 * Metodo che ritorna true se il segmento passato come parametro coincide con il segmento attraverso il quale filtrare
-	 * oppure se il filtro per segmento è vuoto, ovvero non va preso in considerazione
+	 * Metodo che ritorna true se il segmento passato come parametro coincide con il segmento attraverso il quale filtrare,
+	 * oppure se il filtro per i segmenti non è stato inserito, ovvero non va preso in considerazione
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -287,10 +383,9 @@ public class Filter
 		return isIncluded;
 	}
 	
-	
 	/**
 	 * Metodo che ritorna true se il genere passato come parametro appartiene alla lista di generi attraverso i quali filtrare
-	 * oppure se il filtro per generi è vuoto, ovvero non va preso in considerazione
+	 * oppure se il filtro per i generi non è stato inserito, ovvero non va preso in considerazione
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -299,7 +394,6 @@ public class Filter
 		boolean isIncluded = ((genre == null) || (this.genres.isEmpty()) || this.genres.contains(genre));
 		return isIncluded;
 	}
-	
 	
 	/*
 	 * Metodo che ritorna true se l'evento passato come parametro è coerente con tutti i filtri
@@ -315,7 +409,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo (invocato dal costruttore) che converte un elenco di parole separate da una virgola in un vettore di stringhe 
+	 * Metodo che converte un elenco di parole separate da una virgola in un vettore di stringhe 
 	 * 
 	 * @param toParse Stringa contenente parole separate da una virgola
 	 * 
@@ -338,7 +432,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo (invocato dal costruttore) che leggendo una stringa contenente due date (di tipo LocalDate) separate da una virgola
+	 * Metodo che leggendo una stringa contenente due date (di tipo LocalDate) separate da una virgola
 	 * assegna la prima data al valore startDate e la seconda data al valore endDate 
 	 * 
 	 * @param period Periodo scelto dall'utente
@@ -378,7 +472,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo che controlla se i parametri inseriti, dopo l'eliminazione di spazi superflui,
+	 * Metodo che controlla se i parametri inseriti, a seguito dell'eliminazione di spazi superflui,
 	 * corrispondono a quelli presenti
 	 * 
 	 * @throws InvalidNameException
@@ -478,7 +572,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo che controlla se le date sono state inserite nel giusto ordine
+	 * Metodo che controlla se le date sono state inserite in ordine cronologico
 	 * 
 	 * @throws IncorrectOrderOfDatesException
 	 */
@@ -488,12 +582,13 @@ public class Filter
 			throw new IncorrectOrderOfDatesException("The first date can't be after the second one");
 	}
 	
+	
 	/**
 	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse per ogni elemento in lista
 	 * 
-	 * @param list Lista di stringhe
+	 * @param list Lista di stringhe con spazi superflui
 	 * 
-	 * @return list Lista di stringhe
+	 * @return list Lista di stringhe senza spazi superflui
 	 */
 	private Vector<String> removeSpaces(Vector<String> list)
 	{
@@ -512,9 +607,9 @@ public class Filter
 	/**
 	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
 	 * 
-	 * @param str Stringa
+	 * @param str Stringa con spazi superflui
 	 * 
-	 * @return str Stringa
+	 * @return str Stringa senza spazi superflui
 	 */
 	private String removeSpaces(String str)
 	{

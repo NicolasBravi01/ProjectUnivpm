@@ -19,7 +19,7 @@ import it.univpm.app.ticketmaster.model.Event;
 public class EventsParser 
 {
 	/**
-	 * Metodo che analizza il json della chiamata events e restituisce un vettore di eventi
+	 * Metodo che analizza il json della chiamata events e restituisce la lista di tutti gli eventi
 	 * 
 	 * @param json Fornisce il file JSON (come stringa) che viene analizzato dal metodo
 	 * 
