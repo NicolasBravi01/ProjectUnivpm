@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONList;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 
@@ -25,7 +25,7 @@ public class ListController
 	@GetMapping(value = "/list/states")
 	public JSONObject getStates()
 	{	
-		JSONBuilder jB = new JSONBuilder();	
+		JSONList jL = new JSONList();	
 		JSONObject response;
 		
 		try
@@ -33,11 +33,11 @@ public class ListController
 			if(EventsFilter.getStates().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jB.getJSONObjectStates();
+			response = jL.getJSONObjectStates();
 		}
 		catch(ApiConnectionException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jL.getJSONObjectError(e.getMessage()); 
 		}
 		return response;
 	}
@@ -50,7 +50,7 @@ public class ListController
 	@GetMapping(value = "/list/cities")
 	public JSONObject getCities()
 	{			
-		JSONBuilder jB = new JSONBuilder();	
+		JSONList jL = new JSONList();	
 		JSONObject response;
 		
 		try
@@ -58,11 +58,11 @@ public class ListController
 			if(EventsFilter.getCities().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jB.getJSONObjectCities();
+			response = jL.getJSONObjectCities();
 		}
 		catch(ApiConnectionException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jL.getJSONObjectError(e.getMessage()); 
 		}
 		return response;
 	}
@@ -75,7 +75,7 @@ public class ListController
 	@GetMapping(value = "/list/segments")
 	public JSONObject getSegments()
 	{	
-		JSONBuilder jB = new JSONBuilder();
+		JSONList jL = new JSONList();
 		JSONObject response;
 		
 		try
@@ -83,11 +83,11 @@ public class ListController
 			if(EventsFilter.getSegments().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jB.getJSONObjectSegments();
+			response = jL.getJSONObjectSegments();
 		}
 		catch(ApiConnectionException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jL.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -101,7 +101,7 @@ public class ListController
 	@GetMapping(value = "/list/genres")
 	public JSONObject getGenres()
 	{	
-		JSONBuilder jB = new JSONBuilder();
+		JSONList jL = new JSONList();
 		JSONObject response;
 		
 		try
@@ -109,11 +109,11 @@ public class ListController
 			if(EventsFilter.getGenres().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jB.getJSONObjectGenres();
+			response = jL.getJSONObjectGenres();
 		}
 		catch(ApiConnectionException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jL.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;

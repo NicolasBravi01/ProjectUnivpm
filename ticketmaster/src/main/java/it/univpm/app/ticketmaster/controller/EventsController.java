@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONEvents;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
@@ -48,7 +49,7 @@ public class EventsController
 						        @RequestParam(name="genres", defaultValue="") String genres,
 						        @RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONEvents jE = new JSONEvents();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -65,15 +66,15 @@ public class EventsController
 			if(events.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jB.getJSONObjectEvents(events);
+			response = jE.getJSONObjectEvents(events);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage());
+			response = jE.getJSONObjectError(e.getMessage());
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -102,7 +103,7 @@ public class EventsController
 								         @RequestParam(name="genres", defaultValue="") String genres,
 								         @RequestParam(name="period", defaultValue="") String period)
 	{			
-		JSONBuilder jB = new JSONBuilder();		
+		JSONEvents jE = new JSONEvents();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -119,15 +120,15 @@ public class EventsController
 			if(events.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jB.getJSONObjectEventsPerStates(events);
+			response = jE.getJSONObjectEventsPerStates(events);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}	
 		
 		return response;
@@ -157,7 +158,7 @@ public class EventsController
 								         @RequestParam(name="genres", defaultValue="") String genres,
 								         @RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONEvents jE = new JSONEvents();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -174,15 +175,15 @@ public class EventsController
 			if(events.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jB.getJSONObjectEventsPerCities(events);
+			response = jE.getJSONObjectEventsPerCities(events);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}	
 		
 		return response;
@@ -210,7 +211,7 @@ public class EventsController
 									       @RequestParam(name="segment", defaultValue="") String segment,
 									       @RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONEvents jE = new JSONEvents();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -227,15 +228,15 @@ public class EventsController
 			if(events.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 
-			response = jB.getJSONObjectEventsPerSegments(events);
+			response = jE.getJSONObjectEventsPerSegments(events);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -265,7 +266,7 @@ public class EventsController
 								         @RequestParam(name="genres", defaultValue="") String genres,
 								         @RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONEvents jE = new JSONEvents();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -282,15 +283,15 @@ public class EventsController
 			if(events.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 
-			response = jB.getJSONObjectEventsPerGenres(events);
+			response = jE.getJSONObjectEventsPerGenres(events);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jE.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;

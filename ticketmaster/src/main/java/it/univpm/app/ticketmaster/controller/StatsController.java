@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
@@ -40,7 +40,7 @@ public class StatsController
 	@GetMapping(value = "/stats")
 	public JSONObject getStats(@RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONStats jS = new JSONStats();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -54,15 +54,15 @@ public class StatsController
 			filter = new Filter(period);
 			events = EventsFilter.getFilteredEvents(filter);	
 			
-			response = jB.getJSONObjectAllStats(filter, events);
+			response = jS.getJSONObjectAllStats(filter, events);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		
 		
@@ -91,7 +91,7 @@ public class StatsController
 										@RequestParam(name="genres", defaultValue="") String genres,
 										@RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONStats jS = new JSONStats();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -105,15 +105,15 @@ public class StatsController
 			filter = new Filter(states, "", period, segment, genres);
 			events = EventsFilter.getFilteredEvents(filter);	
 
-			response = jB.getJSONObjectStatsPerStates(filter, events);
+			response = jS.getJSONObjectStatsPerStates(filter, events);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -143,7 +143,7 @@ public class StatsController
 	        							@RequestParam(name="genres", defaultValue="") String genres,
 	        							@RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONStats jS = new JSONStats();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -157,15 +157,15 @@ public class StatsController
 			filter = new Filter(states, cities, period, segment, genres);
 			events = EventsFilter.getFilteredEvents(filter);	
 
-			response = jB.getJSONObjectStatsPerCities(filter, events);
+			response = jS.getJSONObjectStatsPerCities(filter, events);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 				
 		return response;
@@ -193,7 +193,7 @@ public class StatsController
 										  @RequestParam(name="segment", defaultValue="") String segment,
 										  @RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONStats jS = new JSONStats();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -207,15 +207,15 @@ public class StatsController
 			filter = new Filter(states, cities, period, segment, "");
 			events = EventsFilter.getFilteredEvents(filter);	
 
-			response = jB.getJSONObjectStatsPerSegments(filter, events);
+			response = jS.getJSONObjectStatsPerSegments(filter, events);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
@@ -246,7 +246,7 @@ public class StatsController
 	        							@RequestParam(name="genres", defaultValue="") String genres,
 	        							@RequestParam(name="period", defaultValue="") String period)
 	{	
-		JSONBuilder jB = new JSONBuilder();		
+		JSONStats jS = new JSONStats();		
 		Filter filter;
 		Vector<Event> events;
 		
@@ -260,15 +260,15 @@ public class StatsController
 			filter = new Filter(states , cities, period, segment, genres);
 			events = EventsFilter.getFilteredEvents(filter);	
 
-			response = jB.getJSONObjectStatsPerGenres(filter, events);
+			response = jS.getJSONObjectStatsPerGenres(filter, events);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		catch(Exception e)
 		{
-			response = jB.getJSONObjectError(e.getMessage()); 
+			response = jS.getJSONObjectError(e.getMessage()); 
 		}
 		
 		return response;
