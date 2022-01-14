@@ -3,19 +3,26 @@
 
 ![Ticketmaster](https://ichef.bbci.co.uk/news/976/cpsprodpb/136AB/production/_116313597_ticketmaster.jpg "Ticketmaster")
 
-## Indice :bookmark:
+## Indice 🔖
 
 * [Introduzione](#introduzione)
 * [Installazione ed utilizzo](#installazione-ed-utilizzo)
 * [Rotte](#rotte)
+    * [Rotte /events](#Rotte-/events)
+    * [Rotte /stats](#Rotte-/stats)
+    * [Rotte /list](#Rotte-/list)
+    * [Esempi di utilizzo corretto delle rotte](#esempiRotte)
+    * [Errori nell'utilizzo delle rotte](#erroriRotte)
 * [Interfaccia grafica](#interfaccia-grafica)
+* [JUnit test](#JUnit-test)
+* [Software utilizzati](#software-utilizzati)
 * [Autori](#autori)
 
 <div id='introduzione'/>
 
 ## INTRODUZIONE
 
-L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le Application Programming Interface, comunemente note come `api`, derivate dalla pagina TM Developer e accessibili mediante l’indirizzo [Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
+L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le **Application Programming Interface**, comunemente note come `api`, derivate dalla pagina [TM Developer](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
 
 <div id='installazione-ed-utilizzo'/>
 
@@ -25,7 +32,7 @@ Per poter accedere al programma è necessario clonare la repository in locale ut
 `git clone https://github.com/NicolasBravi01/ProjectUnivpm.git`.
 Successivamente sarà possibile mandare in esecuzione il programma con un IDE (ad esempio Eclipse) o direttamente da terminale.
 
-In seguito l'utente deve accedere alla cartella resources, reperibile attraverso il percorso `ProjectUnivpm\ticketmaster\src\main\resources`, e creare il file **apiKey.txt**,  dentro il quale è necessario inserire la propria `apiKey`, ottenuta in seguito all'autenticazione sul portale TM Developer ([Ticketmaster Api V2](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)).
+In seguito l'utente deve accedere alla cartella resources, reperibile attraverso il percorso `ProjectUnivpm\ticketmaster\src\main\resources`, e creare il file **apiKey.txt**,  dentro il quale è necessario inserire la propria `apiKey`, ottenuta in seguito all'autenticazione sul portale ([TM Developer](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)).
 
 Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che verranno elencate e spiegate nel paragrafo successivo) sul client [Postman](https://www.postman.com/) oppure tramite la Graphic User Interface implementata all'interno del progetto (che verrà spiegata nel paragrafo successivo alle rotte).
 
@@ -33,17 +40,17 @@ Dopodiché l'utente può scegliere se utilizzare il programma con le rotte (che 
 
 ## ROTTE 🌐
 
-Le rotte si dividono in 3 categorie in base a ciò che restituiscono, ma prima di analizzarle è importante comprendere il significato dei parametri:
+Le rotte si dividono in 3 categorie in base a ciò che restituiscono:
+* [Rotte /events](#Rotte-/events)
+* [Rotte /stats](#Rotte-/stats)
+* [Rotte /list](#Rotte-/list)
+
+Tuttavia, prima di analizzarle è importante comprendere il significato dei parametri:
 - `states` è una stringa contenente i nomi di uno o più stati
 - `cities` è una stringa contenente i nomi di uno o più città
 - `period` è una stringa contenente il periodo (data iniziale e data finale, scritte nel formato yyyy-mm-dd e separate da una virgola)
 - `segment` è una stringa contenente il nome del segmento (l'unico parametro che impone una scelta unica perché si è pensato che l'utente sia interessato ad un solo segmento)
 - `genres` è una stringa contenente i nomi di uno o più generi
-
-Le 3 categorie sono le seguenti:
-* [Rotte /events](#Rotte-/events)
-* [Rotte /stats](#Rotte-/stats)
-* [Rotte /list](#Rotte-/list)
 
 In fondo a questo paragrafo si trovano esempi che spiegano come utilizzare correttamente ed erroneamente le rotte:
 * [Esempi di utilizzo corretto delle rotte](#esempiRotte)
@@ -751,13 +758,17 @@ La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
 
 ### Esempi di utilizzo corretto delle rotte 🆗
 
-**Esempio rotta /events**: La rotta `http://localhost:8080/events?states=Arizona,California&period=2022-01-25,2022-02-25&segment=Sports&genres=Basketball` restituisce gli eventi che si verificano negli stati dell'Arizona e della California nel periodo che va dal 25 gennaio 2022 al 25 febbraio 2022, e che appartengono al segmento degli sport e in particolare al genere basketball.
+* **Rotta che restituisce gli eventi di basketball che si verificano negli stati dell'Arizona e della California tra il 25 gennaio 2022 e il 25 febbraio 2022**: `http://localhost:8080/events?states=Arizona,California&period=2022-01-25,2022-02-25&&genres=Basketball`.
 
-**Esempio rotta /events/cities**: La rotta `http://localhost:8080/events/cities?cities=Seattle,Glendale&genres=Hockey` restituisce gli eventi, raggruppati per città, relativi solo alle città di Seattle e Glendale.
+* **Rotta che restituisce gli eventi di hockey, raggruppati per città, relativi solo alle città di Seattle e Glendale**: `http://localhost:8080/events/cities?cities=Seattle,Glendale&genres=Hockey`.
 
-**Esempio rotta /stats**: La rotta `http://localhost:8080/stats?period=2022-01-29,2022-03-15` restituisce le statistiche generali calcolate nel  periodo che va dal 29 gennaio 2022 al 15 marzo 2022.
+* **Rotta che restituisce gli eventi, raggruppati per generi, nello stato di Miami**: `http://localhost:8080/events/genres?states=Miami`.
 
-**Esempio rotta /stats/segments**: La rotta `http://localhost:8080/stats/genres?segment=Music&period=2022-01-01,2022-05-01&cities=Miami,Sacramento,Washington` restituisce le statistiche per il segmento Music, relativo alle città di Miami, Sacramento e Washington, nel periodo che va dal 1 gennaio 2022 al 1 maggio 2022.
+* **Rotta che restituisce le statistiche generali degli eventi tra il 29 gennaio 2022 e il 15 marzo 2022**: `http://localhost:8080/stats?period=2022-01-29,2022-03-15`.
+
+* **Rotta che restituisce le statistiche per gli eventi musicali, relativo alle città di Miami, Sacramento e Washington, tra il 1 gennaio 2022 e il 1 maggio 2022**: `http://localhost:8080/stats/genres?segment=Music&period=2022-01-01,2022-05-01&cities=Miami,Sacramento,Washington`.
+
+* **Rotta che restituisce le statistiche degli eventi relative ai generi, nello stato del Colorado, tra il 1 febbraio 2022 e il 28 febbraio 2022**: `http://localhost:8080/stats/genres?states=Colorado&period=2022-02-01,2022-02-28`.
 
 <div id='erroriRotte'/>
 
@@ -783,20 +794,9 @@ Il Filtraggio avviene come segue:
 
 ![Home](ticketmaster/img/Home.gif)
 
-Nel lato sinistro l'utente può vedere le liste dei parametri inseriti, mentre nel lato destro si trovano i pulsanti:
-- `search`, per visualizzare la lista di tutti gli eventi filtrati (equivalente della rotta /events);
-- `reset`, per resettare il filtro;
-- `exit`, per uscire dal programma.
-
-Premendo il pulsante `search`, si ottiene la lista degli eventi filtrati
+Premendo il pulsante `search`, si ottiene la lista degli eventi filtrati:
 
 ![Events](ticketmaster/img/Events.gif)
-
-
-In fondo alla finestra che permette di visualizzare la lista di tutti gli eventi filtrati, l'utente trova i seguenti pulsanti:
-- `show stats`, per visualizzare tutte le statistiche relative alla lista di tutti gli eventi filtrati (equivalente della rotta /stats);
-- `back`, per tornare alla schermata iniziale;
-- `exit`, per uscire dal programma.
 
 Premendo il pulsante `show stats`, si ottengono le statistiche relative agli eventi visualizzati precedentemente, ovvero gli stessi già filtrati
 
@@ -804,9 +804,26 @@ Premendo il pulsante `show stats`, si ottengono le statistiche relative agli eve
 
 Gli errori che l'utente può commettere sono gli stessi già descritti nel paragrafo delle rotte, ma grazie all'interfaccia molti di questi vengono evitati facilmente: si raccomanda di fare comunque attenzione che i filtri immessi non siano in conflitto tra loro, e inoltre, per evitare i problemi legati all'inserimento delle date si consiglia l'utilizzo del pulsante del calendario.
 
+<div id='JUnit-test'/>
+
+## JUNIT TEST 👨‍🔬
+
+| Test                   | Scopo del test                                                                                                                    |  
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| **ApiConnectionTest**  | Verificare che venga creata la lista di 200 eventi                                                                                |
+| **ControllerTest**     | Verificare che venga stampato il messaggio di errore atteso                                                                       | 
+| **EventsFiltertest**   | Verificare che il filtraggio degli eventi avvenga correttamente                                                                   |   
+| **Filtertest**         | Verificare che vengano stampati i messaggi di errore attesi                                                                       | 
+| **JSONBuilderTest**    | Verificare che il Json in uscita contenga il numero di eventi attesi                                                              | 
+| **StatsTest**          | Verificare che i metodi che calcolano il numero massimo, il numero minimo e la media di eventi restituiscano i risultati attesi   | 
+
+<div id='software-utilizzati'/>
+
+## SOFTWARE UTILIZZATI 🔧
+
 <div id='autori'/>
 
-## AUTORI 👦
+## AUTORI 👨‍💻
 
 * [Nicolas Bravi](https://github.com/NicolasBravi01)
 * [Kevin Javier](https://github.com/sup3rk24)
