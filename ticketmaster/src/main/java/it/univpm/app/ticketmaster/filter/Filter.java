@@ -18,32 +18,32 @@ import it.univpm.app.ticketmaster.model.Event;
 */
 public class Filter
 {
-	/*
+	/**
 	 * Lista di stati attraverso i quali si vuole filtrare
 	 */
 	Vector<String> states;
 	
-	/*
+	/**
 	 * Lista di città attraverso le quali si vuole filtrare
 	 */
 	Vector<String> cities;
 	
-	/*
+	/**
 	 * Data che rappresenta l'inizio di un periodo
 	 */
 	LocalDate startDate;
 	
-	/*
+	/**
 	 * Data che rappresenta la fine di un periodo
 	 */
 	LocalDate endDate;
 	
-	/*
+	/**
 	 * Segmento attraverso il quale si vuole filtrare
 	 */
 	String segment;
 	
-	/*
+	/**
 	 * Lista di generi attraverso i quali si vuole filtrare
 	 */
 	Vector<String> genres;
@@ -75,7 +75,7 @@ public class Filter
 	}
 	
 	
-	/*
+	/**
 	 * Costruttore con cui è possibile inizializzare tutti gli attributi, inserendo una stringa contenente il periodo
 	 * al posto di startDate e endDate
 	 * 
@@ -128,7 +128,7 @@ public class Filter
 		check();
 	}
 	
-	/*
+	/**
 	 * Costruttore con cui è possibile inizializzare solo il periodo (gli altri parametri non vengono considerati)
 	 * 
 	 * @param period Stringa nella quale è inserito il periodo, la prima data è separata dalla seconda da una virgola
@@ -200,7 +200,7 @@ public class Filter
 	/**
 	 * Setter della variabile cities
 	 * 
-	 * @param cities Stringa contenente una lista di città attraverso le quali si vuole filtrare, separate da una virgola
+	 * @param city Stringa contenente una lista di città attraverso le quali si vuole filtrare, separate da una virgola
 	 */
 	public void setCities(String city) {
 		this.cities.removeAllElements();
@@ -395,8 +395,10 @@ public class Filter
 		return isIncluded;
 	}
 	
-	/*
+	/**
 	 * Metodo che ritorna true se l'evento passato come parametro è coerente con tutti i filtri
+	 * 
+	 * @param e Evento
 	 * 
 	 * @return isIncluded Boolean
 	 */
@@ -572,13 +574,14 @@ public class Filter
 	
 	
 	/**
-	 * Metodo che controlla se le date sono state inserite in ordine cronologico
+	 * Metodo che controlla se le date sono state inserite in ordine cronologico. Se il periodo non è stato
+	 * inserito allora l'errore non può essere generato
 	 * 
 	 * @throws IncorrectOrderOfDatesException
 	 */
 	public void checkPeriod() throws IncorrectOrderOfDatesException
 	{		
-		if(this.startDate.isAfter(endDate))
+		if((this.startDate != null) && (this.startDate.isAfter(endDate)))
 			throw new IncorrectOrderOfDatesException("The first date can't be after the second one");
 	}
 	
