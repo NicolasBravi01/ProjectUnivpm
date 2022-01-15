@@ -22,6 +22,7 @@ import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 
 @SuppressWarnings("serial")
 public class Result extends JFrame
@@ -114,10 +115,10 @@ public class Result extends JFrame
 		/*
  		 * TEXTAREA e SCROLL
 		 */
-		JSONBuilder jB = new JSONBuilder();
+		JSONStats jS = new JSONStats();
 		
 		this.eventsText = readEventsText(events);
-		this.statsText = readStatsText(jB.getJSONObjectAllStats(filter, events));		
+		this.statsText = readStatsText(jS.getJSONObjectAllStats(filter, events));		
 		
 		result.setBackground(new Color(133,173,225));		
 		result.setEditable(false);

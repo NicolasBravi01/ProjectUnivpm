@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
+import it.univpm.app.ticketmaster.JSONHandler.JSONEvents;
+import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
@@ -23,7 +25,8 @@ class JSONBuilderTest
 	Vector<Event> eventsToFilter = new Vector<Event>();
 	Vector<Event> filteredEvents = new Vector<Event>();
 	
-	JSONBuilder jb = new JSONBuilder();
+	JSONEvents jE = new JSONEvents();
+	JSONStats jS = new JSONStats();
 	
 	EventsFilter eventsFilter = new EventsFilter();
 	Filter filter;
@@ -89,7 +92,7 @@ class JSONBuilderTest
 	@Test
 	void testGetJSONObjectEvents() 
 	{
-		obj = jb.getJSONObjectEvents(eventsToFilter);
+		obj = jE.getJSONObjectEvents(eventsToFilter);
 		assertEquals(obj.get("number events"), 3);
 	}
 	
@@ -99,7 +102,7 @@ class JSONBuilderTest
 	{
 		filter = new Filter("New York", "", "2022-01-01,2022-06-01", "", "Basketball");
 		filteredEvents = eventsFilter.getFilteredEvents(filter, eventsToFilter);
-		obj = jb.getJSONObjectAllStats(filter, filteredEvents);
+		obj = jS.getJSONObjectAllStats(filter, filteredEvents);
 		
 		JSONObject obj1 = (JSONObject) obj.get("general");
 		assertEquals(obj1.get("number events"), 1);
