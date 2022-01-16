@@ -22,13 +22,13 @@
 
 ## INTRODUZIONE
 
-L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le **Application Programming Interface**, comunemente note come `api`, derivate dalla pagina [TM Developer](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuterà gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
+L'applicazione SpringBoot utilizza il sito di Ticketmaster, che si occupa della gestione e della prenotazione di eventi sportivi, musicali, teatrali, cinematografici ed artistici, reperibile presso l’indirizzo [Ticketmaster](https://ticketmaster.com). In particolare, attraverso le **Application Programming Interface**, comunemente note come `api`, derivate dalla pagina [TM Developer](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/), il programma valuta gli eventi che si verificheranno negli Stati Uniti d'America. L'utente può, in base alle sue preferenze, imporre dei filtri per poter visualizzare gli eventi di interesse o le statistiche relative agli eventi.
 
 <div id='installazione-ed-utilizzo'/>
 
 ## INSTALLAZIONE ED UTILIZZO 📖
 
-Per poter accedere al programma è necessario clonare la repository in locale utilizzando Github Desktop oppure da terminale con il comando
+Per poter accedere al programma è necessario clonare la repository in locale utilizzando Github Desktop oppure da terminale digitando
 `git clone https://github.com/NicolasBravi01/ProjectUnivpm.git`.
 Successivamente sarà possibile mandare in esecuzione il programma con un IDE (ad esempio Eclipse) o direttamente da terminale.
 
@@ -60,17 +60,17 @@ In fondo a questo paragrafo si trovano esempi che spiegano come utilizzare corre
 
 ### Rotte /events 🎉
 
-Le rotte **/events** permettono di ottenere la lista di tutti gli eventi, che possono essere raggruppati per stati, città, segmenti o generi, in base alla scelta della rotta da parte dell'utente. 
+Le rotte **/events** permettono di ottenere la lista degli eventi, che possono essere raggruppati per stati, città, segmenti o generi, in base alla scelta della rotta da parte dell'utente. 
 
 I parametri inseriti dall'utente servono per filtrare la lista di tutti gli eventi e visualizzare solo quelli di interesse (ad esempio solo quelli che hanno luogo in alcuni stati o che fanno parte di un certo segmento; inoltre si può selezionare anche il periodo di interesse per filtrare gli eventi e visualizzare solo quelli che ricadono in questo arco temporale). Se i parametri di filtraggio non vengono inseriti non viene effettuato alcun filtro, e dunque verranno restituiti tutti gli eventi, raggruppati o meno a seconda della rotta.
 
-| Tipo    | Rotta /events                               | Descrizione                                                       | Parametri                                    |
-|---------|---------------------------------------------|-------------------------------------------------------------------|----------------------------------------------|
-| ` GET ` | [`/events`](#/events)                       | Restituisce l'elenco di tutti gli eventi                          | `states`,`cities`,`segment`,`genres`,`period`|
-| ` GET ` | [`/events/states`](#/events/states)         | Restituisce l'elenco di tutti gli eventi raggruppati per stati    | `states`,`segment`,`genres`,`period`         |
-| ` GET ` | [`/events/cities`](#/events/cities)         | Restituisce l'elenco di tutti gli eventi raggruppati per città    | `states`,`cities`,`segment`,`genres`,`period`|  
-| ` GET ` | [`/events/segments`](#/events/segments)     | Restituisce l'elenco di tutti gli eventi raggruppati per segmenti | `states`,`cities`,`segment`,`period`         |
-| ` GET ` | [`/events/genres`](#/events/genres)         | Restituisce l'elenco di tutti gli eventi raggruppati per generi   | `states`,`cities`,`segment`,`genres`,`period`|              
+| Tipo    | Rotta /events                                 | Descrizione                                                 | Parametri                                       |
+|---------|-----------------------------------------------|-------------------------------------------------------------|-------------------------------------------------|
+| ` GET ` | [`/events`](#/events)                         | Restituisce l'elenco degli eventi                           | `states`,`cities`,`segment`,`genres`,`period`   |
+| ` GET ` | [`/events/states`](#/events/states)           | Restituisce l'elenco degli eventi raggruppati per stati     | `states`,`segment`,`genres`,`period`            |
+| ` GET ` | [`/events/cities`](#/events/cities)           | Restituisce l'elenco degli eventi raggruppati per città     | `states`,`cities`,`segment`,`genres`,`period`   |  
+| ` GET ` | [`/events/segments`](#/events/segments)       | Restituisce l'elenco degli eventi raggruppati per segmenti  | `states`,`cities`,`segment`,`period`            |
+| ` GET ` | [`/events/genres`](#/events/genres)           | Restituisce l'elenco degli eventi raggruppati per generi    | `states`,`cities`,`segment`,`genres`,`period`   |              
 
 <div id='/events'/>
 
@@ -496,48 +496,48 @@ La rotta `/stats`, in assenza di filtri, restituisce un JSON strutturato nel seg
             "min": {
                 "average": 0.12,
                 "name": "Memphis",
-                "n events": 1
+                 "number events": 1
             },
             "max": {
                 "average": 2.66,
                 "name": "Phoenix",
-                "n events": 21
+                "number events": 21
             }
         },
         "genres": {
             "min": {
                 "average": 0.25,
                 "name": "Fairs & Festivals",
-                "n events": 2
+                 "number events": 2
             },
             "max": {
                 "average": 8.89,
                 "name": "Basketball",
-                "n events": 70
+                "number events": 70
             }
         },
         "states": {
             "min": {
                 "average": 0.12,
                 "name": "Maryland",
-                "n events": 1
+                 "number events": 1
             },
             "max": {
                 "average": 3.55,
                 "name": "California",
-                "n events": 28
+                 "number events": 28
             }
         },
         "segments": {
             "min": {
                 "average": 1.39,
                 "name": "Arts & Theatre",
-                "n events": 11
+                 "number events": 11
             },
             "max": {
                 "average": 17.16,
                 "name": "Sports",
-                "n events": 135
+                 "number events": 135
             }
         }
     }
@@ -707,7 +707,6 @@ La rotta `/list/cities` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "number cities": 60,
     "list cities": [
         "Phoenix",
         "Indianapolis",
@@ -715,7 +714,8 @@ La rotta `/list/cities` restituisce un JSON strutturato nel seguente modo:
         "Salt Lake City",
         "Milwaukee",
         ""
-    ]
+    ],
+    "number cities": 60,
 }
 ```
 <div id='/list/segments'/> 
@@ -778,27 +778,27 @@ Nell'utilizzo delle rotte l'utente potrebbe commettere diversi errori o compiere
 - l'utente potrebbe inserire nomi di parametri inesistenti, oppure scrivere erroneamente il nome di un parametro; questo causerebbe la visualizzazione di un messaggio di errore del tipo **Invalid `parametro inserito`'s name**. Per ovviare a questo problema si consiglia come prima cosa di visualizzare le rotte /list per poter visionare tutti i parametri validi, in modo da non commettere errori.
 - l'utente potrebbe ingenuamente inserire parametri in conflitto tra loro, ad esempio città che non appartengono agli stati selezionati o generi che non appartengono ai segmenti selezionati; questo porterebbe alla visualizzazione del messaggio di errore **There aren't events with your filter**, che però potrebbe anche comparire nel caso in cui semplicemente non ci sono eventi coerenti con il filtro inserito. 
 - l'utente potrebbe inserire in modo erroneo il periodo di interesse, che ricordiamo consistere in una data iniziale e una data finale, nel formato yyyy-mm-dd, separate da una virgola; e in questo caso bisogna distinguere tre casi:
-- - il caso in cui l'utente inserisce una sola data invece che due, che porterebbe alla visualizzazione del messaggio di errore **Period not identifed**
-- - il caso in cui l'utente inserisce le date in ordine non cronologico, che porterebbe alla visualizzazione del messaggio di errore **The first date can't be after the second one**;
-- - il caso in cui l'utente scrive in modo errato le due date, ovvero non rispettando il formato yyyy-mm-dd, ad esempio:
-- - - inserendo lettere, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed at index 0**.
-- - - inserendo numeri che non hanno significato, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): `numero del mese che non rientra nel range indicato`**.  
+   - il caso in cui l'utente inserisce una sola data invece che due, che porterebbe alla visualizzazione del messaggio di errore **Period not identifed**
+   - il caso in cui l'utente inserisce le date in ordine non cronologico, che porterebbe alla visualizzazione del messaggio di errore **The first date can't be after the second one**;
+   - il caso in cui l'utente scrive in modo errato le due date, ovvero non rispettando il formato yyyy-mm-dd, ad esempio:
+      - inserendo lettere, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed at index 0**.
+      - inserendo numeri che non hanno significato, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): `numero del mese che non rientra nel range indicato`**.  
 
 <div id='interfaccia-grafica'/>
 
 ## INTERFACCIA 💻
 
-L'utilizzo dell'interfaccia non è affatto complesso: l'utente deve semplicemente inserire i parametri di interesse selezionandoli nei menu a tendina situati nel lato superiore, (tenendo conto che se si seleziona nuovamente un parametro già immesso questo verrà cancellato); per quanto riguarda il periodo l'utente può scegliere se inserire da tastiera la data in formato dd-mm-yyyy, oppure da calendario, premendo sul pulsante.
+L'utilizzo dell'interfaccia non è affatto complesso: l'utente deve semplicemente inserire i parametri di interesse selezionandoli nei menu a tendina situati nel lato superiore, (tenendo conto che se si seleziona nuovamente un parametro già immesso questo verrà cancellato); per quanto riguarda il periodo l'utente può scegliere se inserire da tastiera la data in formato dd-mm-yyyy, oppure da calendario, premendo sul pulsante. Inizialmente le due date di default equivalgono alla data del primo e dell'ultimo evento in ordine cronologico.
 
 Il Filtraggio avviene come segue:
 
 ![Home](ticketmaster/img/Home.gif)
 
-Premendo il pulsante `search`, si ottiene la lista degli eventi filtrati:
+Una volta impostati i filtri voluti, è sufficiente premere il pulsante `search` per ottenere la lista degli eventi filtrati:
 
 ![Events](ticketmaster/img/Events.gif)
 
-Premendo il pulsante `show stats`, si ottengono le statistiche relative agli eventi visualizzati precedentemente, ovvero gli stessi già filtrati
+Premendo il pulsante `show stats`, si ottengono le statistiche relative agli eventi visualizzati precedentemente, ovvero gli stessi già filtrati:
 
 ![Stats](ticketmaster/img/Stats.gif)
 
@@ -820,6 +820,13 @@ Gli errori che l'utente può commettere sono gli stessi già descritti nel parag
 <div id='software-utilizzati'/>
 
 ## SOFTWARE UTILIZZATI 🔧
+La lista di software & tools utilizzati è la seguente:
+* L'IDE [Eclipse](https://www.eclipse.org/downloads/) per scrivere il codice in Java
+* Il tool [Postman](https://www.postman.com/downloads/) utilizzato per il testing delle API di ticketmaster e delle rotte descritte ([sopra](#rotte))
+* Il framework [Spring Boot](https://spring.io/projects/spring-boot) per eseguire l'applicazione web
+* La piattaforma [GitHub](https://github.com/) per il versionamento del progetto
+* Il framework [Spring Boot](https://spring.io/projects/spring-boot) utilizzato per lo sviluppo di applicazioni in Java
+* Lo strumento [Maven](https://maven.apache.org/) per la gestione di progetti software 
 
 <div id='autori'/>
 
