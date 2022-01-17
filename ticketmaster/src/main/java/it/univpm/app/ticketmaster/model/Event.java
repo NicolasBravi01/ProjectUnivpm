@@ -2,6 +2,12 @@ package it.univpm.app.ticketmaster.model;
 
 import java.time.LocalDate;
 
+/**
+ * Classe che descrive le caratteristiche di un evento
+ * 
+ * @author sup3r
+ * @author NicolasBravi01
+ */
 public class Event 
 {
 	/**

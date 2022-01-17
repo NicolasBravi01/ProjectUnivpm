@@ -8,6 +8,9 @@ import org.json.simple.JSONObject;
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONEvents
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONStats
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONList
+ * 
+ * @author sup3r
+ * @autor NicolasBravi01
  */
 public abstract class JSONBuilder 
 {

@@ -12,6 +12,7 @@ import it.univpm.app.ticketmaster.model.Event;
  * Classe che smista le informazioni ricevute dalla chiamata all'Api di Ticketmaster
  * 
  * @author sup3r
+ * @autor NicolasBravi01
  */
 public class TicketmasterService 
 {

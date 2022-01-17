@@ -29,7 +29,12 @@ import it.univpm.app.ticketmaster.exception.NoEventsException;
 
 import it.univpm.app.ticketmaster.filter.Filter;
 
-
+/**
+ * Classe che gestisce la visualizzazione della finestra principale, nella quale è possibile selezionare i filtri
+ * 
+ * @author sup3r
+ * @autor NicolasBravi01
+ */
 @SuppressWarnings("serial")
 public class Home extends JFrame
 {	

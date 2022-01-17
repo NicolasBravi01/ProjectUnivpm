@@ -6,16 +6,25 @@ package it.univpm.app.ticketmaster.exception;
  * @see it.univpm.app.ticketmaster.controller.EventsController
  * 
  * @author sup3r
+ * @autor NicolasBravi01
  */
 @SuppressWarnings("serial")
 public class NoEventsException extends Exception 
 {
 
+	/**
+	 * Costruttore di default
+	 */
 	public NoEventsException()
 	{
 		super();
 	}
 
+	/**
+	 * Costruttore con messaggio
+	 * 
+	 * @param message Stringa contenente il messaggio di errore
+	 */
 	public NoEventsException(String message)
 	{
 		super(message);

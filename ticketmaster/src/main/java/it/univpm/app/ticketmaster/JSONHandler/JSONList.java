@@ -9,6 +9,9 @@ import org.json.simple.JSONObject;
  * 
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
  * @see it.univpm.app.ticketmaster.controller.ListController
+ * 
+ * @author sup3r
+ * @autor NicolasBravi01
  */
 public class JSONList extends JSONBuilder
 {

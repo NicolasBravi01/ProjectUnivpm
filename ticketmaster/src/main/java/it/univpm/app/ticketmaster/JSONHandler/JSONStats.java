@@ -13,6 +13,9 @@ import it.univpm.app.ticketmaster.stats.Stats;
  * 
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
  * @see it.univpm.app.ticketmaster.controller.StatsController
+ * 
+ * @author sup3r
+ * @autor NicolasBravi01
  */
 public class JSONStats extends JSONBuilder
 {

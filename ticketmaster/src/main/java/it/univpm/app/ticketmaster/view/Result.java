@@ -18,6 +18,12 @@ import org.json.simple.JSONObject;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+ * Classe che gestisce la visualizzazione della finestra che mostra la lista di eventi e le statistiche
+ * 
+ * @author sup3r
+ * @autor NicolasBravi01
+ */
 @SuppressWarnings("serial")
 public class Result extends JFrame
 {

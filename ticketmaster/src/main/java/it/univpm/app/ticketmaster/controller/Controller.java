@@ -12,6 +12,7 @@ import it.univpm.app.ticketmaster.service.TicketmasterService;
  * @see it.univpm.app.ticketmaster.controller.ListController
  * 
  * @author sup3r
+ * @autor NicolasBravi01
  */
 public class Controller 
 {
