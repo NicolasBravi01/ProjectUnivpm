@@ -1,7 +1,7 @@
 
 # Progetto OOP Ticketmaster USA 🗽
 
-![Ticketmaster](https://ichef.bbci.co.uk/news/976/cpsprodpb/136AB/production/_116313597_ticketmaster.jpg "Ticketmaster")
+![Ticketmaster](ticketmaster/img/TicketmasterImg.jpg)
 
 ## Indice 🔖
 
@@ -50,7 +50,7 @@ Tuttavia, prima di analizzarle è importante comprendere il significato dei para
 - `cities` è una stringa contenente i nomi di uno o più città
 - `period` è una stringa contenente il periodo (data iniziale e data finale, scritte nel formato yyyy-mm-dd e separate da una virgola)
 - `segment` è una stringa contenente il nome del segmento (l'unico parametro che impone una scelta unica perché si è pensato che l'utente sia interessato ad un solo segmento)
-- `genres` è una stringa contenente i nomi di uno o più generi
+- `genres` è una stringa contenente i nomi di uno o più generi (ogni genere appartiene ad un segmento)
 
 In fondo a questo paragrafo si trovano esempi che spiegano come utilizzare correttamente ed erroneamente le rotte:
 * [Esempi di utilizzo corretto delle rotte](#esempiRotte)
@@ -688,7 +688,7 @@ La rotta `/list/states` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "list states": [
+    "list elements": [
         "Arizona",
         "Indiana",
         "California",
@@ -696,7 +696,7 @@ La rotta `/list/states` restituisce un JSON strutturato nel seguente modo:
         "Wisconsin",
         ""
     ],
-    "number states": 31
+    "number elements": 31
 }
 ```
 <div id='/list/cities'/> 
@@ -707,7 +707,7 @@ La rotta `/list/cities` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "list cities": [
+    "list elements": [
         "Phoenix",
         "Indianapolis",
         "San Francisco",
@@ -715,7 +715,7 @@ La rotta `/list/cities` restituisce un JSON strutturato nel seguente modo:
         "Milwaukee",
         ""
     ],
-    "number cities": 60,
+    "number elements": 60,
 }
 ```
 <div id='/list/segments'/> 
@@ -726,13 +726,13 @@ La rotta `/list/segments` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "list segments": [
+    "list elements": [
         "Sports",
         "Music",
         "Miscellaneous",
         "Arts & Theatre"
     ],
-    "number segments": 4
+    "number elements": 4
 }
 ```
 <div id='/list/genres'/> 
@@ -743,8 +743,8 @@ La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
 
 ```json
 {
-    "number genres": 10,
-    "list genres": [
+    "number elements": 10,
+    "list elements": [
         "Basketball",
         "Football",
         "Rock",
@@ -762,7 +762,7 @@ La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
 
 * **Rotta che restituisce gli eventi di hockey, raggruppati per città, relativi solo alle città di Seattle e Glendale**: `http://localhost:8080/events/cities?cities=Seattle,Glendale&genres=Hockey`.
 
-* **Rotta che restituisce gli eventi, raggruppati per generi, nello stato di Miami**: `http://localhost:8080/events/genres?states=Miami`.
+* **Rotta che restituisce gli eventi, raggruppati per generi, in Florida**: `http://localhost:8080/events/genres?states=Florida`.
 
 * **Rotta che restituisce le statistiche generali degli eventi tra il 29 gennaio 2022 e il 15 marzo 2022**: `http://localhost:8080/stats?period=2022-01-29,2022-03-15`.
 
@@ -775,11 +775,11 @@ La rotta `/list/genres` restituisce un JSON strutturato nel seguente modo:
 ### Errori nell'utilizzo delle rotte ⚠️
 
 Nell'utilizzo delle rotte l'utente potrebbe commettere diversi errori o compiere azioni che non gli permetterebbero di trovare ciò che cerca. Ora vediamo quali potrebbero essere queste problematiche:
-- l'utente potrebbe inserire nomi di parametri inesistenti, oppure scrivere erroneamente il nome di un parametro; questo causerebbe la visualizzazione di un messaggio di errore del tipo **Invalid `parametro inserito`'s name**. Per ovviare a questo problema si consiglia come prima cosa di visualizzare le rotte /list per poter visionare tutti i parametri validi, in modo da non commettere errori.
-- l'utente potrebbe ingenuamente inserire parametri in conflitto tra loro, ad esempio città che non appartengono agli stati selezionati o generi che non appartengono ai segmenti selezionati; questo porterebbe alla visualizzazione del messaggio di errore **There aren't events with your filter**, che però potrebbe anche comparire nel caso in cui semplicemente non ci sono eventi coerenti con il filtro inserito. 
+- l'utente potrebbe inserire nomi di parametri inesistenti, oppure scrivere erroneamente il nome di un parametro; questo causerebbe la visualizzazione di un messaggio di errore del tipo **Invalid `parametro inserito`'s name** (Esempio: `states=Italia`). Per ovviare a questo problema si consiglia come prima cosa di visualizzare le rotte /list per poter visionare tutti i parametri validi, in modo da non commettere errori. 
+- l'utente potrebbe ingenuamente inserire parametri in conflitto tra loro, ad esempio città che non appartengono agli stati selezionati o generi che non appartengono ai segmenti selezionati; questo porterebbe alla visualizzazione del messaggio di errore **There aren't events with your filter** (Esempio: `states=Nevada&cities=New York`), che però potrebbe anche comparire nel caso in cui semplicemente non ci sono eventi coerenti con il filtro inserito.  
 - l'utente potrebbe inserire in modo erroneo il periodo di interesse, che ricordiamo consistere in una data iniziale e una data finale, nel formato yyyy-mm-dd, separate da una virgola; e in questo caso bisogna distinguere tre casi:
-   - il caso in cui l'utente inserisce una sola data invece che due, che porterebbe alla visualizzazione del messaggio di errore **Period not identifed**
-   - il caso in cui l'utente inserisce le date in ordine non cronologico, che porterebbe alla visualizzazione del messaggio di errore **The first date can't be after the second one**;
+   - il caso in cui l'utente inserisce una sola data invece che due, che porterebbe alla visualizzazione del messaggio di errore **Period not identifed**. Esempio: `period=2022-01-24`.
+   - il caso in cui l'utente inserisce le date in ordine non cronologico, che porterebbe alla visualizzazione del messaggio di errore **The first date can't be after the second one**; Esempio: `period=2022-03-24,2022-01-01`.
    - il caso in cui l'utente scrive in modo errato le due date, ovvero non rispettando il formato yyyy-mm-dd, ad esempio:
       - inserendo lettere, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed at index 0**.
       - inserendo numeri che non hanno significato, che porterebbe alla visualizzazione di un messaggio di errore del tipo **Text `data inserita` could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): `numero del mese che non rientra nel range indicato`**.  
@@ -811,10 +811,9 @@ Gli errori che l'utente può commettere sono gli stessi già descritti nel parag
 | Test                   | Scopo del test                                                                                                                    |  
 |------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | **ApiConnectionTest**  | Verificare che venga creata la lista di 200 eventi                                                                                |
-| **ControllerTest**     | Verificare che venga stampato il messaggio di errore atteso                                                                       | 
-| **EventsFiltertest**   | Verificare che il filtraggio degli eventi avvenga correttamente                                                                   |   
-| **Filtertest**         | Verificare che vengano stampati i messaggi di errore attesi                                                                       | 
-| **JSONBuilderTest**    | Verificare che il Json in uscita contenga il numero di eventi attesi                                                              | 
+| **ControllerTest**     | Verificare che in caso di filtro non compatibile con la lista di eventi, la lista di eventi filtrati non contiene alcun evento    | 
+| **Filtertest**         | Verificare che vengano stampati i messaggi di errore attesi e che il filtro funzioni correttamente                                | 
+| **JSONBuilderTest**    | Verificare che i Json in uscita contengano il numero di eventi attesi                                                             | 
 | **StatsTest**          | Verificare che i metodi che calcolano il numero massimo, il numero minimo e la media di eventi restituiscano i risultati attesi   | 
 
 <div id='software-utilizzati'/>
@@ -822,7 +821,7 @@ Gli errori che l'utente può commettere sono gli stessi già descritti nel parag
 ## SOFTWARE UTILIZZATI 🔧
 La lista di software & tools utilizzati è la seguente:
 * L'IDE [Eclipse](https://www.eclipse.org/downloads/) per scrivere il codice in Java
-* Il tool [Postman](https://www.postman.com/downloads/) utilizzato per il testing delle API di ticketmaster e delle rotte descritte ([sopra](#rotte))
+* Il tool [Postman](https://www.postman.com/downloads/) utilizzato per il testing delle API di ticketmaster e delle rotte già descritte
 * Il framework [Spring Boot](https://spring.io/projects/spring-boot) per eseguire l'applicazione web
 * La piattaforma [GitHub](https://github.com/) per il versionamento del progetto
 * Il framework [Spring Boot](https://spring.io/projects/spring-boot) utilizzato per lo sviluppo di applicazioni in Java
