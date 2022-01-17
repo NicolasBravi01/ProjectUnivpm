@@ -10,16 +10,20 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 /**
  * Controller delle rotte /list
  * 
+ * @see it.univpm.app.ticketmaster.controller.Controller
+ * 
  * @author sup3r
  * @author NicolasBravi01
  */
 @RestController
 public class ListController extends Controller
 {	
-	
+
 	/**
 	 * Metodo associato alla rotta get /list/states.
 	 * Restituisce la lista degli stati
+	 * 
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONList
 	 */
 	@GetMapping(value = "/list/states")
 	public JSONObject getStates()
@@ -45,6 +49,8 @@ public class ListController extends Controller
 	/**
 	 * Metodo associato alla rotta get /list/cities.
 	 * Restituisce la lista delle città
+	 * 
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONList
 	 */
 	@GetMapping(value = "/list/cities")
 	public JSONObject getCities()
@@ -70,6 +76,8 @@ public class ListController extends Controller
 	/**
 	 * Metodo associato alla rotta get /list/segments.
 	 * Restituisce la lista dei segmenti
+	 * 
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONList
 	 */
 	@GetMapping(value = "/list/segments")
 	public JSONObject getSegments()
@@ -96,6 +104,8 @@ public class ListController extends Controller
 	/**
 	 * Metodo associato alla rotta get /list/genres.
 	 * Restituisce la lista dei generi
+	 * 
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONList
 	 */
 	@GetMapping(value = "/list/genres")
 	public JSONObject getGenres()

@@ -15,7 +15,6 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
  */
 public class ApiKeyReader 
 {
-	
 	private final static String pathApiKey = "src/main/resources/apiKey.txt";
 
 	/**
@@ -28,6 +27,7 @@ public class ApiKeyReader
 	public static String readApiKey() throws ApiConnectionException
 	{
 		String msg="";
+		
 		try 
 		{
 			Scanner reader = new Scanner(new BufferedReader(new FileReader(pathApiKey)));			

@@ -19,13 +19,18 @@ import it.univpm.app.ticketmaster.model.Event;
 /**
  * Controller delle rotte /events
  * 
+ * @see it.univpm.app.ticketmaster.controller.Controller
+ * 
  * @author sup3r
  * @author NicolasBravi01
  */
 @RestController
 public class EventsController extends Controller
 {	
-	
+
+	/**
+	 * Lista di tutti gli eventi
+	 */
 	Vector<Event> eventsToFilter = this.ticketmasterService.getEvents();
 
 	
@@ -39,7 +44,8 @@ public class EventsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -62,6 +68,7 @@ public class EventsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			if(filteredEvents.isEmpty())
@@ -93,8 +100,8 @@ public class EventsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -116,6 +123,7 @@ public class EventsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, "", period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			if(filteredEvents.isEmpty())
@@ -146,9 +154,9 @@ public class EventsController extends Controller
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente	 
-	 * * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * 
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -171,6 +179,7 @@ public class EventsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			if(filteredEvents.isEmpty())
@@ -201,8 +210,8 @@ public class EventsController extends Controller
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente	
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -224,6 +233,7 @@ public class EventsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states ,cities ,period ,segment , "");
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			if(filteredEvents.isEmpty())
@@ -255,8 +265,8 @@ public class EventsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -279,6 +289,7 @@ public class EventsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			if(filteredEvents.isEmpty())

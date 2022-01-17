@@ -60,9 +60,8 @@ public class Filter
 	 * @param genres Lista di generi attraverso i quali si vuole filtrare
 	 * 
 	 * @throws IncorrectOrderOfDatesException
-	 * @throws InvalidNameException
 	 */
-	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) throws InvalidNameException, IncorrectOrderOfDatesException
+	public Filter(Vector<String> states, Vector<String> cities, LocalDate startDate, LocalDate endDate, String segment, Vector<String> genres) throws IncorrectOrderOfDatesException
 	{
 		this.states = states;
 		this.cities = cities;
@@ -88,9 +87,8 @@ public class Filter
 	 * @throws DateTimeParseException
 	 * @throws NullDateException
 	 * @throws IncorrectOrderOfDatesException
-	 * @throws InvalidNameException
 	 */
-	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
+	public Filter(Vector<String> states, Vector<String> cities, String period, String segment, Vector<String> genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		this.states = states;
 		this.cities = cities;
@@ -115,9 +113,8 @@ public class Filter
 	 * @throws DateTimeParseException
 	 * @throws NullDateException
 	 * @throws IncorrectOrderOfDatesException
-	 * @throws InvalidNameException
 	 */
-	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException, InvalidNameException
+	public Filter(String states, String cities, String period, String segment, String genres) throws DateTimeParseException, NullDateException, IncorrectOrderOfDatesException
 	{
 		this.states = convertToVectorOfStrings(states);
 		this.cities = convertToVectorOfStrings(cities);
@@ -477,7 +474,6 @@ public class Filter
 	 * Metodo che controlla se i parametri inseriti, a seguito dell'eliminazione di spazi superflui,
 	 * corrispondono a quelli presenti
 	 * 
-	 * @throws InvalidNameException
 	 * @throws IncorrectOrderOfDatesException 
 	 */
 	public void check() throws IncorrectOrderOfDatesException
@@ -492,8 +488,6 @@ public class Filter
 	/**
 	 * Metodo che controlla se lo stato inserito, dopo l'eliminazione di spazi superflui,
 	 * è presente nella lista degli stati
-	 * 
-	 * @throws InvalidNameException
 	 */
 	private void checkStates()
 	{
@@ -504,8 +498,6 @@ public class Filter
 	/**
 	 * Metodo che controlla se la città inserita, dopo l'eliminazione di spazi superflui,
 	 * è presente nella lista delle città
-	 * 
-	 * @throws InvalidNameException
 	 */
 	private void checkCities()
 	{
@@ -516,8 +508,6 @@ public class Filter
 	/**
 	 * Metodo che controlla se il segmento inserito, dopo l'eliminazione di spazi superflui,
 	 * è presente nella variabile che rappresenta il segmento
-	 * 
-	 * @throws InvalidNameException
 	 */
 	private void checkSegment()
 	{
@@ -592,7 +582,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo static che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
+	 * Metodo che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
 	 * a partire da una lista di eventi passata come parametro
 	 * 
 	 * @param filter Filtro inserito dall'utente
@@ -600,7 +590,7 @@ public class Filter
 	 * 
 	 * @return filteredEvents Lista di tutti gli eventi filtrati
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 * @see it.univpm.app.ticketmaster.controller
 	 */
 	public Vector<Event> getFilteredEvents (Vector<Event> eventsToFilter) 

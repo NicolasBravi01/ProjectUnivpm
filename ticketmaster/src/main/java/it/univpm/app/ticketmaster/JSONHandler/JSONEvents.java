@@ -8,10 +8,11 @@ import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
 
-
 /**
- * TODO 
- *
+ * Classe che contiene i metodi per costruire i JSONObject usati nelle rotte /events
+ * 
+ * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+ * @see it.univpm.app.ticketmaster.controller.EventsController
  */
 public class JSONEvents extends JSONBuilder
 {
@@ -20,8 +21,6 @@ public class JSONEvents extends JSONBuilder
 	 * Metodo che restituisce il JSONObject associato alla rotta /events
 	 * 
 	 * @param listEvent Lista di eventi 
-	 * 
-	 * @see it.univpm.app.ticketmaster.controller.*
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -38,20 +37,19 @@ public class JSONEvents extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/states
 	 * 
-	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param states Lista di stringhe contenenti i nomi degli stati
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerStates(Vector<Event> events, Vector<String> states)
+	public JSONObject getJSONObjectEventsPerStates(Vector<Event> eventsToFilter, Vector<String> states)
 	{		
 		JSONObject obj = new JSONObject();
 		Filter filter = new Filter();
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		
 		String state;
 		
@@ -60,11 +58,11 @@ public class JSONEvents extends JSONBuilder
 			 state = states.get(i);
 			
 			 filter.setStates(state);
-			 eventsApp = filter.getFilteredEvents(events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 if(eventsApp.size() > 0)
+			 if(filteredEvents.size() > 0)
 			 {
-				 obj.put(state, this.getJSONObjectEvents(eventsApp));
+				 obj.put(state, this.getJSONObjectEvents(filteredEvents));
 			 }
 		}
 		
@@ -75,20 +73,19 @@ public class JSONEvents extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/cities
 	 * 
-	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param cities Lista di stringhe contenenti i nomi delle città
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerCities(Vector<Event> events, Vector<String> cities)
+	public JSONObject getJSONObjectEventsPerCities(Vector<Event> eventsToFilter, Vector<String> cities)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		
 		String city;
 		
@@ -97,11 +94,11 @@ public class JSONEvents extends JSONBuilder
 			 city = cities.get(i);
 			
 			 filter.setCities(city);
-			 eventsApp = filter.getFilteredEvents(events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 if(eventsApp.size() > 0)
+			 if(filteredEvents.size() > 0)
 			 {
-				 obj.put(city, this.getJSONObjectEvents(eventsApp));
+				 obj.put(city, this.getJSONObjectEvents(filteredEvents));
 			 }
 		}		
 		
@@ -112,20 +109,19 @@ public class JSONEvents extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/segments
 	 * 
-	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param segments Lista di stringhe contenenti i nomi dei segmenti
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerSegments(Vector<Event> events, Vector<String> segments)
+	public JSONObject getJSONObjectEventsPerSegments(Vector<Event> eventsToFilter, Vector<String> segments)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		
 		String segment;
 		
@@ -134,11 +130,11 @@ public class JSONEvents extends JSONBuilder
 			 segment = segments.get(i);
 			
 			 filter.setSegment(segment);
-			 eventsApp = filter.getFilteredEvents(events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 if(eventsApp.size() > 0)
+			 if(filteredEvents.size() > 0)
 			 {
-				 obj.put(segment, this.getJSONObjectEvents(eventsApp));
+				 obj.put(segment, this.getJSONObjectEvents(filteredEvents));
 			 }
 		}
 		
@@ -149,20 +145,19 @@ public class JSONEvents extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /events/genres
 	 * 
-	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param genres Lista di stringhe contenenti i nomi dei generi
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerGenres(Vector<Event> events,  Vector<String> genres)
+	public JSONObject getJSONObjectEventsPerGenres(Vector<Event> eventsToFilter,  Vector<String> genres)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		
 		String genre;
 		
@@ -171,11 +166,11 @@ public class JSONEvents extends JSONBuilder
 			 genre = genres.get(i);
 			
 			 filter.setGenres(genre);
-			 eventsApp = filter.getFilteredEvents(events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 if(eventsApp.size() > 0)
+			 if(filteredEvents.size() > 0)
 			 {
-				 obj.put(genre, this.getJSONObjectEvents(eventsApp));
+				 obj.put(genre, this.getJSONObjectEvents(filteredEvents));
 			 }
 		}		
 		

@@ -5,18 +5,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.Vector;
 
-import org.json.simple.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
-import it.univpm.app.ticketmaster.controller.EventsController;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+ * Classe che testa la classe Stats
+ * 
+ * @see it.univpm.app.ticketmaster.stats
+ * 
+ * @author NicolasBravi01
+ * @author sup3r
+ */
 class StatsTest 
-{/*
-	
+{
 	Stats stats = new Stats();
 	
 	Vector<Event> events = new Vector<Event>();
@@ -75,7 +79,9 @@ class StatsTest
 		events.add(event3);
 	}
 	
-
+	/**
+	 * Test del metodo che calcola la media
+	 */
 	@Test
 	void testCorrectAverage() 
 	{
@@ -86,6 +92,9 @@ class StatsTest
 		assertEquals(av, 2);
 	}
 	
+	/**
+	 * Test del metodo che trova il minimo
+	 */
 	@Test
 	void testMin() 
 	{
@@ -93,6 +102,9 @@ class StatsTest
 		assertEquals(minMessage, "0, in March");
 	}
 	
+	/**
+	 * Test del metodo che trova il massimo
+	 */
 	@Test
 	void testMax() 
 	{
@@ -100,5 +112,4 @@ class StatsTest
 		assertEquals(maxMessage, "2, in January");
 	}
 	
-	*/
 }

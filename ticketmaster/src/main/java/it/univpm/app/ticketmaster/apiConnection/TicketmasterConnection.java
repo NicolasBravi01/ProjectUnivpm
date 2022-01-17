@@ -27,11 +27,11 @@ public class TicketmasterConnection
 	final int size = 200;		
 	
 	/**
-	 * Metodo static che effettua la chiamata all'Api di ticketmaster, ottenendo un json da cui la classe EventsParser estrae
-	 * una lista di eventi che vengono inseriti nella classe EventsFilter.
+	 * Metodo che effettua la chiamata all'Api di ticketmaster, ottenendo un json
+	 * da cui la classe EventsParser estrae una lista di eventi.
 	 * 
+	 * @see it.univpm.app.ticketmaster.controller
 	 * @see it.univpm.app.ticketmaster.JSONHandler.EventsParser
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 */
 	public Vector<Event> callEvents() 
 	{

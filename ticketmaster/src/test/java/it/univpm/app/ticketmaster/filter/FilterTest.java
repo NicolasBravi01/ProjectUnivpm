@@ -14,13 +14,22 @@ import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.InvalidNameException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.service.TicketmasterService;
 
+/**
+ * Classe che testa la classe Filter
+ * 
+ * @see it.univpm.app.ticketmaster.filter
+ * 
+ * @author NicolasBravi01
+ * @author sup3r
+ */
 public class FilterTest
-{/*
+{
 	Vector<Event> eventsToFilter = new Vector<Event>();
 	Vector<Event> filteredEvents = new Vector<Event>();
 	
-	EventsFilter eventsFilter = new EventsFilter();
+	TicketmasterService ticketmasterService;
 	Filter filter;
 	
 	Event event1;
@@ -31,10 +40,10 @@ public class FilterTest
 	static void setUpBeforeClass() throws Exception {	
 	}
 
-	@SuppressWarnings("static-access")
 	@BeforeEach
 	void setUp() throws Exception
 	{
+		
 		LocalDate locDt1 = LocalDate.parse("2022-01-25");
 		LocalDate locDt2 = LocalDate.parse("2022-03-24");
 		LocalDate locDt3 = LocalDate.parse("2022-05-18");
@@ -67,19 +76,23 @@ public class FilterTest
                 	"Phoenix",
                 	"Arizona",
                 	"Sports",
-                	"Basketball");
+                	"Hockey");
 
 		eventsToFilter.add(event1);
 		eventsToFilter.add(event2);
 		eventsToFilter.add(event3);
 		
-		eventsFilter.setEvents(eventsToFilter);
+		ticketmasterService = new TicketmasterService(eventsToFilter);
+		
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 	}
 
+	/**
+	 * Test che si accerta del lancio dell'eccezione IncorrectOrderOfDatesException
+	 */
 	@Test
 	void testDatesCorrectOrder() 
 	{
@@ -87,11 +100,16 @@ public class FilterTest
 		
 		IncorrectOrderOfDatesException exc = assertThrows(IncorrectOrderOfDatesException.class, () -> {
 			filter = new Filter("", "", period1, "", "");
+			ticketmasterService.check(filter);
 		});
 	
 		assertEquals("The first date can't be after the second one", exc.getMessage());
 	}
 	
+	
+	/**
+	 * Test che si accerta del lancio dell'eccezione NullDateException
+	 */
 	@Test
 	void testIdentifiedPeriod() 
 	{
@@ -99,11 +117,16 @@ public class FilterTest
 		
 		NullDateException exc = assertThrows(NullDateException.class, () -> {
 			filter = new Filter("", "", period2, "", "");
+			ticketmasterService.check(filter);
 		});
 	
 		assertEquals("Period not identifed", exc.getMessage());
 	}
 	
+	
+	/**
+	 * Test che si accerta del lancio dell'eccezione InvalidNameException
+	 */
 	@Test
 	void testValidName() 
 	{
@@ -111,8 +134,35 @@ public class FilterTest
 		
 		InvalidNameException exc = assertThrows(InvalidNameException.class, () -> {
 			filter = new Filter("Italy", "", period3, "", "");
+			ticketmasterService.check(filter);
 		});
 	
 		assertEquals("Invalid states'name", exc.getMessage());
-	}*/
+	}
+	
+	
+	/**
+	 * Test che si accerta del corretto filtraggio degli eventi
+	 */
+	@Test
+	void testFilteredEvents1() throws Exception
+	{
+		filter = new Filter("New York", "", "2022-01-01,2022-06-01", "", "");
+		filteredEvents = filter.getFilteredEvents(eventsToFilter);
+		
+		assertEquals(filteredEvents.size(), 1);
+	}
+	
+	
+	/**
+	 * Test che si accerta del corretto filtraggio degli eventi
+	 */
+	@Test
+	void testFilteredEvents2() throws Exception
+	{
+		filter = new Filter("", "", "2022-01-01,2022-06-01", "", "Basketball");
+		filteredEvents = filter.getFilteredEvents(eventsToFilter);
+		
+		assertEquals(filteredEvents.size(), 2);
+	}
 }

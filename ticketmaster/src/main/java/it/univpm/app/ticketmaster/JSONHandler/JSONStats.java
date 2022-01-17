@@ -8,9 +8,11 @@ import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
 
-
 /**
- * TODO
+ * Classe che contiene i metodi per costruire i JSONObject usati nelle rotte /stats
+ * 
+ * @see package it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+ * @see it.univpm.app.ticketmaster.controller.StatsController
  */
 public class JSONStats extends JSONBuilder
 {
@@ -18,12 +20,14 @@ public class JSONStats extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats
 	 * 
-	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi
+	 * @param states Lista di stati
+	 * @param cities Lista di città
+	 * @param segments Lista di segmenti
+	 * @param genres Lista di generi
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -51,12 +55,11 @@ public class JSONStats extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/states
 	 * 
-	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param states Lista di stati
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -92,12 +95,11 @@ public class JSONStats extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/cities
 	 * 
-	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param cities Lista di città
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -133,12 +135,11 @@ public class JSONStats extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/segments
 	 * 
-	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param segments Lista di segmenti
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.*
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -174,8 +175,9 @@ public class JSONStats extends JSONBuilder
 	/**
 	 * Metodo che restituisce il JSONObject associato alla rotta /stats/genres
 	 * 
-	 * @param events Lista di eventi
 	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare
+	 * @param genres Lista di generi
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
@@ -213,8 +215,6 @@ public class JSONStats extends JSONBuilder
 	}
 	
 	
-
-	
 	
 	/**
 	 * Metodo che viene utilizzato nel metodo getJSONObjectAllStats per restituire un JSONObject contenente 
@@ -223,11 +223,11 @@ public class JSONStats extends JSONBuilder
 	 * tra quelli filtrati dall'utente
 	 * 
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi
+	 * @param stati Lista di stati
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.stats.Stats
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.filter
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -261,10 +261,11 @@ public class JSONStats extends JSONBuilder
 	 * tra quelli filtrati dall'utente
 	 * 
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi
+	 * @param cities Lista di città
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.controller.EventsController
+	 * @see it.univpm.app.ticketmaster.filter
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -298,9 +299,11 @@ public class JSONStats extends JSONBuilder
 	 * tra quelli filtrati dall'utente
 	 * 
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi
+	 * @param segments Lista di segmenti
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.filter
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -334,9 +337,11 @@ public class JSONStats extends JSONBuilder
 	 * tra quelli filtrati dall'utente
 	 * 
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi
+	 * @param genres Lista di generi
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
+	 * @see it.univpm.app.ticketmaster.filter
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -363,18 +368,16 @@ public class JSONStats extends JSONBuilder
 	}
 	
 	
-
 	
 	/**
 	 * Metodo che restituisce un JSONObject comune a tutte le rotte
 	 * che si occupano delle statistiche
 	 * 
-	 * @param events Lista di eventi 
 	 * @param filter Filtro inserito dall'utente
+	 * @param events Lista di eventi 
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.filter
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */
@@ -404,7 +407,7 @@ public class JSONStats extends JSONBuilder
 	 * @param index Indice dell'array
 	 * @param period Periodo scelto dall'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.stats
 	 * 
 	 * @return obj JSONObject
 	 */

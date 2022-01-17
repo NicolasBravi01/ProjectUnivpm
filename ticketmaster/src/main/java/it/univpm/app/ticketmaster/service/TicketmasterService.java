@@ -3,11 +3,16 @@ package it.univpm.app.ticketmaster.service;
 import java.time.LocalDate;
 import java.util.Vector;
 
-import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.InvalidNameException;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
+
+/**
+ * Classe che smista le informazioni ricevute dalla chiamata all'Api di Ticketmaster
+ * 
+ * @author sup3r
+ */
 public class TicketmasterService 
 {
 	
@@ -52,18 +57,17 @@ public class TicketmasterService
 	
 	
 	
-	
-	
-	
-
+	/**
+	 * Costruttore della classe TicketmasterService che carica le informazioni lette dalla lista di eventi
+	 * all'interno delle liste degli stati, delle città, dei segmenti e dei generi
+	 * 
+	 * @param events Lista di tutti gli eventi
+	 */
 	public TicketmasterService(Vector<Event> events)
 	{
 		this.events = events;
 		loadData();
 	}
-	
-	
-	
 	
 	
 	
@@ -137,7 +141,7 @@ public class TicketmasterService
 	/**
 	 * Setter della variabile firstDate
 	 */
-	public void setFirstDate(LocalDate date) {
+	public static void setFirstDate(LocalDate date) {
 		firstDate = date;
 	}
 	
@@ -153,13 +157,15 @@ public class TicketmasterService
 	/**
 	 * Setter della variabile lastDate
 	 */
-	public void setLastDate(LocalDate date) {
+	public static void setLastDate(LocalDate date) {
 		lastDate = date;
 	}
 	
 	
 	
-	
+	/**
+	 * Metodo che carica le informazioni lette dall'evento
+	 */
 	private void loadData()
 	{
 		for(int i = 0; i < this.events.size(); i++)
@@ -169,6 +175,7 @@ public class TicketmasterService
 	
 	/**
 	 * Metodo che aggiunge le informazioni contenute nell'evento ai vettori sopracitati
+	 * e confronta la data con firstDate e endDate
 	 * 
 	 * @param e Evento 
 	 */
@@ -223,7 +230,7 @@ public class TicketmasterService
 	}
 	
 	/**
-	 * Metodo che assegna i valori ai parametri firstDate e lastDate
+	 * Metodo che confronta la data dell'evento con firstDate e endDate
 	 * 
 	 * @param date Data dell'evento
 	 */
@@ -248,15 +255,13 @@ public class TicketmasterService
 	}
 	
 	
-	
 	/**
-	 * Metodo che controlla se i parametri inseriti, a seguito dell'eliminazione di spazi superflui,
+	 * Metodo che controlla se i parametri inseriti dall'utente, a seguito dell'eliminazione di spazi superflui,
 	 * corrispondono a quelli presenti
 	 * 
 	 * @throws InvalidNameException
-	 * @throws IncorrectOrderOfDatesException 
 	 */
-	public void check(Filter filter) throws InvalidNameException, IncorrectOrderOfDatesException
+	public void check(Filter filter) throws InvalidNameException
 	{
 		checkStates(filter.getStates());
 		checkCities(filter.getCities());
@@ -318,7 +323,6 @@ public class TicketmasterService
 				throw new InvalidNameException("Invalid segment's name");
 		}		
 	}
-	
 	
 	/**
 	 * Metodo che controlla se il genere inserito, dopo l'eliminazione di spazi superflui,

@@ -21,16 +21,15 @@ import it.univpm.app.ticketmaster.model.Event;
 @SuppressWarnings("serial")
 public class Result extends JFrame
 {
-	/*
+	/**
 	 * Area per la visualizzazione di un testo
 	 */
 	JTextArea result = new JTextArea();
 	
-	/*
+	/**
 	 * Scroll per scorrere un testo
 	 */
 	JScrollPane scrollResult = new JScrollPane(result);
-		
 	
 	/*
 	 * Bottoni Show Stats/Events, Back e Exit
@@ -39,7 +38,7 @@ public class Result extends JFrame
 	JButton backButton = new JButton("BACK");
 	JButton exitButton = new JButton("EXIT");
 
-	/*
+	/**
 	 * Oggetto Home, per poter tornare indietro senza perdere le informazioni
 	 */
 	Home home;	
@@ -47,22 +46,19 @@ public class Result extends JFrame
 	String eventsText;
 	String statsText;
 	
-	/*
+	/**
 	 * Variabile settata a true se si stanno visualizzando gli eventi, false se si stanno visualizzando le statistiche
 	 */
 	boolean areEventsShown = true;
 	
 	
 
-	
-	
-	
 	/**
 	 *  Costruttore della finestra dei risultati con cui è possibile visualizzare gli eventi e le statistiche relative
 	 *  ai filtri settati dall'utente nella finestra precedente
 	 * 
 	 * @param home
-	 * @param filter
+	 * @param filter 
 	 * @param events
 	 */
 	public Result(Home home, Filter filter, Vector<Event> events, JSONObject JSONObjectAllStats)
@@ -74,7 +70,7 @@ public class Result extends JFrame
 		this.home = home;				
 		
 		/*
-		 * Impostazioni di settaggio della finestra
+		 * Impostazioni di settaggio della finestra e dell'icona
 		 */
 		this.setSize(1280, 730);
 		this.setTitle("Result events");
@@ -86,6 +82,8 @@ public class Result extends JFrame
 		
 		ImageIcon icon = new ImageIcon("img\\Ticketmaster-Emblem.png");
 		this.setIconImage(icon.getImage());
+		
+		
 		
 		
 		
@@ -104,6 +102,9 @@ public class Result extends JFrame
 		this.add(exitButton);			
 		
 		addButtonsMouseListener();
+		
+		
+		
 		
 		
 		/*
@@ -137,9 +138,9 @@ public class Result extends JFrame
 	 * Metodo che converte una lista di eventi in una stringa che viene leggermente modificata per essere resa
 	 * esteticamente più gradevole da leggere.
 	 * 
-	 * @param events
+	 * @param events Lista di tutti gli eventi
 	 * 
-	 * @return text String
+	 * @return text Stringa contenente il testo da visualizzare nella finestra degli eventi
 	 */
 	private String readEventsText(Vector<Event> events)
 	{
@@ -158,13 +159,16 @@ public class Result extends JFrame
 	}
 	
 	
+	
+	
+	
 	/**
 	 * Metodo che converte il JSON contenente le statistiche relative ad un gruppo di eventi in una stringa
 	 * che viene leggermente modificata per essere resa esteticamente più gradevole da leggere.
 	 * 
-	 * @param JSONStats
+	 * @param JSONStats JSONObject delle statistiche
 	 * 
-	 * @return text String
+	 * @return text Stringa contenente il testo da visualizzare nella finestra degli stati
 	 */
 	private String readStatsText(JSONObject JSONStats)
 	{
@@ -198,8 +202,9 @@ public class Result extends JFrame
 	
 	
 	
+	
 	/**
-	 * Metodo che aggiunge i MouseLister dei bottoni Show Stats/Events, Back e Exit
+	 * Metodo che aggiunge i MouseLister dei bottoni Show stats/Show events, Back e Exit
 	 */
 	public void addButtonsMouseListener()
 	{
@@ -209,9 +214,8 @@ public class Result extends JFrame
 	}
 	
 	
-	
 	/**
-	 * Metodo che aggiunge il MouseListener del bottone Show Stats/Events.
+	 * Metodo che aggiunge il MouseListener del bottone Show stats/Show events.
 	 * Se il bottone viene premuto viene alternata la visualizzazioni degli eventi con quella delle
 	 * statistiche o viceversa
 	 */
@@ -241,7 +245,6 @@ public class Result extends JFrame
 		result.setCaretPosition(0);
 	}
 	
-
 	/**
 	 * Metodo che fa visualizzare nell'area di testo gli eventi
 	 */
@@ -268,6 +271,7 @@ public class Result extends JFrame
 		});
 	}
 	
+	
 	/**
 	 * Metodo che aggiunge il MouseListener del bottone Back.
 	 * Se il bottone viene premuto, viene chiusa la finestra Result e viene rimostrata la finestra precedente 
@@ -287,7 +291,6 @@ public class Result extends JFrame
 	
 	
 	
-	
 	/**
 	 * Metodo che chiude la finestra Result 
 	 */
@@ -295,6 +298,7 @@ public class Result extends JFrame
 	{
 		this.dispose();
 	}
+	
 	
 	
 	

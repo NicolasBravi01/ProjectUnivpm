@@ -33,15 +33,29 @@ import it.univpm.app.ticketmaster.filter.Filter;
 @SuppressWarnings("serial")
 public class Home extends JFrame
 {	
-	
+	/**
+	 * Variabile che contiene la lista degli eventi e i dati necessari per gestire le rotte
+	 */
 	TicketmasterService ticketmasterService;
 	
+	/**
+	 * Lista contenente tutti gli eventi
+	 */
 	Vector<String> allStates;
 	
+	/**
+	 * Lista contenente tutte le città
+	 */
 	Vector<String> allCities;
 	
+	/**
+	 * Lista contenente tutti i segmenti
+	 */
 	Vector<String> allSegments;
 	
+	/**
+	 * Lista contenente tutti i generi
+	 */
 	Vector<String> allGenres;
 	
 	/**
@@ -61,7 +75,8 @@ public class Home extends JFrame
 		
 	
 	/*
-	 * Bottoni Search, reset, exit. Guardare i rispettivi eventi MouseListener per capire cosa fanno
+	 * Bottoni search, reset e exit. 
+	 * Guardare i rispettivi eventi MouseListener per comprenderne l'utilizzo
 	 */
 	JButton searchButton = new JButton("SEARCH");
 	JButton resetButton = new JButton("RESET");
@@ -90,13 +105,13 @@ public class Home extends JFrame
 	JXLabel fromDateLabel = new JXLabel("From:");
 	JXLabel toDateLabel = new JXLabel("To:");
 	
+	
 	/*
 	 * Calendari
 	 */
 	JXDatePicker fromDatePicker = new JXDatePicker();
 	JXDatePicker toDatePicker = new JXDatePicker();
 
-	
 	
 	/**
 	 *  Costruttore della finestra principale con cui è possibile settare i filtri per la visualizzazione degli eventi
@@ -115,7 +130,7 @@ public class Home extends JFrame
 		
 		
 		/*
-		 * Impostazioni di settaggio della finestra
+		 * Impostazioni di settaggio della finestra e dell'icona
 		 */
 		this.setTitle("Filtraggio Eventi");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -128,7 +143,6 @@ public class Home extends JFrame
 		ImageIcon icon = new ImageIcon("img\\Ticketmaster-Emblem.png");
 		this.setIconImage(icon.getImage());
 
-		
 		
 		/*
 		 * 	LABELS
@@ -190,10 +204,6 @@ public class Home extends JFrame
 		
 		
 		
-		
-		
-		
-		
 		/* 
 		 *	COMBOBOXES
 		 */
@@ -216,11 +226,9 @@ public class Home extends JFrame
 		this.add(genresBox);
 
 
-		
-		
-		
-		
 
+		
+		
 		/*
 		 * BUTTONS
 		 */		
@@ -238,7 +246,6 @@ public class Home extends JFrame
 		
 		//aggiunge ActionListener dei bottoni
 		addButtonsMouseListener();
-		
 		
 		
 		
@@ -268,9 +275,6 @@ public class Home extends JFrame
 		
 		this.setVisible(true);		
 	}
-	
-	
-	
 	
 	
 	
@@ -317,7 +321,7 @@ public class Home extends JFrame
 	 * 
 	 * @param state Stringa contenente uno stato
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 */
 	public void addStateFilter(String state)
 	{
@@ -340,7 +344,7 @@ public class Home extends JFrame
 	 * 
 	 * @param city Stringa contenente una città
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 */
 	public void addCityFilter(String city)
 	{
@@ -363,7 +367,7 @@ public class Home extends JFrame
 	 * 
 	 * @param segment Stringa contenente un segmento
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 */
 	public void setSegmentFilter(String segment)
 	{
@@ -380,7 +384,7 @@ public class Home extends JFrame
 	 * 
 	 * @param genre Stringa contenente un genere
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 */
 	public void addGenreFilter(String genre)
 	{
@@ -399,7 +403,6 @@ public class Home extends JFrame
 	
 	
 	
-	
 	/**
 	 * Metodo che resetta il filtro per stati
 	 * 
@@ -409,7 +412,6 @@ public class Home extends JFrame
 	{
 		this.filter.getStates().removeAllElements();
 	}
-	
 	
 	
 	/**
@@ -423,8 +425,6 @@ public class Home extends JFrame
 	}
 	
 	
-	
-	
 	/**
 	 * Metodo che resetta il filtro per segmento
 	 * 
@@ -434,8 +434,6 @@ public class Home extends JFrame
 	{
 		this.filter.setSegment("");
 	}
-	
-	
 	
 	
 	/**
@@ -449,25 +447,38 @@ public class Home extends JFrame
 	}
 	
 	
-	
-	
-	
 	/**
 	 * Metodo che resetta il filtro per periodo, facendo visualizzare nel primo calendario la data del
 	 * primo evento e nel secondo calendario la data dell'ultimo evento in ordine cronologico
 	 */
 	public void resetPeriod()
 	{
-		this.fromDatePicker.setDate(convertToDate(ticketmasterService.getFirstDate()));
-		this.toDatePicker.setDate(convertToDate(ticketmasterService.getLastDate()));
+		this.fromDatePicker.setDate(convertToDate(TicketmasterService.getFirstDate()));
+		this.toDatePicker.setDate(convertToDate(TicketmasterService.getLastDate()));
 	}
 	
+	
+	
+	
+	
+	/**
+	 * Metodo che fa visualizzare a schermo tutti i filtri con cui filtrare gli eventi
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter
+	 */
+	public void loadLabels()
+	{
+		loadStatesFilterLabel();
+		loadCitiesFilterLabel();
+		loadSegmentFilterLabel();
+		loadGenresFilterLabel();
+	}
 	
 	
 	/**
 	 * Metodo che fa visualizzare a schermo la lista degli stati attraverso i quali filtrare gli eventi
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.filter
 	 */
 	public void loadStatesFilterLabel()
 	{		
@@ -485,7 +496,6 @@ public class Home extends JFrame
 		
 		this.statesFilterLabel.setText(text);
 	}
-	
 	
 	
 	/**
@@ -557,19 +567,6 @@ public class Home extends JFrame
 	
 	
 	
-	/**
-	 * Metodo che fa visualizzare a schermo tutti i filtri con cui filtrare gli eventi
-	 * 
-	 * @see it.univpm.app.ticketmaster.filter.Filter
-	 */
-	public void loadLabels()
-	{
-		loadStatesFilterLabel();
-		loadCitiesFilterLabel();
-		loadSegmentFilterLabel();
-		loadGenresFilterLabel();
-	}
-	
 	
 	
 	/**
@@ -604,7 +601,6 @@ public class Home extends JFrame
 		});
 	}
 	
-	
 
 	/**
 	 * Metodo che aggiunge l'ActionListener per la comboBox relativa alle città
@@ -626,7 +622,6 @@ public class Home extends JFrame
 		});
 	}
 	
-	
 
 	/**
 	 * Metodo che aggiunge l'ActionListener per la comboBox relativa ai segmenti
@@ -647,8 +642,6 @@ public class Home extends JFrame
 		    }
 		});
 	}
-
-	
 	
 
 	/**
@@ -687,7 +680,6 @@ public class Home extends JFrame
 	}
 	
 	
-	
 	/**
 	 * Metodo che aggiunge il MouseListener del bottone Exit.
 	 * Se il bottone viene premuto, termina il debug
@@ -703,14 +695,12 @@ public class Home extends JFrame
 		});
 	}
 	
-	
-	
 
 	/**
 	 * Metodo che aggiunge il MouseListener del bottone Search.
-	 * Se il bottone viene premuto, viene mostrata la finestra contenente gli eventi filtrare
+	 * Se il bottone viene premuto, viene mostrata la finestra contenente gli eventi filtrati,
 	 * mentre questa finestra viene nascosta.
-	 * In caso di errori la finestra non si apre
+	 * In caso di errori la finestra non si apre.
 	 * 
 	 * @see it.univpm.app.ticketmaster.view.Result
 	 * 
@@ -763,8 +753,6 @@ public class Home extends JFrame
 	}
 	
 	
-	
-
 	/**
 	 * Metodo che aggiunge il MouseListener del bottone Reset.
 	 * Se il bottone viene premuto, Tutti i filtri vengono resettati
@@ -797,6 +785,7 @@ public class Home extends JFrame
 	}
 	
 	
+	
 	/**
 	 * Metodo che ritorna l'oggetto stesso.
 	 * Utilizzato per la programmazione ad eventi poichè, nei Listener, l'oggetto this non è accessibile
@@ -809,8 +798,8 @@ public class Home extends JFrame
 	
 	
 	/**
-	 * Metodo che legge dai JXDatePicker le date e le inserisce negli appositi spazi all'interno
-	 * dell'oggetto Filter
+	 * Metodo che legge dai JXDatePicker le date 
+	 * e le inserisce negli appositi spazi all'interno dell'oggetto Filter
 	 * 
 	 * @see it.univpm.app.ticketmaster.filter.Filter
 	 * 
@@ -852,6 +841,8 @@ public class Home extends JFrame
 	
 	
 	
+	
+	
 	/**
 	 * Metodo che setta il font passato come parametro per le Label in cui vengono scritti i filtri
 	 * per stati, città, segmento e generi
@@ -865,7 +856,6 @@ public class Home extends JFrame
 		this.segmentFilterLabel.setFont(font);
 		this.genresFilterLabel.setFont(font);
 	}
-	
 	
 	
 	/**
@@ -887,7 +877,6 @@ public class Home extends JFrame
 		this.genresBoxLabel.setFont(font);;
 		this.periodTitleLabel.setFont(font);
 	}
-	
 	
 	
 	/**
@@ -943,6 +932,8 @@ public class Home extends JFrame
 	}
 	
 	
+	
+	
 	/**
 	 * Metodo che setta l'allineamento orizzontale e verticale delle label in cui vengono visualizzati i filtri
 	 * 
@@ -963,7 +954,6 @@ public class Home extends JFrame
 		this.genresFilterLabel.setHorizontalAlignment(horizontal);
 		this.genresFilterLabel.setVerticalAlignment(vertical);				
 	}
-	
 	
 	
 	/**

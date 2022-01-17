@@ -11,15 +11,24 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 import it.univpm.app.ticketmaster.JSONHandler.JSONEvents;
 import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.service.TicketmasterService;
 
+
+/**
+ * Classe che testa le classi JSONEvents e JSONStats
+ * 
+ * @see it.univpm.app.ticketmaster.JSONHandler.JSONEvents
+ * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+ * 
+ * @author NicolasBravi01
+ * @author sup3r
+ */
 class JSONBuilderTest 
-{/*
-	
+{
 	JSONObject obj = new JSONObject();
 	
 	Vector<Event> eventsToFilter = new Vector<Event>();
@@ -28,7 +37,7 @@ class JSONBuilderTest
 	JSONEvents jE = new JSONEvents();
 	JSONStats jS = new JSONStats();
 	
-	EventsFilter eventsFilter = new EventsFilter();
+	TicketmasterService ticketmasterService;
 	Filter filter;
 	
 	Event event1;
@@ -39,7 +48,6 @@ class JSONBuilderTest
 	static void setUpBeforeClass() throws Exception {
 	}
 
-	@SuppressWarnings("static-access")
 	@BeforeEach
 	void setUp() throws Exception 
 	{
@@ -81,14 +89,16 @@ class JSONBuilderTest
 		eventsToFilter.add(event2);
 		eventsToFilter.add(event3);
 		
-		eventsFilter.setEvents(eventsToFilter);
+		ticketmasterService = new TicketmasterService(eventsToFilter);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 	}
 	
-	
+	/**
+	 * Test del metodo che restituisce il JSONObject associato alla rotta /events
+	 */
 	@Test
 	void testGetJSONObjectEvents() 
 	{
@@ -96,16 +106,23 @@ class JSONBuilderTest
 		assertEquals(obj.get("number events"), 3);
 	}
 	
-	@SuppressWarnings("static-access")
+	/**
+	 * Test del metodo che restituisce il JSONObject associato alla rotta /stats
+	 */
 	@Test
 	void testGetJSONObjectStats() throws Exception
 	{
 		filter = new Filter("New York", "", "2022-01-01,2022-06-01", "", "Basketball");
-		filteredEvents = eventsFilter.getFilteredEvents(filter, eventsToFilter);
-		obj = jS.getJSONObjectAllStats(filter, filteredEvents);
+		filteredEvents = filter.getFilteredEvents(eventsToFilter);
+		
+		Vector<String> states = ticketmasterService.getStates();
+		Vector<String> cities = ticketmasterService.getCities();
+		Vector<String> segments = ticketmasterService.getSegments();
+		Vector<String> genres = ticketmasterService.getGenres();
+		
+		obj = jS.getJSONObjectAllStats(filter, filteredEvents, states, cities, segments, genres);
 		
 		JSONObject obj1 = (JSONObject) obj.get("general");
 		assertEquals(obj1.get("number events"), 1);
 	}
-	*/
 }

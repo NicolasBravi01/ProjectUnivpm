@@ -28,7 +28,7 @@ public class EventsParser
 	 * @throws ParseException
 	 * 
 	 * @see it.univpm.app.ticketmaster.apiConnection
-	 * @see it.univpm.app.ticketmaster.model.Event
+	 * @see it.univpm.app.ticketmaster.model
 	 */
 	public Vector<Event> parse(String json) throws ParseException
 	{	

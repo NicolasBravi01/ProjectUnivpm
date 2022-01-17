@@ -12,20 +12,19 @@ import it.univpm.app.ticketmaster.service.TicketmasterService;
  * Classe che si occupa del calcolo delle statistiche, che verranno in seguito passate alla classe JSONBuilder,
  * per poter produrre i vari jsonobject corrispondenti alle rotte del controller
  * 
+ * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats;
+ * 
  * @author sup3r
  * @author NicolasBravi01
  */
 public class Stats 
 {	
-		
 	
 	/**
 	 * Metodo che calcola la media mensile degli eventi, in base al periodo scelto dall'utente
 	 * 
 	 * @param n Numero di eventi
 	 * @param period Stringa contenente il periodo scelto dall'utente
-	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return av Media mensile degli eventi
 	 */
@@ -58,8 +57,6 @@ public class Stats
 	 * 
 	 * @param events Lista di eventi tra i quali si cerca di calcolare il minimo
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return msg Stringa contenente il messaggio
 	 */
 	public String min(Vector<Event> events) 
@@ -79,8 +76,6 @@ public class Stats
 	 * 
 	 * @param events Lista di eventi tra i quali si cerca di calcolare il massimo
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return msg Stringa contenente il messaggio
 	 */
 	public String max(Vector<Event> events) 
@@ -99,8 +94,6 @@ public class Stats
 	 * Metodo che converte un numero compreso tra 1 e 12 nella corrispettiva stringa del mese
 	 * 
 	 * @param month Numero del mese corrispondente 
-	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return str Stringa che rivela il mese a cui è associato il numero month
 	 */
@@ -157,8 +150,6 @@ public class Stats
 	 * 
 	 * @param events Lista di eventi 
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return counter Array che immagazzina il numero di eventi accaduti in ogni mese
 	 */
 	private int [] eventsPerMonth(Vector<Event> events)
@@ -182,8 +173,6 @@ public class Stats
 	 * 
 	 * @param vet Array di numeri
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return maxIndex Indice dell'array a cui corrisponde il valore massimo
 	 */
 	public int maxValueIndex(int [] vet)
@@ -206,8 +195,6 @@ public class Stats
 	 * Metodo che restituisce l'indice dell'array a cui corrisponde il valore minimo
 	 * 
 	 * @param vet Array di numeri
-	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return minIndex Indice dell'array a cui corrisponde il valore minimo
 	 */
@@ -233,8 +220,6 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONBuilder
 	 * 
 	 * @param events Lista di eventi
-	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */
@@ -266,8 +251,6 @@ public class Stats
 	 * 
 	 * @param events Lista di eventi
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerCities(Vector<Event> eventsToFilter, Vector <String> cities)
@@ -298,8 +281,6 @@ public class Stats
 	 * 
 	 * @param events Lista di eventi
 	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * 
 	 * @return counter Array di interi
 	 */
 	public int [] getArrayStatsPerSegments(Vector<Event> eventsToFilter, Vector <String> segments)
@@ -329,8 +310,6 @@ public class Stats
 	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONBuilder
 	 * 
 	 * @param events Lista di eventi
-	 * 
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
 	 * 
 	 * @return counter Array di interi
 	 */

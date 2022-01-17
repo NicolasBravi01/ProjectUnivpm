@@ -3,7 +3,7 @@ package it.univpm.app.ticketmaster.exception;
 /**
  * Eccezione generata se almeno una delle due date non è stata inserita
  * 
- * @see it.univpm.app.ticketmaster.filter.Filter
+ * @see it.univpm.app.ticketmaster.filter
  * 
  * @author sup3r
  */

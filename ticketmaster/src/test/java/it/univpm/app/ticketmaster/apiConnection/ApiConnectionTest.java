@@ -11,11 +11,19 @@ import org.junit.jupiter.api.Test;
 
 import it.univpm.app.ticketmaster.model.Event;
 
+/**
+ * Classe che testa la classe TicketmasterConnection
+ * 
+ * @see it.univpm.app.ticketmaster.apiConnection
+ * 
+ * @author NicolasBravi01
+ * @author sup3r
+ */
 class ApiConnectionTest 
 {
 	TicketmasterConnection ticketmasterConnection = new TicketmasterConnection();
 	Vector<Event> events = new Vector<Event>();
-
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -28,7 +36,10 @@ class ApiConnectionTest
 	void tearDown() throws Exception {
 	}
 
-	@SuppressWarnings("static-access")
+	/**
+	 * Test del metodo callEvents, che si occupa di restituire la lista di tutti gli eventi
+	 * a seguito della connessione con l'api di Ticketmaster
+	 */
 	@Test
 	void CallEventsTest() 
 	{

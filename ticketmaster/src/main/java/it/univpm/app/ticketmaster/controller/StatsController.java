@@ -18,6 +18,8 @@ import it.univpm.app.ticketmaster.model.Event;
 /**
  * Controller delle rotte /stats
  * 
+ * @see it.univpm.app.ticketmaster.controller.Controller
+ * 
  * @author sup3r
  * @author NicolasBravi01
  */
@@ -25,15 +27,32 @@ import it.univpm.app.ticketmaster.model.Event;
 public class StatsController extends Controller
 {	
 	
+	/**
+	 * Lista di tutti gli eventi
+	 */
 	Vector<Event> eventsToFilter = this.ticketmasterService.getEvents();
 	
+	/**
+	 * Lista di tutti gli stati
+	 */
 	Vector<String> allStates = this.ticketmasterService.getStates();
 	
+	/**
+	 * Lista di tutte le città
+	 */
 	Vector<String> allCities = this.ticketmasterService.getCities();
 	
+	/**
+	 * Lista di tutti i segmenti
+	 */
 	Vector<String> allSegments = this.ticketmasterService.getSegments();
 	
+	/**
+	 * Lista di tutti i generi
+	 */
 	Vector<String> allGenres = this.ticketmasterService.getGenres();
+	
+	
 	
 	/**
 	 * Metodo associato alla rotta get /stats.
@@ -41,8 +60,8 @@ public class StatsController extends Controller
 	 * 
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -61,6 +80,7 @@ public class StatsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(period);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
 			response = jS.getJSONObjectAllStats(filter, filteredEvents, allStates, allCities, allSegments, allGenres);
@@ -88,9 +108,8 @@ public class StatsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -112,6 +131,7 @@ public class StatsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, "", period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
 			response = jS.getJSONObjectStatsPerStates(filter, filteredEvents, allStates);
@@ -139,9 +159,8 @@ public class StatsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -164,6 +183,7 @@ public class StatsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
 			response = jS.getJSONObjectStatsPerCities(filter, filteredEvents, allCities);
@@ -190,9 +210,8 @@ public class StatsController extends Controller
 	 * @param segment Stringa contenente il segmento di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
-	 * @see it.univpm.app.ticketmaster.stats.Stats
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -214,6 +233,7 @@ public class StatsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, "");
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
 			response = jS.getJSONObjectStatsPerSegments(filter, filteredEvents, allSegments);
@@ -242,9 +262,8 @@ public class StatsController extends Controller
 	 * @param genres Stringa contenente i generi di interesse per l'utente
 	 * @param period Stringa contenente il periodo di interesse per l'utente
 	 * 
-	 * @see it.univpm.app.ticketmaster.stats.Stats
-	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
-	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONBuilder
+	 * @see it.univpm.app.ticketmaster.JSONHandler.JSONStats
+	 * @see it.univpm.app.ticketmaster.filter
 	 * 
 	 * @return response JSONObject contenente le informazioni attese oppure un messaggio di errore
 	 */
@@ -267,6 +286,7 @@ public class StatsController extends Controller
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states , cities, period, segment, genres);
+			ticketmasterService.check(filter);
 			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
 			response = jS.getJSONObjectStatsPerGenres(filter, filteredEvents, allGenres);

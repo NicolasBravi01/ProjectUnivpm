@@ -63,8 +63,7 @@ public class Event
 	 * @param segment Stringa contenente il nome del segmento a cui l'evento appartiene
 	 * @param genre Stringa contenente il nome del genere a cui l'evento appartiene
 	 */
-	public Event(String name, String url, String localTime, LocalDate localDate, String venue, String city,
-			String state, String segment, String genre)
+	public Event(String name, String url, String localTime, LocalDate localDate, String venue, String city, String state, String segment, String genre)
 	{
 		this.name = name;
 		this.url = url;
