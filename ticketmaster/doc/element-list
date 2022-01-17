@@ -1,12 +1,1 @@
 it.univpm.app.ticketmaster
-it.univpm.app.ticketmaster.apiConnection
-it.univpm.app.ticketmaster.controller
-it.univpm.app.ticketmaster.exception
-it.univpm.app.ticketmaster.filter
-it.univpm.app.ticketmaster.JSONBuilder
-it.univpm.app.ticketmaster.JSONHandler
-it.univpm.app.ticketmaster.model
-it.univpm.app.ticketmaster.scanner
-it.univpm.app.ticketmaster.service
-it.univpm.app.ticketmaster.stats
-it.univpm.app.ticketmaster.view
