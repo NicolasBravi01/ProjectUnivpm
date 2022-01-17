@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
 import it.univpm.app.ticketmaster.JSONHandler.JSONEvents;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
@@ -25,8 +23,11 @@ import it.univpm.app.ticketmaster.model.Event;
  * @author NicolasBravi01
  */
 @RestController
-public class EventsController 
+public class EventsController extends Controller
 {	
+	
+	Vector<Event> eventsToFilter = this.ticketmasterService.getEvents();
+
 	
 	/**
 	 * Metodo associato alla rotta get /events. 
@@ -51,22 +52,22 @@ public class EventsController
 	{	
 		JSONEvents jE = new JSONEvents();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;		
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			if(events.isEmpty())
+			if(filteredEvents.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jE.getJSONObjectEvents(events);
+			response = jE.getJSONObjectEvents(filteredEvents);
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -105,22 +106,22 @@ public class EventsController
 	{			
 		JSONEvents jE = new JSONEvents();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;		
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, "", period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			if(events.isEmpty())
+			if(filteredEvents.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jE.getJSONObjectEventsPerStates(events);
+			response = jE.getJSONObjectEventsPerStates(filteredEvents, ticketmasterService.getStates());
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -160,22 +161,22 @@ public class EventsController
 	{	
 		JSONEvents jE = new JSONEvents();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;		
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			if(events.isEmpty())
+			if(filteredEvents.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 			
-			response = jE.getJSONObjectEventsPerCities(events);
+			response = jE.getJSONObjectEventsPerCities(filteredEvents, ticketmasterService.getCities());
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -213,22 +214,22 @@ public class EventsController
 	{	
 		JSONEvents jE = new JSONEvents();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;		
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states ,cities ,period ,segment , "");
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			if(events.isEmpty())
+			if(filteredEvents.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 
-			response = jE.getJSONObjectEventsPerSegments(events);
+			response = jE.getJSONObjectEventsPerSegments(filteredEvents, ticketmasterService.getSegments());
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -268,22 +269,22 @@ public class EventsController
 	{	
 		JSONEvents jE = new JSONEvents();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;		
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			if(events.isEmpty())
+			if(filteredEvents.isEmpty())
 				throw new NoEventsException("There are not events with your filters");
 
-			response = jE.getJSONObjectEventsPerGenres(events);
+			response = jE.getJSONObjectEventsPerGenres(filteredEvents, ticketmasterService.getGenres());
 		}
 		catch(ApiConnectionException | NoEventsException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{

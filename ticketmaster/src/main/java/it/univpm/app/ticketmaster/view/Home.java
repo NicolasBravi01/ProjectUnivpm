@@ -5,7 +5,6 @@ import java.util.Collections;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,27 +19,38 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXLabel;
-
+import org.json.simple.JSONObject;
 
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.service.TicketmasterService;
+import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
 
-
-
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
+
 
 @SuppressWarnings("serial")
 public class Home extends JFrame
 {	
+	
+	TicketmasterService ticketmasterService;
+	
+	Vector<String> allStates;
+	
+	Vector<String> allCities;
+	
+	Vector<String> allSegments;
+	
+	Vector<String> allGenres;
+	
 	/**
 	 * Oggetto Filter nel quale vengono memorizzati i filtri inseriti dall'utente
 	 * tramite l'interfaccia grafica 
 	 */
 	Filter filter = new Filter();
 	
-	
+		
 	/*
 	 * ComboBoxes per stati, città, segmento e generi 
 	 */
@@ -87,11 +97,23 @@ public class Home extends JFrame
 	JXDatePicker toDatePicker = new JXDatePicker();
 
 	
+	
 	/**
 	 *  Costruttore della finestra principale con cui è possibile settare i filtri per la visualizzazione degli eventi
 	 */
-	public Home()
+	public Home(TicketmasterService ticketmasterService)
 	{
+		this.ticketmasterService = ticketmasterService;
+		
+		this.allStates = this.ticketmasterService.getStates();
+		
+		this.allCities = this.ticketmasterService.getCities();
+		
+		this.allSegments = this.ticketmasterService.getSegments();
+		
+		this.allGenres = this.ticketmasterService.getGenres();
+		
+		
 		/*
 		 * Impostazioni di settaggio della finestra
 		 */
@@ -241,17 +263,11 @@ public class Home extends JFrame
 		this.add(fromDatePicker);
 		this.add(toDatePicker);
 		
-	
-		
+
 		
 		
 		this.setVisible(true);		
 	}
-	
-	
-	
-	
-	
 	
 	
 	
@@ -287,10 +303,10 @@ public class Home extends JFrame
 	 */
 	public void loadBoxes()
 	{
-		loadBox(statesBox, EventsFilter.getStates());
-		loadBox(citiesBox, EventsFilter.getCities());
-		loadBox(segmentsBox, EventsFilter.getSegments());
-		loadBox(genresBox, EventsFilter.getGenres());
+		loadBox(statesBox, this.allStates);
+		loadBox(citiesBox,this.allCities);
+		loadBox(segmentsBox, this.allSegments);
+		loadBox(genresBox, this.allGenres);
 	}
 
 	
@@ -442,8 +458,8 @@ public class Home extends JFrame
 	 */
 	public void resetPeriod()
 	{
-		this.fromDatePicker.setDate(convertToDate(EventsFilter.getFirstDate()));
-		this.toDatePicker.setDate(convertToDate(EventsFilter.getLastDate()));
+		this.fromDatePicker.setDate(convertToDate(ticketmasterService.getFirstDate()));
+		this.toDatePicker.setDate(convertToDate(ticketmasterService.getLastDate()));
 	}
 	
 	
@@ -705,20 +721,25 @@ public class Home extends JFrame
 		{
 			public void mouseClicked(MouseEvent me)
 			{
+				JSONStats jS = new JSONStats();
+				JSONObject stats;
+				
 				Vector<Event> events;
 				Result result = null;
 				
 				try
 				{				
 					readPeriod();
-	
-					events = EventsFilter.getFilteredEvents(filter);
+					
+					events = filter.getFilteredEvents(ticketmasterService.getEvents());
 					
 					if(events.isEmpty())
 						throw new NoEventsException("There are not events with your filters");
+						
+					stats = jS.getJSONObjectAllStats(filter, events, allStates, allCities, allSegments, allGenres);
 					
 					visible(false);
-					result = new Result(getThis(), filter, events);
+					result = new Result(getThis(), filter, events, stats);
 				}
 				catch(IncorrectOrderOfDatesException e)
 				{

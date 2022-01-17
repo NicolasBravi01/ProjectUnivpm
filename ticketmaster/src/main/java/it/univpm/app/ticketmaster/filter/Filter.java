@@ -480,7 +480,7 @@ public class Filter
 	 * @throws InvalidNameException
 	 * @throws IncorrectOrderOfDatesException 
 	 */
-	public void check() throws InvalidNameException, IncorrectOrderOfDatesException
+	public void check() throws IncorrectOrderOfDatesException
 	{
 		checkStates();
 		checkCities();
@@ -495,20 +495,10 @@ public class Filter
 	 * 
 	 * @throws InvalidNameException
 	 */
-	private void checkStates() throws InvalidNameException
+	private void checkStates()
 	{
 		if(this.states != null && !this.states.isEmpty())
-		{							
 			this.states = removeSpaces(this.states);
-			
-			int i = 0;		
-			
-			while((i < this.states.size()) && (EventsFilter.getStates().contains(this.states.get(i))))			
-				i++;
-			
-			if(i != this.states.size())
-				throw new InvalidNameException("Invalid states'name");
-		}		
 	}
 	
 	/**
@@ -517,20 +507,10 @@ public class Filter
 	 * 
 	 * @throws InvalidNameException
 	 */
-	private void checkCities() throws InvalidNameException
+	private void checkCities()
 	{
 		if(this.cities != null && !this.cities.isEmpty())
-		{
 			this.cities = removeSpaces(this.cities);
-			
-			int i = 0;
-			
-			while((i < this.cities.size()) && (EventsFilter.getCities().contains(this.cities.get(i))))
-				i++;
-			
-			if(i != this.cities.size())
-				throw new InvalidNameException("Invalid cities'name");
-		}		
 	}
 	
 	/**
@@ -539,15 +519,10 @@ public class Filter
 	 * 
 	 * @throws InvalidNameException
 	 */
-	private void checkSegment() throws InvalidNameException
+	private void checkSegment()
 	{
 		if(this.segment != null && !this.segment.isEmpty())
-		{
 			this.segment = removeSpaces(this.segment);
-			
-			if(!EventsFilter.getSegments().contains(this.segment))
-				throw new InvalidNameException("Invalid segment's name");
-		}		
 	}
 	
 	/**
@@ -556,20 +531,10 @@ public class Filter
 	 * 
 	 * @throws InvalidNameException
 	 */
-	private void checkGenres() throws InvalidNameException
+	private void checkGenres()
 	{
 		if(this.genres != null && !this.genres.isEmpty())
-		{
 			this.genres = removeSpaces(this.genres);
-			
-			int i = 0;
-			
-			while((i < this.genres.size()) && (EventsFilter.getGenres().contains(this.genres.get(i))))
-				i++;
-			
-			if(i != this.genres.size())
-				throw new InvalidNameException("Invalid genres'name");
-		}		
 	}
 	
 	
@@ -623,6 +588,37 @@ public class Filter
 			str = str.substring(0, str.length() - 1);
 		
 		return str;
+	}
+	
+	
+	/**
+	 * Metodo static che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
+	 * a partire da una lista di eventi passata come parametro
+	 * 
+	 * @param filter Filtro inserito dall'utente
+	 * @param eventsToFilter Lista di eventi da filtrare 
+	 * 
+	 * @return filteredEvents Lista di tutti gli eventi filtrati
+	 * 
+	 * @see it.univpm.app.ticketmaster.filter.Filter
+	 * @see it.univpm.app.ticketmaster.controller
+	 */
+	public Vector<Event> getFilteredEvents (Vector<Event> eventsToFilter) 
+	{
+		Vector<Event> filteredEvents = new Vector<Event>();
+		Event e;
+	
+		for(int i=0; i<eventsToFilter.size(); i++)
+		{			
+			e = eventsToFilter.get(i);
+			
+			if(this.isIncludedEvent(e))
+			{
+				filteredEvents.add(e);
+			}
+		}
+		
+		return filteredEvents;
 	}
 	
 }

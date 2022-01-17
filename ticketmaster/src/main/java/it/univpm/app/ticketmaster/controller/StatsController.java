@@ -12,7 +12,6 @@ import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
@@ -23,9 +22,19 @@ import it.univpm.app.ticketmaster.model.Event;
  * @author NicolasBravi01
  */
 @RestController
-public class StatsController 
+public class StatsController extends Controller
 {	
-		
+	
+	Vector<Event> eventsToFilter = this.ticketmasterService.getEvents();
+	
+	Vector<String> allStates = this.ticketmasterService.getStates();
+	
+	Vector<String> allCities = this.ticketmasterService.getCities();
+	
+	Vector<String> allSegments = this.ticketmasterService.getSegments();
+	
+	Vector<String> allGenres = this.ticketmasterService.getGenres();
+	
 	/**
 	 * Metodo associato alla rotta get /stats.
 	 * Restituisce il JSONObject contenente le statistiche generali in un certo periodo
@@ -42,19 +51,19 @@ public class StatsController
 	{	
 		JSONStats jS = new JSONStats();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;	
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(period);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 			
-			response = jS.getJSONObjectAllStats(filter, events);
+			response = jS.getJSONObjectAllStats(filter, filteredEvents, allStates, allCities, allSegments, allGenres);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -93,19 +102,19 @@ public class StatsController
 	{	
 		JSONStats jS = new JSONStats();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;	
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, "", period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
-			response = jS.getJSONObjectStatsPerStates(filter, events);
+			response = jS.getJSONObjectStatsPerStates(filter, filteredEvents, allStates);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -145,19 +154,19 @@ public class StatsController
 	{	
 		JSONStats jS = new JSONStats();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;	
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
-			response = jS.getJSONObjectStatsPerCities(filter, events);
+			response = jS.getJSONObjectStatsPerCities(filter, filteredEvents, allCities);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -195,19 +204,19 @@ public class StatsController
 	{	
 		JSONStats jS = new JSONStats();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;	
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states, cities, period, segment, "");
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
-			response = jS.getJSONObjectStatsPerSegments(filter, events);
+			response = jS.getJSONObjectStatsPerSegments(filter, filteredEvents, allSegments);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{
@@ -248,19 +257,19 @@ public class StatsController
 	{	
 		JSONStats jS = new JSONStats();		
 		Filter filter;
-		Vector<Event> events;
+		Vector<Event> filteredEvents;
 		
 		JSONObject response;	
 		
 		try
 		{
-			if(EventsFilter.getEvents().isEmpty())
+			if(this.eventsToFilter.isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
 			filter = new Filter(states , cities, period, segment, genres);
-			events = EventsFilter.getFilteredEvents(filter);	
+			filteredEvents = filter.getFilteredEvents(this.eventsToFilter);	
 
-			response = jS.getJSONObjectStatsPerGenres(filter, events);
+			response = jS.getJSONObjectStatsPerGenres(filter, filteredEvents, allGenres);
 		}
 		catch(ApiConnectionException | DateTimeParseException | NullDateException | IncorrectOrderOfDatesException e)
 		{

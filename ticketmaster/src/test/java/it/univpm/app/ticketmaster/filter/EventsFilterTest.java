@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import it.univpm.app.ticketmaster.model.Event;
 
 class EventsFilterTest 
-{
+{/*
 	Vector<Event> eventsToFilter = new Vector<Event>();
 	Vector<Event> filteredEvents = new Vector<Event>();
 	
@@ -96,5 +96,5 @@ class EventsFilterTest
 		
 		assertEquals(filteredEvents.size(), 2);
 	}
-
+*/
 }

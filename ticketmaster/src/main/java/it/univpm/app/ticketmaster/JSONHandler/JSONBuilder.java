@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
  * 
  * TODO
  */
-public class JSONBuilder 
+public abstract class JSONBuilder 
 {
 
 	/**

@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Vector;
 
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
+import it.univpm.app.ticketmaster.service.TicketmasterService;
 
 /**
  * Classe che si occupa del calcolo delle statistiche, che verranno in seguito passate alla classe JSONBuilder,
@@ -17,6 +17,8 @@ import it.univpm.app.ticketmaster.model.Event;
  */
 public class Stats 
 {	
+		
+	
 	/**
 	 * Metodo che calcola la media mensile degli eventi, in base al periodo scelto dall'utente
 	 * 
@@ -34,10 +36,10 @@ public class Stats
 		LocalDate startDate;
 		LocalDate endDate;
 		
-		if(period.equals(""))
+		if(period.isEmpty())
 		{
-			startDate = EventsFilter.getFirstDate();
-			endDate = EventsFilter.getLastDate();
+			startDate = TicketmasterService.getFirstDate();
+			endDate = TicketmasterService.getLastDate();
 		}
 		else
 		{
@@ -236,22 +238,22 @@ public class Stats
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerStates(Vector<Event> events)
+	public int [] getArrayStatsPerStates(Vector<Event> eventsToFilter, Vector<String> states)
 	{
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String state;
 		Filter filter = new Filter();
 		
-		int [] counter = new int[EventsFilter.getStates().size()];
+		int [] counter = new int[states.size()];
 		
 		for(int i = 0; i < counter.length; i++)
 		{
-			 state = EventsFilter.getStates().get(i);
+			 state = states.get(i);
 			
 			 filter.setStates(state);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 counter[i] = eventsApp.size();			
+			 counter[i] = filteredEvents.size();			
 		}
 		
 		return counter;	
@@ -268,22 +270,22 @@ public class Stats
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerCities(Vector<Event> events)
+	public int [] getArrayStatsPerCities(Vector<Event> eventsToFilter, Vector <String> cities)
 	{
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String city;
 		Filter filter = new Filter();
 		
-		int [] counter = new int[EventsFilter.getCities().size()];
+		int [] counter = new int[cities.size()];
 		
 		for(int i = 0; i < counter.length; i++)
 		{
-			 city = EventsFilter.getCities().get(i);
+			 city = cities.get(i);
 			
 			 filter.setCities(city);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 counter[i] = eventsApp.size();			
+			 counter[i] = filteredEvents.size();			
 		}
 		
 		return counter;			
@@ -300,22 +302,22 @@ public class Stats
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerSegments(Vector<Event> events)
+	public int [] getArrayStatsPerSegments(Vector<Event> eventsToFilter, Vector <String> segments)
 	{
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String segment;
 		Filter filter = new Filter();
 				
-		int [] counter = new int[EventsFilter.getSegments().size()];
+		int [] counter = new int[segments.size()];
 		
 		for(int i = 0; i < counter.length; i++)
 		{
-			 segment = EventsFilter.getSegments().get(i);
+			 segment = segments.get(i);
 			
 			 filter.setSegment(segment);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 counter[i] = eventsApp.size();			
+			 counter[i] = filteredEvents.size();			
 		}
 		
 		return counter;	
@@ -332,22 +334,22 @@ public class Stats
 	 * 
 	 * @return counter Array di interi
 	 */
-	public int [] getArrayStatsPerGenres(Vector<Event> events)
+	public int [] getArrayStatsPerGenres(Vector<Event> eventsToFilter, Vector<String> genres)
 	{
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String genre;
 		Filter filter = new Filter();
 				
-		int [] counter = new int[EventsFilter.getGenres().size()];
+		int [] counter = new int[genres.size()];
 		
 		for(int i = 0; i < counter.length; i++)
 		{
-			 genre = EventsFilter.getGenres().get(i);
+			 genre = genres.get(i);
 			
 			 filter.setGenres(genre);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 counter[i] = eventsApp.size();			
+			 counter[i] = filteredEvents.size();			
 		}
 		
 		return counter;

@@ -3,8 +3,7 @@ package it.univpm.app.ticketmaster;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import it.univpm.app.ticketmaster.apiConnection.TicketmasterConnection;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
+import it.univpm.app.ticketmaster.controller.Controller;
 import it.univpm.app.ticketmaster.view.Home;
 
 
@@ -17,16 +16,8 @@ public class TicketmasterApplication
 		builder.headless(false);
 		builder.run(args);
 		
-		loadEvents();
-		new Home();
+		Controller controller = new Controller();
+		new Home(controller.getTicketmasterService());
 	}
 	
-	/**
-	 * Metodo che effettua la chiamata all'Api di ticketmaster per ricevere la lista degli eventi
-	 */
-	static void loadEvents()
-	{
-		EventsFilter.setEvents(TicketmasterConnection.callEvents());
-	}
-
 }

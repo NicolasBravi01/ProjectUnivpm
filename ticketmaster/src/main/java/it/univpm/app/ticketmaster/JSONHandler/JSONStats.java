@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.stats.Stats;
@@ -29,7 +28,7 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectAllStats(Filter filter, Vector<Event> events)
+	public JSONObject getJSONObjectAllStats(Filter filter, Vector<Event> events, Vector<String> states, Vector<String> cities, Vector<String> segments, Vector<String> genres)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt1 = new JSONObject();
@@ -37,10 +36,10 @@ public class JSONStats extends JSONBuilder
 
 		objInt1 = this.getJSONObjectStats(filter, events);
 		
-		objInt2.put("states", this.getJSONObjectMaxMinPerStates(filter, events));
-		objInt2.put("cities", this.getJSONObjectMaxMinPerCities(filter, events));
-		objInt2.put("segments", this.getJSONObjectMaxMinPerSegments(filter, events));
-		objInt2.put("genres", this.getJSONObjectMaxMinPerGenres(filter, events));
+		objInt2.put("states", this.getJSONObjectMaxMinPerStates(filter, events, states));
+		objInt2.put("cities", this.getJSONObjectMaxMinPerCities(filter, events, cities));
+		objInt2.put("segments", this.getJSONObjectMaxMinPerSegments(filter, events, segments));
+		objInt2.put("genres", this.getJSONObjectMaxMinPerGenres(filter, events, genres));
 		
 		obj.put("general", objInt1);
 		obj.put("perspectives", objInt2);
@@ -62,26 +61,26 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerStates(Filter filter, Vector<Event> events)
+	public JSONObject getJSONObjectStatsPerStates(Filter filter, Vector<Event> eventsToFilter, Vector<String> states)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String state;
 		
-		for(int i=0; i<EventsFilter.getStates().size(); i++)
+		for(int i=0; i<states.size(); i++)
 		{
-			 state = EventsFilter.getStates().get(i);
+			 state = states.get(i);
 			
 			 filter.setStates(state);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 int size = eventsApp.size();
+			 int size = filteredEvents.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(filter, eventsApp);	
+				 objInt = getJSONObjectStats(filter, filteredEvents);	
 				 obj.put(state, objInt);	
 			 }
 		}
@@ -103,26 +102,26 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerCities(Filter filter, Vector<Event> events)
+	public JSONObject getJSONObjectStatsPerCities(Filter filter, Vector<Event> eventsToFilter, Vector<String> cities)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String city;
 		
-		for(int i=0; i<EventsFilter.getCities().size(); i++)
+		for(int i=0; i<cities.size(); i++)
 		{
-			 city = EventsFilter.getCities().get(i);
+			 city = cities.get(i);
 			
 			 filter.setCities(city);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 int size = eventsApp.size();
+			 int size = filteredEvents.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(filter, eventsApp);
+				 objInt = getJSONObjectStats(filter, filteredEvents);
 				 obj.put(city, objInt);
 			 }
 		}
@@ -144,26 +143,26 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerSegments(Filter filter, Vector<Event> events)
+	public JSONObject getJSONObjectStatsPerSegments(Filter filter, Vector<Event> eventsToFilter, Vector<String> segments)
 	{		
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String segment;
 		
-		for(int i=0; i<EventsFilter.getSegments().size(); i++)
+		for(int i=0; i<segments.size(); i++)
 		{
-			 segment = EventsFilter.getSegments().get(i);
+			 segment = segments.get(i);
 			
 			 filter.setSegment(segment);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 		
-			 int size = eventsApp.size();
+			 int size = filteredEvents.size();
 				
 			 if(size > 0)
 			 {						 
-				 objInt = getJSONObjectStats(filter, eventsApp);
+				 objInt = getJSONObjectStats(filter, filteredEvents);
 				 obj.put(segment, objInt);
 			 }
 		}
@@ -185,27 +184,27 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectStatsPerGenres(Filter filter, Vector<Event> events)
+	public JSONObject getJSONObjectStatsPerGenres(Filter filter, Vector<Event> eventsToFilter, Vector<String> genres)
 	{			
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;
 		
-		Vector<Event> eventsApp;
+		Vector<Event> filteredEvents;
 		String genre;
 		
-		for(int i = 0; i < EventsFilter.getGenres().size(); i++)
+		for(int i = 0; i < genres.size(); i++)
 		{
-			 genre = EventsFilter.getGenres().get(i);
+			 genre = genres.get(i);
 			 objInt = new JSONObject();
 			
 			 filter.setGenres(genre);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 filteredEvents = filter.getFilteredEvents(eventsToFilter);
 			 
-			 int size = eventsApp.size();
+			 int size = filteredEvents.size();
 		
 			 if(size > 0)
 			 {			
-				 objInt = getJSONObjectStats(filter, eventsApp);
+				 objInt = getJSONObjectStats(filter, filteredEvents);
 				 obj.put(genre, objInt);	
 			 }
 		}
@@ -233,22 +232,22 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerStates(Filter filter, Vector<Event> events)
+	private JSONObject getJSONObjectMaxMinPerStates(Filter filter, Vector<Event> events, Vector<String> states)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerStates(events);
+		int [] counter = stats.getArrayStatsPerStates(events, states);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getStates(), counter, maxIndex, filter.getPeriod());
+		objInt = getJSONObjectMaxMin(states, counter, maxIndex, filter.getPeriod());
 		obj.put("max", objInt);
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getStates(), counter, minIndex, filter.getPeriod());				
+		objInt = getJSONObjectMaxMin(states, counter, minIndex, filter.getPeriod());				
 		obj.put("min", objInt);
 		
 		return obj;
@@ -270,22 +269,22 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerCities(Filter filter, Vector<Event> events)
+	private JSONObject getJSONObjectMaxMinPerCities(Filter filter, Vector<Event> events, Vector<String> cities)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerCities(events);
+		int [] counter = stats.getArrayStatsPerCities(events, cities);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getCities(), counter, maxIndex, filter.getPeriod());
+		objInt = getJSONObjectMaxMin(cities, counter, maxIndex, filter.getPeriod());
 		obj.put("max", objInt);
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getCities(), counter, minIndex, filter.getPeriod());				
+		objInt = getJSONObjectMaxMin(cities, counter, minIndex, filter.getPeriod());				
 		obj.put("min", objInt);
 		
 		return obj;
@@ -306,22 +305,22 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerSegments(Filter filter, Vector<Event> events)
+	private JSONObject getJSONObjectMaxMinPerSegments(Filter filter, Vector<Event> events, Vector<String> segments)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerSegments(events);
+		int [] counter = stats.getArrayStatsPerSegments(events, segments);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getSegments(), counter, maxIndex, filter.getPeriod());
+		objInt = getJSONObjectMaxMin(segments, counter, maxIndex, filter.getPeriod());
 		obj.put("max", objInt);
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getSegments(), counter, minIndex, filter.getPeriod());				
+		objInt = getJSONObjectMaxMin(segments, counter, minIndex, filter.getPeriod());				
 		obj.put("min", objInt);
 		
 		return obj;
@@ -342,22 +341,22 @@ public class JSONStats extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject getJSONObjectMaxMinPerGenres(Filter filter, Vector<Event> events)
+	private JSONObject getJSONObjectMaxMinPerGenres(Filter filter, Vector<Event> events, Vector<String> genres)
 	{
 		JSONObject obj = new JSONObject();
 		JSONObject objInt;		
 		
 		Stats stats = new Stats();		
 		
-		int [] counter = stats.getArrayStatsPerGenres(events);
+		int [] counter = stats.getArrayStatsPerGenres(events, genres);
 		
 		int maxIndex = stats.maxValueIndex(counter);
 		int minIndex = stats.minValueIndex(counter);		
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getGenres(), counter, maxIndex, filter.getPeriod());
+		objInt = getJSONObjectMaxMin(genres, counter, maxIndex, filter.getPeriod());
 		obj.put("max", objInt);
 		
-		objInt = getJSONObjectMaxMin(EventsFilter.getGenres(), counter, minIndex, filter.getPeriod());				
+		objInt = getJSONObjectMaxMin(genres, counter, minIndex, filter.getPeriod());				
 		obj.put("min", objInt);
 		
 		return obj;

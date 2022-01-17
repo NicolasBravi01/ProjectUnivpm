@@ -4,10 +4,8 @@ import java.util.Vector;
 
 import org.json.simple.JSONObject;
 
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
-
 
 
 
@@ -49,7 +47,7 @@ public class JSONEvents extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerStates(Vector<Event> events)
+	public JSONObject getJSONObjectEventsPerStates(Vector<Event> events, Vector<String> states)
 	{		
 		JSONObject obj = new JSONObject();
 		Filter filter = new Filter();
@@ -57,12 +55,12 @@ public class JSONEvents extends JSONBuilder
 		
 		String state;
 		
-		for(int i=0; i<EventsFilter.getStates().size(); i++)
+		for(int i=0; i < states.size(); i++)
 		{
-			 state = EventsFilter.getStates().get(i);
+			 state = states.get(i);
 			
 			 filter.setStates(state);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 eventsApp = filter.getFilteredEvents(events);
 		
 			 if(eventsApp.size() > 0)
 			 {
@@ -86,7 +84,7 @@ public class JSONEvents extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerCities(Vector<Event> events)
+	public JSONObject getJSONObjectEventsPerCities(Vector<Event> events, Vector<String> cities)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
@@ -94,12 +92,12 @@ public class JSONEvents extends JSONBuilder
 		
 		String city;
 		
-		for(int i=0; i<EventsFilter.getCities().size(); i++)
+		for(int i=0; i < cities.size(); i++)
 		{
-			 city = EventsFilter.getCities().get(i);
+			 city = cities.get(i);
 			
 			 filter.setCities(city);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 eventsApp = filter.getFilteredEvents(events);
 		
 			 if(eventsApp.size() > 0)
 			 {
@@ -123,7 +121,7 @@ public class JSONEvents extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerSegments(Vector<Event> events)
+	public JSONObject getJSONObjectEventsPerSegments(Vector<Event> events, Vector<String> segments)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
@@ -131,12 +129,12 @@ public class JSONEvents extends JSONBuilder
 		
 		String segment;
 		
-		for(int i=0; i<EventsFilter.getSegments().size(); i++)
+		for(int i=0; i < segments.size(); i++)
 		{
-			 segment = EventsFilter.getSegments().get(i);
+			 segment = segments.get(i);
 			
 			 filter.setSegment(segment);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 eventsApp = filter.getFilteredEvents(events);
 		
 			 if(eventsApp.size() > 0)
 			 {
@@ -160,7 +158,7 @@ public class JSONEvents extends JSONBuilder
 	 * @return obj JSONObject
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject getJSONObjectEventsPerGenres(Vector<Event> events)
+	public JSONObject getJSONObjectEventsPerGenres(Vector<Event> events,  Vector<String> genres)
 	{		
 		JSONObject obj = new JSONObject();	
 		Filter filter = new Filter();
@@ -168,12 +166,12 @@ public class JSONEvents extends JSONBuilder
 		
 		String genre;
 		
-		for(int i=0; i<EventsFilter.getGenres().size(); i++)
+		for(int i=0; i < genres.size(); i++)
 		{
-			 genre = EventsFilter.getGenres().get(i);
+			 genre = genres.get(i);
 			
 			 filter.setGenres(genre);
-			 eventsApp = EventsFilter.getFilteredEvents(filter, events);
+			 eventsApp = filter.getFilteredEvents(events);
 		
 			 if(eventsApp.size() > 0)
 			 {

@@ -10,7 +10,6 @@ import java.net.URLConnection;
 import java.util.Vector;
 
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.scanner.ApiKeyReader;
 import it.univpm.app.ticketmaster.JSONHandler.EventsParser;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
@@ -24,8 +23,8 @@ import it.univpm.app.ticketmaster.exception.ApiConnectionException;
  */
 public class TicketmasterConnection 
 {
-	final static String countryCode = "US";
-	final static int size = 200;		
+	final String countryCode = "US";
+	final int size = 200;		
 	
 	/**
 	 * Metodo static che effettua la chiamata all'Api di ticketmaster, ottenendo un json da cui la classe EventsParser estrae
@@ -34,7 +33,7 @@ public class TicketmasterConnection
 	 * @see it.univpm.app.ticketmaster.JSONHandler.EventsParser
 	 * @see it.univpm.app.ticketmaster.filter.EventsFilter
 	 */
-	public static Vector<Event> callEvents() 
+	public Vector<Event> callEvents() 
 	{
 		Vector<Event> events = new Vector<Event>();
 		

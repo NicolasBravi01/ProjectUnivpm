@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.univpm.app.ticketmaster.JSONHandler.JSONList;
 import it.univpm.app.ticketmaster.exception.ApiConnectionException;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 
 /**
  * Controller delle rotte /list
@@ -15,7 +14,7 @@ import it.univpm.app.ticketmaster.filter.EventsFilter;
  * @author NicolasBravi01
  */
 @RestController
-public class ListController 
+public class ListController extends Controller
 {	
 	
 	/**
@@ -30,10 +29,10 @@ public class ListController
 		
 		try
 		{
-			if(EventsFilter.getStates().isEmpty())
+			if(ticketmasterService.getStates().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jL.getJSONObjectStates();
+			response = jL.getJSONObjectElements(ticketmasterService.getStates());
 		}
 		catch(ApiConnectionException e)
 		{
@@ -55,10 +54,10 @@ public class ListController
 		
 		try
 		{
-			if(EventsFilter.getCities().isEmpty())
+			if(ticketmasterService.getCities().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jL.getJSONObjectCities();
+			response = jL.getJSONObjectElements(ticketmasterService.getCities());
 		}
 		catch(ApiConnectionException e)
 		{
@@ -80,10 +79,10 @@ public class ListController
 		
 		try
 		{
-			if(EventsFilter.getSegments().isEmpty())
+			if(ticketmasterService.getSegments().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jL.getJSONObjectSegments();
+			response = jL.getJSONObjectElements(ticketmasterService.getSegments());
 		}
 		catch(ApiConnectionException e)
 		{
@@ -106,10 +105,10 @@ public class ListController
 		
 		try
 		{
-			if(EventsFilter.getGenres().isEmpty())
+			if(ticketmasterService.getGenres().isEmpty())
 				throw new ApiConnectionException("Failed Api Connection, try again");
 			
-			response = jL.getJSONObjectGenres();
+			response = jL.getJSONObjectElements(ticketmasterService.getGenres());
 		}
 		catch(ApiConnectionException e)
 		{

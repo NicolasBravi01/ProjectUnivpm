@@ -17,12 +17,14 @@ import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.InvalidNameException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
 import it.univpm.app.ticketmaster.exception.NullDateException;
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
 
 class ControllerTest 
 {
+	/*
+}
+	
 	JSONObject obj = new JSONObject();
 	
 	Vector<Event> eventsToFilter = new Vector<Event>();
@@ -109,5 +111,5 @@ class ControllerTest
 		obj = controller.getEvents(states, cities, segment, genres, period);
 		
 		assertEquals(obj.get("error"), "There are not events with your filters" );
-	}
+	}*/
 }

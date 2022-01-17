@@ -1,28 +1,22 @@
 package it.univpm.app.ticketmaster.view;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.json.simple.JSONObject;
 
-import it.univpm.app.ticketmaster.filter.EventsFilter;
 import it.univpm.app.ticketmaster.filter.Filter;
 import it.univpm.app.ticketmaster.model.Event;
-import it.univpm.app.ticketmaster.JSONHandler.JSONBuilder;
-import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
 
 @SuppressWarnings("serial")
 public class Result extends JFrame
@@ -71,7 +65,7 @@ public class Result extends JFrame
 	 * @param filter
 	 * @param events
 	 */
-	public Result(Home home, Filter filter, Vector<Event> events)
+	public Result(Home home, Filter filter, Vector<Event> events, JSONObject JSONObjectAllStats)
 	{
 		/*
 		 * L'oggetto Home viene memorizzato all'interno di questa classe per avere la possibilità di tornare alla
@@ -90,7 +84,7 @@ public class Result extends JFrame
 		this.setResizable(false);
 		this.getContentPane().setBackground(new Color(133,173,225));
 		
-		ImageIcon icon = new ImageIcon("Ticketmaster-Emblem.png");
+		ImageIcon icon = new ImageIcon("img\\Ticketmaster-Emblem.png");
 		this.setIconImage(icon.getImage());
 		
 		
@@ -115,10 +109,9 @@ public class Result extends JFrame
 		/*
  		 * TEXTAREA e SCROLL
 		 */
-		JSONStats jS = new JSONStats();
 		
 		this.eventsText = readEventsText(events);
-		this.statsText = readStatsText(jS.getJSONObjectAllStats(filter, events));		
+		this.statsText = readStatsText(JSONObjectAllStats);
 		
 		result.setBackground(new Color(133,173,225));		
 		result.setEditable(false);
