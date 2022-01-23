@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
 import it.univpm.app.ticketmaster.model.Event;
 import it.univpm.app.ticketmaster.service.TicketmasterService;
 import it.univpm.app.ticketmaster.JSONHandler.JSONStats;
+import it.univpm.app.ticketmaster.exception.ApiConnectionException;
 import it.univpm.app.ticketmaster.exception.IncorrectOrderOfDatesException;
 import it.univpm.app.ticketmaster.exception.NoEventsException;
 
@@ -39,9 +40,9 @@ import it.univpm.app.ticketmaster.filter.Filter;
 public class Home extends JFrame
 {	
 	/**
-	 * Variabile che contiene la lista degli eventi e i dati necessari per gestire le rotte
+	 * Lista contenente tutti gli eventi
 	 */
-	TicketmasterService ticketmasterService;
+	Vector<Event> eventsToFilter;
 	
 	/**
 	 * Lista contenente tutti gli eventi
@@ -123,15 +124,16 @@ public class Home extends JFrame
 	 */
 	public Home(TicketmasterService ticketmasterService)
 	{
-		this.ticketmasterService = ticketmasterService;
 		
-		this.allStates = this.ticketmasterService.getStates();
+		this.eventsToFilter = ticketmasterService.getEvents();
 		
-		this.allCities = this.ticketmasterService.getCities();
+		this.allStates = ticketmasterService.getStates();
 		
-		this.allSegments = this.ticketmasterService.getSegments();
+		this.allCities = ticketmasterService.getCities();
 		
-		this.allGenres = this.ticketmasterService.getGenres();
+		this.allSegments = ticketmasterService.getSegments();
+		
+		this.allGenres = ticketmasterService.getGenres();
 		
 		
 		/*
@@ -454,12 +456,25 @@ public class Home extends JFrame
 	
 	/**
 	 * Metodo che resetta il filtro per periodo, facendo visualizzare nel primo calendario la data del
-	 * primo evento e nel secondo calendario la data dell'ultimo evento in ordine cronologico
+	 * primo evento e nel secondo calendario la data dell'ultimo evento in ordine cronologico.
+	 * 
+	 * Nel caso in cui il queste date siano nulle, vuol dire che è fallita la connessione con l'Api di 
+	 * Ticketmaster e questo messaggio viene stampato a schermo.
 	 */
 	public void resetPeriod()
 	{
-		this.fromDatePicker.setDate(convertToDate(TicketmasterService.getFirstDate()));
-		this.toDatePicker.setDate(convertToDate(TicketmasterService.getLastDate()));
+		if(TicketmasterService.getFirstDate() != null)
+		{		
+			this.fromDatePicker.setDate(convertToDate(TicketmasterService.getFirstDate()));
+			this.toDatePicker.setDate(convertToDate(TicketmasterService.getLastDate()));
+		}
+		else
+		{
+			this.fromDatePicker.setDate(convertToDate(LocalDate.now()));
+			this.toDatePicker.setDate(convertToDate(LocalDate.now()));
+			
+			JOptionPane.showMessageDialog(null, "Failed Api Connection, try again", "Warning", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	
@@ -719,22 +734,25 @@ public class Home extends JFrame
 				JSONStats jS = new JSONStats();
 				JSONObject stats;
 				
-				Vector<Event> events;
+				Vector<Event> filteredEvents;
 				Result result = null;
 				
 				try
 				{				
 					readPeriod();
 					
-					events = filter.getFilteredEvents(ticketmasterService.getEvents());
+					if(eventsToFilter.isEmpty())
+						throw new ApiConnectionException("Failed Api Connection, try again");
 					
-					if(events.isEmpty())
+					filteredEvents = filter.getFilteredEvents(eventsToFilter);
+					
+					if(filteredEvents.isEmpty())
 						throw new NoEventsException("There are not events with your filters");
 						
-					stats = jS.getJSONObjectAllStats(filter, events, allStates, allCities, allSegments, allGenres);
+					stats = jS.getJSONObjectAllStats(filter, filteredEvents, allStates, allCities, allSegments, allGenres);
 					
 					visible(false);
-					result = new Result(getThis(), filter, events, stats);
+					result = new Result(getThis(), filter, filteredEvents, stats);
 				}
 				catch(IncorrectOrderOfDatesException e)
 				{
