@@ -137,7 +137,7 @@ public class Home extends JFrame
 		/*
 		 * Impostazioni di settaggio della finestra e dell'icona
 		 */
-		this.setTitle("Filtraggio Eventi");
+		this.setTitle("Events' filter");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(1200, 800);
 		this.setResizable(false);
@@ -591,7 +591,7 @@ public class Home extends JFrame
 	 */
 	public void addStatesBoxActionListener()
 	{
-		this.statesBox.addActionListener (new ActionListener () 
+		this.statesBox.addActionListener (new ActionListener() 
 		{
 			@Override
 		    public void actionPerformed(ActionEvent e) 
