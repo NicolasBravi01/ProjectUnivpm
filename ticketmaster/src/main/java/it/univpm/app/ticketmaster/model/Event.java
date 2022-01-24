@@ -253,7 +253,7 @@ public class Event
 	}
 	
 	/**
-	 * Metodo che controlla che tutti i parametri inseriti non contengano spazi superflui
+	 * Metodo che elimina gli spazi superflui da tutti i parametri
 	 */
 	private void checkValues()
 	{
@@ -264,7 +264,7 @@ public class Event
 	}
 	
 	/**
-	 * Metodo che elimina tutti gli spazi prima e dopo la stringa d'interesse
+	 * Metodo che elimina tutti gli spazi prima e dopo la stringa
 	 */
 	private String removeSpaces(String str)
 	{

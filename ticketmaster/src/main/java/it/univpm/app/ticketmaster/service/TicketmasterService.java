@@ -12,7 +12,7 @@ import it.univpm.app.ticketmaster.model.Event;
  * Classe che smista le informazioni ricevute dalla chiamata all'Api di Ticketmaster
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 public class TicketmasterService 
 {
@@ -73,6 +73,20 @@ public class TicketmasterService
 	
 	
 	/**
+	* Setter della variabile events.
+	* Riempe le variabili sopracitate andando ad analizzare tutti gli eventi in lista
+	*
+	* @param e Lista di tutti gli eventi
+	*/
+	public void setEvents(Vector<Event>e) 
+	{
+		events = e;
+
+		for(int i = 0; i<events.size(); i++)
+			addInformation(events.get(i));
+	}
+	
+	/**
 	 * Getter della variabile events
 	 * 
 	 * @return events Lista di tutti gli eventi
@@ -80,19 +94,6 @@ public class TicketmasterService
 	public Vector<Event> getEvents() {
 		return events;
 	}
-	/**
-	 * Metodo static (che verrà utilizzato nella chiamata all'api) che riempe i vettori sopracitati 
-	 * leggendo il vettore di tutti gli eventi che viene passato per parametro
-	 * 
-	 * @param e Vettore di tutti gli eventi 
-	 */
-	public void setEvents(Vector<Event> e) {
-		events = e;
-		
-		for(int i = 0; i<events.size(); i++)
-			addInformation(events.get(i));
-	}
-	
 	
 	/**
 	 * Getter della variabile states
@@ -257,8 +258,7 @@ public class TicketmasterService
 	
 	
 	/**
-	 * Metodo che controlla se i parametri inseriti dall'utente, a seguito dell'eliminazione di spazi superflui,
-	 * corrispondono a quelli presenti
+	 * Metodo che controlla se i parametri inseriti dall'utente corrispondono a quelli presenti
 	 * 
 	 * @throws InvalidNameException
 	 */
@@ -271,8 +271,7 @@ public class TicketmasterService
 	}
 	
 	/**
-	 * Metodo che controlla se lo stato inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista degli stati
+	 * Metodo che controlla se lo stato inserito è presente nella lista degli stati
 	 * 
 	 * @throws InvalidNameException
 	 */
@@ -291,8 +290,7 @@ public class TicketmasterService
 	}
 	
 	/**
-	 * Metodo che controlla se la città inserita, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista delle città
+	 * Metodo che controlla se la città inserita è presente nella lista delle città
 	 * 
 	 * @throws InvalidNameException
 	 */
@@ -311,8 +309,7 @@ public class TicketmasterService
 	}
 	
 	/**
-	 * Metodo che controlla se il segmento inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella variabile che rappresenta il segmento
+	 * Metodo che controlla se il segmento inserito è presente nella variabile che rappresenta il segmento
 	 * 
 	 * @throws InvalidNameException
 	 */
@@ -326,8 +323,7 @@ public class TicketmasterService
 	}
 	
 	/**
-	 * Metodo che controlla se il genere inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista dei generi
+	 * Metodo che controlla se il genere inserito è presente nella lista dei generi
 	 * 
 	 * @throws InvalidNameException
 	 */

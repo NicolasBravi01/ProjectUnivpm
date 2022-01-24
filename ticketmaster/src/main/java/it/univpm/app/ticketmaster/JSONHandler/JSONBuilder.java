@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
  * @see package it.univpm.app.ticketmaster.JSONHandler.JSONList
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 public abstract class JSONBuilder 
 {

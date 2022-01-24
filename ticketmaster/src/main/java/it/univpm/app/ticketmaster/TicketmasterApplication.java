@@ -10,7 +10,7 @@ import it.univpm.app.ticketmaster.view.Home;
  * Classe principale del progetto
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 @SpringBootApplication
 public class TicketmasterApplication 

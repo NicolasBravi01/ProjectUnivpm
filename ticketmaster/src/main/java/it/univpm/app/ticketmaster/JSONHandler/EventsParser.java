@@ -48,6 +48,7 @@ public class EventsParser
 		for (int i = 0; i < events.size(); i++)
 		{
 			JSONObject eventoTemp = (JSONObject) events.get(i);
+			
 				String name = (String) eventoTemp.get("name");
 				String url = (String) eventoTemp.get("url");
 				JSONObject dates = (JSONObject) eventoTemp.get("dates");

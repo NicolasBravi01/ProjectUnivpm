@@ -15,7 +15,7 @@ import it.univpm.app.ticketmaster.model.Event;
  * @see it.univpm.app.ticketmaster.controller.EventsController
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 public class JSONEvents extends JSONBuilder
 {

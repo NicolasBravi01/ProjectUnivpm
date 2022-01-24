@@ -6,7 +6,7 @@ package it.univpm.app.ticketmaster.exception;
  * @see it.univpm.app.ticketmaster.filter
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 @SuppressWarnings("serial")
 public class IncorrectOrderOfDatesException extends InvalidFilterException 

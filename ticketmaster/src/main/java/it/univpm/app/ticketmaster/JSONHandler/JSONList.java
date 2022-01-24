@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
  * @see it.univpm.app.ticketmaster.controller.ListController
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 public class JSONList extends JSONBuilder
 {

@@ -79,7 +79,7 @@ public class Result extends JFrame
 		 * Impostazioni di settaggio della finestra e dell'icona
 		 */
 		this.setSize(1280, 730);
-		this.setTitle("Result events");
+		this.setTitle("Events' result");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setLocationRelativeTo(null);

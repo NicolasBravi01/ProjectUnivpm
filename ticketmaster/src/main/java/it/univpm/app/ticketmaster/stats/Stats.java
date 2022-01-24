@@ -200,13 +200,13 @@ public class Stats
 	 */
 	public int minValueIndex(int [] vet)
 	{
-		int max = vet[0], minIndex = 0;
+		int min = vet[0], minIndex = 0;
 		
 		for (int i = 0; i < vet.length; i++) 
 		{
-			if(vet[i] < max)
+			if(vet[i] < min)
 			{
-		    	max = vet[i];
+		    	min = vet[i];
 		    	minIndex = i;
 			}
 		}
@@ -217,7 +217,7 @@ public class Stats
 	
 	/**
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni stato,
-	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONBuilder
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerStates della classe JSONStats
 	 * 
 	 * @param events Lista di eventi
 	 * 
@@ -247,7 +247,7 @@ public class Stats
 	
 	/**
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni città,
-	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerCities della classe JSONBuilder
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerCities della classe JSONStats
 	 * 
 	 * @param events Lista di eventi
 	 * 
@@ -277,7 +277,7 @@ public class Stats
 	
 	/**
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni segmento,
-	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerSegment della classe JSONBuilder
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerSegment della classe JSONStats
 	 * 
 	 * @param events Lista di eventi
 	 * 
@@ -307,7 +307,7 @@ public class Stats
 	
 	/**
 	 * Metodo che restituisce un array di interi contenente il numero di eventi per ogni genere,
-	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONBuilder
+	 * che verrà utilizzato nel metodo getJSONObjectMaxMinPerGenres della classe JSONStats
 	 * 
 	 * @param events Lista di eventi
 	 * 

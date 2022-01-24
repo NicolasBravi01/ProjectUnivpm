@@ -3,10 +3,10 @@ package it.univpm.app.ticketmaster.exception;
 /**
  * Eccezione generata se uno dei nomi inseriti dall'utente non è valido
  * 
- * @see it.univpm.app.ticketmaster.service
+ * @see it.univpm.app.ticketmaster.ticketmasterService
  * 
  * @author sup3r
- * @autor NicolasBravi01
+ * @author NicolasBravi01
  */
 @SuppressWarnings("serial")
 public class InvalidNameException extends InvalidFilterException

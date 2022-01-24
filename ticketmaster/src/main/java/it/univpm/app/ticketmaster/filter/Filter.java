@@ -181,7 +181,7 @@ public class Filter
 	/**
 	 * Getter della variabile cities
 	 * 
-	 * @return cities Lista di città attraverso i quali si vuole filtrare
+	 * @return cities Lista di città attraverso le quali si vuole filtrare
 	 */
 	public Vector<String> getCities() {
 		return cities;
@@ -438,7 +438,6 @@ public class Filter
 	 * 
 	 * @throws DateTimeParseException 
 	 * @throws NullDateException 
-	 * @throws IncorrectOrderOfDatesException 
 	 */
 	private void loadPeriod(String period) throws DateTimeParseException, NullDateException
 	{
@@ -471,8 +470,7 @@ public class Filter
 	
 	
 	/**
-	 * Metodo che controlla se i parametri inseriti, a seguito dell'eliminazione di spazi superflui,
-	 * corrispondono a quelli presenti
+	 * Metodo che elimina gli spazi superflui da tutti i parametri inseriti e controlla la correttezza del periodo
 	 * 
 	 * @throws IncorrectOrderOfDatesException 
 	 */
@@ -486,8 +484,7 @@ public class Filter
 	}
 	
 	/**
-	 * Metodo che controlla se lo stato inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista degli stati
+	 * Metodo che elimina gli spazi superflui nella lista di stati
 	 */
 	private void checkStates()
 	{
@@ -496,8 +493,7 @@ public class Filter
 	}
 	
 	/**
-	 * Metodo che controlla se la città inserita, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista delle città
+	 * Metodo che elimina gli spazi superflui nella lista di città
 	 */
 	private void checkCities()
 	{
@@ -506,8 +502,7 @@ public class Filter
 	}
 	
 	/**
-	 * Metodo che controlla se il segmento inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella variabile che rappresenta il segmento
+	 * Metodo che elimina gli spazi superflui nella stringa del segmento
 	 */
 	private void checkSegment()
 	{
@@ -516,10 +511,7 @@ public class Filter
 	}
 	
 	/**
-	 * Metodo che controlla se il genere inserito, dopo l'eliminazione di spazi superflui,
-	 * è presente nella lista dei generi
-	 * 
-	 * @throws InvalidNameException
+	 * Metodo che elimina gli spazi superflui nella lista di generi
 	 */
 	private void checkGenres()
 	{
@@ -529,8 +521,8 @@ public class Filter
 	
 	
 	/**
-	 * Metodo che controlla se le date sono state inserite in ordine cronologico. Se il periodo non è stato
-	 * inserito allora l'errore non può essere generato
+	 * Metodo che controlla se le date sono state inserite in ordine cronologico. 
+	 * Se il periodo non è stato inserito allora l'errore non può essere generato
 	 * 
 	 * @throws IncorrectOrderOfDatesException
 	 */
@@ -585,7 +577,6 @@ public class Filter
 	 * Metodo che restituisce la lista degli eventi filtrati, secondo i parametri immessi dall'utente,
 	 * a partire da una lista di eventi passata come parametro
 	 * 
-	 * @param filter Filtro inserito dall'utente
 	 * @param eventsToFilter Lista di eventi da filtrare 
 	 * 
 	 * @return filteredEvents Lista di tutti gli eventi filtrati
